@@ -1,0 +1,68 @@
+﻿https://www.youtube.com/watch?v=ek9FAXvTqGs
+
+//string filePath = DataPath + "COMP" + SelectedCompany.Code + "\\" + SelectedYear.YearDir + "\\";
+//string invConnection = "Driver={Microsoft dBase Driver (*.dbf)};SourceType=DBF;SourceDB=" + filePath + fileName + ";Exclusive=NO;NULL=NO;DELETED=NO;BACKGROUNDFETCH=NO;";
+//string invConnection = "Driver={Microsoft dBase Driver (*.dbf)};Exclusive=No;Null=No;Deleted=No;BACKGROUNDFETCH=NO;";
+
+//string FilePath = "C:\\Users\\Administrator\\Desktop\\";
+//string DBF_FileName = "SCTFIN.dbf";
+//define the connections to the .dbf file
+//OleDbConnection conn = new OleDbConnection(@"Provider=vfpoledb;Data Source=" + FilePath+ ";Collating Sequence=machine;");
+//OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + FilePath + ";Extended Properties=dBASE IV;");
+//OleDbCommand command = new OleDbCommand("select * from " + DBF_FileName, conn);
+//conn.Open();
+
+using (var cmd = con.CreateCommand())
+{
+    cmd.CommandText = query;
+
+    using (var dr = cmd.ExecuteReader())
+    {
+        if (dr.HasRows)
+        {
+            while (dr.Read())
+            {
+                var company = new Company
+                {
+                    Code = Convert.ToInt32(dr["COMP_CODE"]),
+                    Name = Convert.ToString(dr["COMP_NAME"]),
+                    Address = dr["COMP_ADDR"].ToString(),
+                    City = dr["COMP_CITY"].ToString(),
+                    Phone1 = dr["COMP_PH1"].ToString(),
+                    Phone2 = dr["COMP_PH2"].ToString(),
+                    Fax = dr["COMP_FAX"].ToString(),
+                    ItPan = dr["COMP_ITPAN"].ToString(),
+                    Tngst = dr["COMP_TNGST"].ToString(),
+                    Cst = dr["COMP_CST"].ToString(),
+                    Areacode = dr["COMP_ACODE"].ToString(),
+                    DataDir = dr["DATA_DIR"].ToString()
+                };
+                tscCompanies.Items.Add(company);
+            }
+        }
+    }
+}
+
+
+using (var cmd = new OleDbCommand(query, con))
+{
+    using (var dr = cmd.ExecuteReader())
+    {
+        if (dr.HasRows)
+        {
+            while (dr.Read())
+            {
+                string number = Convert.ToString(dr["BILL_NO"]);
+                string date = string.Format("{0:dd/MM/yy}", dr["BILL_DT"]);
+                string party = dr["NAME"].ToString().Trim();
+                string qty = Convert.ToString(dr["TOT_QTY"]);
+                string amount = string.Format("{0:#########0.00}", dr["NET_AMT"]);
+
+                var lvwItem = new ListViewItem(new[] { number, date, party, qty, amount });
+                //lvwList.Items.Add(lvwItem);
+            }
+        }
+    }
+}
+
+
