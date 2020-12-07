@@ -96,8 +96,17 @@ namespace Prints
                     LoadReceipts();
                     break;
 
-                case "GST Summary":
-                    LoadGSTSummary();
+                case "GST Input Report":
+                    try
+                    {
+                        string fileExt = string.Format("{0:000}", SelectedCompany.Code);
+                        LoadGSTInputReport(fileExt);
+                    }
+                    catch (Exception ex)
+                    {
+                        LoadGSTInputReport("DBF");
+                    }
+
                     break;
             }
         }
@@ -273,11 +282,54 @@ namespace Prints
             }
         }
 
-        private void LoadReceipts()
+        private void LoadGSTInputReport(string fileExtension, DateTime fromDate = default, DateTime toDate = default)
         {
+            fromDate = new DateTime(2019, 4, 1);
+            toDate = new DateTime(2020, 4, 30);
+
+            string invHdr = $"INV_HDR.{fileExtension}";
+            string acctMast = $"ACCTMAST.{fileExtension}";
+            string jnlDtl = $"JOURNAL1.{fileExtension}";
+            string jnlHdr = $"JOURNAL2.{fileExtension}";
+            using (var con = new OleDbConnection(YearConnectionString))
+            {
+                con.Open();
+                // Invoices
+                string query =
+                    "SELECT a.SAL_TAX_NO AS GSTIN, a.NAME AS CustomerName, " +
+                    "i.BILL_NO AS InvoiceNumber, i.BILL_DT AS InvoiceDate, " +
+                    "i.REF_NO AS DebitNoteNumber, i.REF_DT AS DebitNoteDate, " +
+                    "'HSN/SAC' AS HSNSACCode, i.TOT_QTY AS Qty, i.SUB_TOT-i.DISCOUNT1 AS BeforeTax, " +
+                    "i.PER_IGST AS IGSTPct, i.IGST AS IGSTAmt, " +
+                    "i.PER_CGST AS CGSTPct, i.CGST AS CGSTAmt, " +
+                    "i.PER_SGST AS SGSTPct, i.SGST AS SGSTAmt, i.NET_AMT AS Total " +
+                    $"FROM {invHdr} AS i INNER JOIN {acctMast} AS a ON i.CODE=a.CODE " +
+                    $"WHERE CAT IN ('P', 'R', 'K', 'J') AND " +
+                    $"BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
+                    $"BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}')";
+                var invoices = con.Query<GstInput>(query);
+
+                // Journals
+                query =
+                    "SELECT a.SAL_TAX_NO AS GSTIN, a.NAME AS CustomerName, " +
+                    "d.REF_NO AS InvoiceNumber, d.REF_DT AS InvoiceDate, " +
+                    "'HSN/SAC' AS HSCSACCode, d.Qty AS Qty, h.NET_AMOUNT AS BeforeTax, " +
+                    "d.TAXCODE, d.TAXNAME, d.TAXAMOUNT " +
+                    $"FROM {jnlHdr} AS h " +
+                    "INNER JOIN " +
+                    $"(SELECT BILL_NO, CODE AS TAXCODE, NAME AS TAXNAME, QTY, AMOUNT AS TAXAMOUNT, REF_NO, REF_DT FROM {jnlDtl}) AS d " +
+                    "ON h.BILL_NO=d.BILL_NO " +
+                    $"INNER JOIN {acctMast} AS a ON h.CODE=a.CODE " +
+                    $"WHERE d.TAXCODE LIKE 'BI%' AND " +
+                    $"BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
+                    $"BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}')";
+                var journals = con.Query<TaxInput>(query);
+
+                printListItemBindingSource.DataSource = invoices;
+            }
         }
 
-        private void LoadGSTSummary()
+        private void LoadReceipts()
         {
         }
     }

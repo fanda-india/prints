@@ -85,8 +85,8 @@ namespace Prints
             // listSplit.Panel2
             // 
             this.listSplit.Panel2.Controls.Add(this.contentSplit);
-            this.listSplit.Size = new System.Drawing.Size(1336, 680);
-            this.listSplit.SplitterDistance = 262;
+            this.listSplit.Size = new System.Drawing.Size(1036, 505);
+            this.listSplit.SplitterDistance = 203;
             this.listSplit.SplitterWidth = 7;
             this.listSplit.TabIndex = 1;
             // 
@@ -94,15 +94,16 @@ namespace Prints
             // 
             this.lstMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstMenu.FormattingEnabled = true;
-            this.lstMenu.ItemHeight = 25;
+            this.lstMenu.ItemHeight = 21;
             this.lstMenu.Items.AddRange(new object[] {
             "Invoices",
-            "Receipts",
-            "GST Summary"});
+            "GST Input Report",
+            "GST Output Report",
+            "Receipts"});
             this.lstMenu.Location = new System.Drawing.Point(0, 0);
             this.lstMenu.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.lstMenu.Name = "lstMenu";
-            this.lstMenu.Size = new System.Drawing.Size(262, 680);
+            this.lstMenu.Size = new System.Drawing.Size(203, 505);
             this.lstMenu.TabIndex = 0;
             this.lstMenu.Click += new System.EventHandler(this.lstMenu_Click);
             // 
@@ -126,8 +127,8 @@ namespace Prints
             this.contentSplit.Panel2.Controls.Add(this.btnLast);
             this.contentSplit.Panel2.Margin = new System.Windows.Forms.Padding(10);
             this.contentSplit.Panel2.Padding = new System.Windows.Forms.Padding(5);
-            this.contentSplit.Size = new System.Drawing.Size(1067, 680);
-            this.contentSplit.SplitterDistance = 611;
+            this.contentSplit.Size = new System.Drawing.Size(826, 505);
+            this.contentSplit.SplitterDistance = 453;
             this.contentSplit.TabIndex = 2;
             // 
             // dataGridView1
@@ -153,7 +154,7 @@ namespace Prints
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 45;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1067, 611);
+            this.dataGridView1.Size = new System.Drawing.Size(826, 453);
             this.dataGridView1.TabIndex = 0;
             // 
             // dtpDate
@@ -161,9 +162,9 @@ namespace Prints
             this.dtpDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpDate.CustomFormat = "dd-MM-yyyy";
             this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDate.Location = new System.Drawing.Point(707, 22);
+            this.dtpDate.Location = new System.Drawing.Point(466, 5);
             this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(146, 31);
+            this.dtpDate.Size = new System.Drawing.Size(146, 29);
             this.dtpDate.TabIndex = 1;
             this.dtpDate.Value = new System.DateTime(2020, 11, 17, 0, 0, 0, 0);
             this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
@@ -171,7 +172,7 @@ namespace Prints
             // btnFirst
             // 
             this.btnFirst.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFirst.Location = new System.Drawing.Point(505, 21);
+            this.btnFirst.Location = new System.Drawing.Point(264, 4);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(95, 32);
             this.btnFirst.TabIndex = 0;
@@ -182,7 +183,7 @@ namespace Prints
             // btnPrev
             // 
             this.btnPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrev.Location = new System.Drawing.Point(606, 21);
+            this.btnPrev.Location = new System.Drawing.Point(365, 4);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(95, 32);
             this.btnPrev.TabIndex = 0;
@@ -193,7 +194,7 @@ namespace Prints
             // btnNext
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext.Location = new System.Drawing.Point(859, 21);
+            this.btnNext.Location = new System.Drawing.Point(618, 4);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(95, 32);
             this.btnNext.TabIndex = 0;
@@ -204,7 +205,7 @@ namespace Prints
             // btnLast
             // 
             this.btnLast.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLast.Location = new System.Drawing.Point(960, 21);
+            this.btnLast.Location = new System.Drawing.Point(719, 4);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(95, 32);
             this.btnLast.TabIndex = 0;
@@ -215,7 +216,7 @@ namespace Prints
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(96, 36);
+            this.toolStripLabel1.Size = new System.Drawing.Size(87, 36);
             this.toolStripLabel1.Text = "Company:";
             // 
             // tscCompanies
@@ -234,7 +235,7 @@ namespace Prints
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(153, 36);
+            this.toolStripLabel2.Size = new System.Drawing.Size(138, 36);
             this.toolStripLabel2.Text = "Accounting Year:";
             // 
             // tscYears
@@ -273,7 +274,7 @@ namespace Prints
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(1336, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(1036, 39);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -365,12 +366,13 @@ namespace Prints
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1336, 719);
+            this.ClientSize = new System.Drawing.Size(1036, 544);
             this.Controls.Add(this.listSplit);
             this.Controls.Add(this.toolStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.MinimumSize = new System.Drawing.Size(852, 581);
             this.Name = "MainForm";

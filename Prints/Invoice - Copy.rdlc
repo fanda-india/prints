@@ -86,9 +86,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>S.No.</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -119,9 +117,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Saree No.</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -152,9 +148,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Description of Goods</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -185,9 +179,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>HSN/SAC</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -218,9 +210,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Qty</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -253,9 +243,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Rate</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -288,9 +276,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Amount</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -328,9 +314,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!SerialNumber.Value</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -362,9 +346,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!SareeNumber.Value</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -394,9 +376,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Description.Value</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -426,9 +406,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>50079010</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -458,9 +436,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>1</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -492,9 +468,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Rate.Value</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -526,9 +500,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Rate.Value</Value>
-                                  <Style>
-                                    <FontFamily />
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -585,7 +557,6 @@
               <Border>
                 <Style>None</Style>
               </Border>
-              <FontFamily />
             </Style>
           </Tablix>
         </ReportItems>

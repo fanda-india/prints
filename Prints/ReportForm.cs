@@ -86,11 +86,11 @@ namespace Prints
                 new ReportParameter("IGSTPct", header.IGSTPct==0 ? string.Empty : header.IGSTPct.ToString()),
                 new ReportParameter("IGSTAmt", header.IGSTAmt==0 ? string.Empty : header.IGSTAmt.ToString()),
                 new ReportParameter("Parcel", header.Parcel==0 ? string.Empty: header.Parcel.ToString()),
-                new ReportParameter("InWords", "Rupees "+InWords(header.NetAmount,true)+" only"),
+                new ReportParameter("InWords", "Rupees "+InWords(header.NetAmount,true).ToLower()+" only"),
                 new ReportParameter("NetAmount", header.NetAmount.ToString()),
                 new ReportParameter("SelectedBy", selectedBy),
                 new ReportParameter("SendThrough", sendThrough),
-                new ReportParameter("InvoiceType", invoiceType)
+                new ReportParameter("InvoiceType", invoiceType.ToUpper())
             };
             this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("SalesLineItems", lineItems));
             this.reportViewer1.LocalReport.SetParameters(reportParameters);

@@ -29,6 +29,7 @@ namespace Prints
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportForm));
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.cboInvoiceType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -88,6 +89,7 @@ namespace Prints
             this.Controls.Add(this.cboInvoiceType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.reportViewer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ReportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Invoice";
