@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data.Odbc;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
@@ -40,7 +39,10 @@ namespace Prints
         private void MainForm_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
+            {
                 return;
+            }
+
             listSplit.SplitterDistance = (int)(listSplit.Width * 0.15);
             contentSplit.SplitterDistance = (int)(contentSplit.Height * 0.90);
         }
@@ -76,7 +78,7 @@ namespace Prints
             }
         }
 
-        private void lstMenu_Click(object sender, EventArgs e)
+        private void lstMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
             string menuItem = lstMenu.SelectedItem as string;
             switch (menuItem)
@@ -84,6 +86,10 @@ namespace Prints
                 case "Invoices":
                     try
                     {
+                        dgvInvoices.Visible = true;
+                        dgvInvoices.Dock = DockStyle.Fill;
+                        dgvGst.Visible = false;
+
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
                         LoadInvoices(fileExt);
                     }
@@ -93,13 +99,13 @@ namespace Prints
                     }
                     break;
 
-                case "Receipts":
-                    LoadReceipts();
-                    break;
-
                 case "GST Input Report":
                     try
                     {
+                        dgvGst.Visible = true;
+                        dgvGst.Dock = DockStyle.Fill;
+                        dgvInvoices.Visible = false;
+
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
                         LoadGSTInputReport(fileExt);
                     }
@@ -108,6 +114,10 @@ namespace Prints
                         LoadGSTInputReport("DBF");
                     }
 
+                    break;
+
+                case "Receipts":
+                    LoadReceipts();
                     break;
             }
         }
@@ -157,7 +167,7 @@ namespace Prints
 
         private void dtpDate_ValueChanged(object sender, EventArgs e)
         {
-            lstMenu_Click(this, null);
+            lstMenu_SelectedIndexChanged(this, null);
         }
 
         private void LoadCompanies()
@@ -180,13 +190,17 @@ namespace Prints
             }
 
             if (tscCompanies.Items.Count > 0)
+            {
                 tscCompanies.SelectedIndex = 0;
+            }
         }
 
         private void LoadYears()
         {
             if (SelectedCompany == null)
+            {
                 return;
+            }
 
             tscYears.Items.Clear();
             tscYears.Text = "";
@@ -199,15 +213,22 @@ namespace Prints
                     string dirName = dir.Name;
 
                     if (!dirName.StartsWith("AY"))
+                    {
                         continue;
+                    }
 
                     string fromYear = $"20{dirName.Substring(2, 2)}";
                     string toYear = $"20{dirName.Substring(5, 2)}";
 
                     if (string.IsNullOrEmpty(fromYear) || Convert.ToInt32(fromYear) <= 0)
+                    {
                         continue;
+                    }
+
                     if (string.IsNullOrEmpty(toYear) || Convert.ToInt32(toYear) <= 0)
+                    {
                         continue;
+                    }
 
                     var year = new AccountingYear
                     {
@@ -292,10 +313,13 @@ namespace Prints
             string acctMast = $"ACCTMAST.{fileExtension}";
             string jnlDtl = $"JOURNAL1.{fileExtension}";
             string jnlHdr = $"JOURNAL2.{fileExtension}";
+            string rcpHdr = $"RCPTHDR.{fileExtension}";
+            string rcpExp = $"RCPTEXP.{fileExtension}";
+
             using (var con = new OleDbConnection(YearConnectionString))
             {
                 con.Open();
-                // Invoices
+                // Invoices and Raw-material purchase
                 string query =
                     "SELECT a.SAL_TAX_NO AS GSTIN, a.NAME AS CustomerName, " +
                     "i.BILL_NO AS InvoiceNumber, i.BILL_DT AS InvoiceDate, " +
@@ -324,145 +348,320 @@ namespace Prints
                     $"INNER JOIN {acctMast} AS a ON h.CODE=a.CODE " +
                     $"WHERE d.TAXCODE LIKE 'BI%' AND " +
                     $"BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
-                    $"BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}')";
+                    $"BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}') " +
+                    "ORDER BY h.BILL_NO";
                 var journals = con.Query<TaxInput>(query)
                     .ToList();
+                AddToInvoices(invoices, journals);
 
-                if (journals.Count > 1)
-                {
-                    string billNumber = string.Empty;
-                    string gstin = string.Empty;
-                    string customerName = string.Empty;
-                    string invoiceNumber = string.Empty;
-                    DateTime invoiceDate = default;
-                    int qty = 0;
-                    decimal beforeTax = 0.0m;
-                    decimal igstPct = 0.0m;
-                    decimal igstAmt = 0.0m;
-                    decimal cgstPct = 0.0m;
-                    decimal cgstAmt = 0.0m;
-                    decimal sgstPct = 0.0m;
-                    decimal sgstAmt = 0.0m;
-                    decimal total = 0.0m;
-                    foreach (TaxInput item in journals)
-                    {
-                        if (billNumber == item.BillNumber)
-                        {
-                            gstin = item.GSTIN.Trim();
-                            customerName = item.CustomerName.Trim();
-                            invoiceNumber = item.InvoiceNumber.Trim();
-                            invoiceDate = item.InvoiceDate;
-                            qty = item.Qty;
-                            total = item.Total;
+                // Receipts
+                query =
+                    "SELECT h.BILL_NO BillNumber, a.SAL_TAX_NO GSTIN, a.NAME CustomerName, " +
+                    "h.BILL_NO InvoiceNumber, h.BILL_DT InvoiceDate, " +
+                    "'HSN/SAC' HSNSACCode, 0 AS Qty, h.EXP_TOT Total, " +
+                    "e.TAXCODE, e.TAXNAME, e.TAXAMOUNT " +
+                    $"FROM {rcpHdr} AS h " +
+                    $"INNER JOIN " +
+                    $"(SELECT BILL_NO, EXP_CODE AS TAXCODE, EXP_NAME AS TAXNAME, EXP_AMT AS TAXAMOUNT FROM {rcpExp}) AS e " +
+                    $"ON h.BILL_NO=e.BILL_NO " +
+                    $"INNER JOIN {acctMast} a ON h.CODE=a.CODE " +
+                    $"WHERE e.TAXCODE LIKE 'BI%' AND " +
+                    $"BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
+                    $"BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}') " +
+                    "ORDER BY h.BILL_NO";
+                var expenses = con.Query<TaxInput>(query)
+                    .ToList();
+                AddToInvoices(invoices, expenses);
 
-                            // Tax identification
-                            string taxName = item.TaxName.Trim();
-                            string resultString = Regex.Match(taxName, @"^[0-9]([.,][0-9]{1,3})?").Value;
-                            decimal.TryParse(resultString, out decimal taxPct); // 2.5[%] IGST
-                            if (taxPct > 0)
-                            {
-                                if (item.TaxName.Contains("Igst"))
-                                {
-                                    igstPct = taxPct;
-                                    igstAmt = item.TaxAmount;
-                                }
-                                else if (item.TaxName.Contains("Cgst"))
-                                {
-                                    cgstPct = taxPct;
-                                    cgstAmt = item.TaxAmount;
-                                }
-                                else if (item.TaxName.Contains("Sgst"))
-                                {
-                                    sgstPct = taxPct;
-                                    sgstAmt = item.TaxAmount;
-                                }
-                            }
-
-                            beforeTax = total - (igstAmt + cgstAmt + sgstAmt);
-                        }
-                        else
-                        {
-                            if (!string.IsNullOrWhiteSpace(billNumber) && beforeTax != total)
-                                invoices.Add(new GstInput
-                                {
-                                    GSTIN = gstin,
-                                    CustomerName = customerName,
-                                    InvoiceNumber = invoiceNumber,
-                                    HSNSACCode = "HSN/SAC",
-                                    InvoiceDate = invoiceDate,
-                                    Qty = qty,
-                                    BeforeTax = beforeTax,
-                                    IGSTPct = igstPct,
-                                    IGSTAmt = igstAmt,
-                                    CGSTPct = cgstPct,
-                                    CGSTAmt = cgstAmt,
-                                    SGSTPct = sgstPct,
-                                    SGSTAmt = sgstAmt,
-                                    Total = total,
-                                });
-
-                            // STORE
-                            gstin = item.GSTIN.Trim();
-                            customerName = item.CustomerName.Trim();
-                            invoiceNumber = item.InvoiceNumber.Trim();
-                            invoiceDate = item.InvoiceDate;
-                            qty = item.Qty;
-                            total = item.Total;
-                            beforeTax = 0.0m;
-                            igstPct = 0.0m;
-                            igstAmt = 0.0m;
-                            cgstPct = 0.0m;
-                            cgstAmt = 0.0m;
-                            sgstPct = 0.0m;
-                            sgstAmt = 0.0m;
-                            // Tax identification
-                            string taxName = item.TaxName.Trim();
-                            string resultString = Regex.Match(taxName, @"^[0-9]([.,][0-9]{1,3})?").Value;
-                            decimal.TryParse(resultString, out decimal taxPct); // 2.5[%] IGST
-                            if (taxPct > 0)
-                            {
-                                if (item.TaxName.Contains("Igst"))
-                                {
-                                    igstPct = taxPct;
-                                    igstAmt = item.TaxAmount;
-                                }
-                                else if (item.TaxName.Contains("Cgst"))
-                                {
-                                    cgstPct = taxPct;
-                                    cgstAmt = item.TaxAmount;
-                                }
-                                else if (item.TaxName.Contains("Sgst"))
-                                {
-                                    sgstPct = taxPct;
-                                    sgstAmt = item.TaxAmount;
-                                }
-                            }
-                            beforeTax = total - (igstAmt + cgstAmt + sgstAmt);
-                            billNumber = item.BillNumber;
-                        }
-                    }
-                    if (!string.IsNullOrWhiteSpace(billNumber) && beforeTax != total)
-                        invoices.Add(new GstInput
-                        {
-                            GSTIN = gstin,
-                            CustomerName = customerName,
-                            InvoiceNumber = invoiceNumber,
-                            HSNSACCode = "HSN/SAC",
-                            InvoiceDate = invoiceDate,
-                            Qty = qty,
-                            BeforeTax = beforeTax,
-                            IGSTPct = igstPct,
-                            IGSTAmt = igstAmt,
-                            CGSTPct = cgstPct,
-                            CGSTAmt = cgstAmt,
-                            SGSTPct = sgstPct,
-                            SGSTAmt = sgstAmt,
-                            Total = total,
-                        });
-                }
-                printListItemBindingSource.DataSource = invoices;
+                gstInputBindingSource.DataSource = invoices;
             }
         }
+
+        private void AddToInvoices(List<GstInput> invoices, List<TaxInput> journals)
+        {
+            if (journals == null || journals.Count == 0)
+                return;
+
+            if (journals.Count > 1)
+            {
+                string billNumber = string.Empty;
+                string gstin = string.Empty;
+                string customerName = string.Empty;
+                string invoiceNumber = string.Empty;
+                DateTime invoiceDate = default;
+                int qty = 0;
+                decimal beforeTax = 0.0m;
+                decimal igstPct = 0.0m;
+                decimal igstAmt = 0.0m;
+                decimal cgstPct = 0.0m;
+                decimal cgstAmt = 0.0m;
+                decimal sgstPct = 0.0m;
+                decimal sgstAmt = 0.0m;
+                decimal total = 0.0m;
+                foreach (TaxInput item in journals)
+                {
+                    if (billNumber == item.BillNumber)
+                    {
+                        gstin = item.GSTIN.Trim();
+                        customerName = item.CustomerName.Trim();
+                        invoiceNumber = item.InvoiceNumber.Trim();
+                        invoiceDate = item.InvoiceDate;
+                        qty = item.Qty;
+                        total = item.Total;
+
+                        // Tax identification
+                        string taxName = item.TaxName.Trim();
+                        string resultString = Regex.Match(taxName, @"^[0-9]([.,][0-9]{1,3})?").Value;
+                        decimal.TryParse(resultString, out decimal taxPct); // 2.5[%] IGST
+                        if (taxPct > 0)
+                        {
+                            if (item.TaxName.Contains("Igst"))
+                            {
+                                igstPct = taxPct;
+                                igstAmt = item.TaxAmount;
+                            }
+                            else if (item.TaxName.Contains("Cgst"))
+                            {
+                                cgstPct = taxPct;
+                                cgstAmt = item.TaxAmount;
+                            }
+                            else if (item.TaxName.Contains("Sgst"))
+                            {
+                                sgstPct = taxPct;
+                                sgstAmt = item.TaxAmount;
+                            }
+                        }
+
+                        beforeTax = total - (igstAmt + cgstAmt + sgstAmt);
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrWhiteSpace(billNumber) && beforeTax != total)
+                        {
+                            invoices.Add(new GstInput
+                            {
+                                GSTIN = gstin,
+                                CustomerName = customerName,
+                                InvoiceNumber = invoiceNumber,
+                                HSNSACCode = "HSN/SAC",
+                                InvoiceDate = invoiceDate,
+                                Qty = qty,
+                                BeforeTax = beforeTax,
+                                IGSTPct = igstPct,
+                                IGSTAmt = igstAmt,
+                                CGSTPct = cgstPct,
+                                CGSTAmt = cgstAmt,
+                                SGSTPct = sgstPct,
+                                SGSTAmt = sgstAmt,
+                                Total = total,
+                            });
+                        }
+
+                        // STORE
+                        gstin = item.GSTIN.Trim();
+                        customerName = item.CustomerName.Trim();
+                        invoiceNumber = item.InvoiceNumber.Trim();
+                        invoiceDate = item.InvoiceDate;
+                        qty = item.Qty;
+                        total = item.Total;
+                        beforeTax = 0.0m;
+                        igstPct = 0.0m;
+                        igstAmt = 0.0m;
+                        cgstPct = 0.0m;
+                        cgstAmt = 0.0m;
+                        sgstPct = 0.0m;
+                        sgstAmt = 0.0m;
+                        // Tax identification
+                        string taxName = item.TaxName.Trim();
+                        string resultString = Regex.Match(taxName, @"^[0-9]([.,][0-9]{1,3})?").Value;
+                        decimal.TryParse(resultString, out decimal taxPct); // 2.5[%] IGST
+                        if (taxPct > 0)
+                        {
+                            if (item.TaxName.Contains("Igst"))
+                            {
+                                igstPct = taxPct;
+                                igstAmt = item.TaxAmount;
+                            }
+                            else if (item.TaxName.Contains("Cgst"))
+                            {
+                                cgstPct = taxPct;
+                                cgstAmt = item.TaxAmount;
+                            }
+                            else if (item.TaxName.Contains("Sgst"))
+                            {
+                                sgstPct = taxPct;
+                                sgstAmt = item.TaxAmount;
+                            }
+                        }
+                        beforeTax = total - (igstAmt + cgstAmt + sgstAmt);
+                        billNumber = item.BillNumber;
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(billNumber) && beforeTax != total)
+                {
+                    invoices.Add(new GstInput
+                    {
+                        GSTIN = gstin,
+                        CustomerName = customerName,
+                        InvoiceNumber = invoiceNumber,
+                        HSNSACCode = "HSN/SAC",
+                        InvoiceDate = invoiceDate,
+                        Qty = qty,
+                        BeforeTax = beforeTax,
+                        IGSTPct = igstPct,
+                        IGSTAmt = igstAmt,
+                        CGSTPct = cgstPct,
+                        CGSTAmt = cgstAmt,
+                        SGSTPct = sgstPct,
+                        SGSTAmt = sgstAmt,
+                        Total = total,
+                    });
+                }
+            }
+        }
+
+        //private void AddExpensesToJournals(List<GstInput> invoices, List<TaxInput> expenses)
+        //{
+        //    if (expenses == null || expenses.Count == 0)
+        //        return;
+
+        //    if (expenses.Count > 1)
+        //    {
+        //        string billNumber = string.Empty;
+        //        string gstin = string.Empty;
+        //        string customerName = string.Empty;
+        //        string invoiceNumber = string.Empty;
+        //        DateTime invoiceDate = default;
+        //        int qty = 0;
+        //        decimal beforeTax = 0.0m;
+        //        decimal igstPct = 0.0m;
+        //        decimal igstAmt = 0.0m;
+        //        decimal cgstPct = 0.0m;
+        //        decimal cgstAmt = 0.0m;
+        //        decimal sgstPct = 0.0m;
+        //        decimal sgstAmt = 0.0m;
+        //        decimal total = 0.0m;
+        //        foreach (TaxInput item in expenses)
+        //        {
+        //            if (billNumber == item.BillNumber)
+        //            {
+        //                gstin = item.GSTIN.Trim();
+        //                customerName = item.CustomerName.Trim();
+        //                invoiceNumber = item.InvoiceNumber.Trim();
+        //                invoiceDate = item.InvoiceDate;
+        //                qty = item.Qty;
+        //                total = item.Total;
+
+        //                // Tax identification
+        //                string taxName = item.TaxName.Trim();
+        //                string resultString = Regex.Match(taxName, @"^[0-9]([.,][0-9]{1,3})?").Value;
+        //                decimal.TryParse(resultString, out decimal taxPct); // 2.5[%] IGST
+        //                if (taxPct > 0)
+        //                {
+        //                    if (item.TaxName.Contains("Igst"))
+        //                    {
+        //                        igstPct = taxPct;
+        //                        igstAmt = item.TaxAmount;
+        //                    }
+        //                    else if (item.TaxName.Contains("Cgst"))
+        //                    {
+        //                        cgstPct = taxPct;
+        //                        cgstAmt = item.TaxAmount;
+        //                    }
+        //                    else if (item.TaxName.Contains("Sgst"))
+        //                    {
+        //                        sgstPct = taxPct;
+        //                        sgstAmt = item.TaxAmount;
+        //                    }
+        //                }
+
+        //                beforeTax = total - (igstAmt + cgstAmt + sgstAmt);
+        //            }
+        //            else
+        //            {
+        //                if (!string.IsNullOrWhiteSpace(billNumber) && beforeTax != total)
+        //                {
+        //                    invoices.Add(new GstInput
+        //                    {
+        //                        GSTIN = gstin,
+        //                        CustomerName = customerName,
+        //                        InvoiceNumber = invoiceNumber,
+        //                        HSNSACCode = "HSN/SAC",
+        //                        InvoiceDate = invoiceDate,
+        //                        Qty = qty,
+        //                        BeforeTax = beforeTax,
+        //                        IGSTPct = igstPct,
+        //                        IGSTAmt = igstAmt,
+        //                        CGSTPct = cgstPct,
+        //                        CGSTAmt = cgstAmt,
+        //                        SGSTPct = sgstPct,
+        //                        SGSTAmt = sgstAmt,
+        //                        Total = total,
+        //                    });
+        //                }
+
+        //                // STORE
+        //                gstin = item.GSTIN.Trim();
+        //                customerName = item.CustomerName.Trim();
+        //                invoiceNumber = item.InvoiceNumber.Trim();
+        //                invoiceDate = item.InvoiceDate;
+        //                qty = item.Qty;
+        //                total = item.Total;
+        //                beforeTax = 0.0m;
+        //                igstPct = 0.0m;
+        //                igstAmt = 0.0m;
+        //                cgstPct = 0.0m;
+        //                cgstAmt = 0.0m;
+        //                sgstPct = 0.0m;
+        //                sgstAmt = 0.0m;
+        //                // Tax identification
+        //                string taxName = item.TaxName.Trim();
+        //                string resultString = Regex.Match(taxName, @"^[0-9]([.,][0-9]{1,3})?").Value;
+        //                decimal.TryParse(resultString, out decimal taxPct); // 2.5[%] IGST
+        //                if (taxPct > 0)
+        //                {
+        //                    if (item.TaxName.Contains("Igst"))
+        //                    {
+        //                        igstPct = taxPct;
+        //                        igstAmt = item.TaxAmount;
+        //                    }
+        //                    else if (item.TaxName.Contains("Cgst"))
+        //                    {
+        //                        cgstPct = taxPct;
+        //                        cgstAmt = item.TaxAmount;
+        //                    }
+        //                    else if (item.TaxName.Contains("Sgst"))
+        //                    {
+        //                        sgstPct = taxPct;
+        //                        sgstAmt = item.TaxAmount;
+        //                    }
+        //                }
+        //                beforeTax = total - (igstAmt + cgstAmt + sgstAmt);
+        //                billNumber = item.BillNumber;
+        //            }
+        //        }
+        //        if (!string.IsNullOrWhiteSpace(billNumber) && beforeTax != total)
+        //        {
+        //            invoices.Add(new GstInput
+        //            {
+        //                GSTIN = gstin,
+        //                CustomerName = customerName,
+        //                InvoiceNumber = invoiceNumber,
+        //                HSNSACCode = "HSN/SAC",
+        //                InvoiceDate = invoiceDate,
+        //                Qty = qty,
+        //                BeforeTax = beforeTax,
+        //                IGSTPct = igstPct,
+        //                IGSTAmt = igstAmt,
+        //                CGSTPct = cgstPct,
+        //                CGSTAmt = cgstAmt,
+        //                SGSTPct = sgstPct,
+        //                SGSTAmt = sgstAmt,
+        //                Total = total,
+        //            });
+        //        }
+        //    }
+        //}
 
         private void LoadReceipts()
         {

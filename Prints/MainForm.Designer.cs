@@ -34,7 +34,7 @@ namespace Prints
             this.listSplit = new System.Windows.Forms.SplitContainer();
             this.lstMenu = new System.Windows.Forms.ListBox();
             this.contentSplit = new System.Windows.Forms.SplitContainer();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvInvoices = new System.Windows.Forms.DataGridView();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.btnFirst = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
@@ -49,6 +49,24 @@ namespace Prints
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.dgvGst = new System.Windows.Forms.DataGridView();
+            this.gSTINDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.customerNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.invoiceNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.invoiceDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.debitNoteNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.debitNoteDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hSNSACCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qtyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.beforeTaxDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iGSTPctDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iGSTAmtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cGSTPctDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cGSTAmtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sGSTPctDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sGSTAmtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gstInputBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.refNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,8 +84,10 @@ namespace Prints
             this.contentSplit.Panel1.SuspendLayout();
             this.contentSplit.Panel2.SuspendLayout();
             this.contentSplit.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInvoices)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGst)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gstInputBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.printListItemBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,7 +95,7 @@ namespace Prints
             // 
             this.listSplit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listSplit.Location = new System.Drawing.Point(0, 39);
-            this.listSplit.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.listSplit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listSplit.Name = "listSplit";
             // 
             // listSplit.Panel1
@@ -85,38 +105,41 @@ namespace Prints
             // listSplit.Panel2
             // 
             this.listSplit.Panel2.Controls.Add(this.contentSplit);
-            this.listSplit.Size = new System.Drawing.Size(1036, 505);
-            this.listSplit.SplitterDistance = 203;
-            this.listSplit.SplitterWidth = 7;
+            this.listSplit.Size = new System.Drawing.Size(984, 522);
+            this.listSplit.SplitterDistance = 190;
+            this.listSplit.SplitterWidth = 5;
             this.listSplit.TabIndex = 1;
             // 
             // lstMenu
             // 
+            this.lstMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lstMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstMenu.FormattingEnabled = true;
-            this.lstMenu.ItemHeight = 21;
+            this.lstMenu.ItemHeight = 17;
             this.lstMenu.Items.AddRange(new object[] {
             "Invoices",
             "GST Input Report",
             "GST Output Report",
             "Receipts"});
             this.lstMenu.Location = new System.Drawing.Point(0, 0);
-            this.lstMenu.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.lstMenu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lstMenu.Name = "lstMenu";
-            this.lstMenu.Size = new System.Drawing.Size(203, 505);
+            this.lstMenu.Size = new System.Drawing.Size(190, 522);
             this.lstMenu.TabIndex = 0;
-            this.lstMenu.Click += new System.EventHandler(this.lstMenu_Click);
+            this.lstMenu.SelectedIndexChanged += new System.EventHandler(this.lstMenu_SelectedIndexChanged);
             // 
             // contentSplit
             // 
             this.contentSplit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contentSplit.Location = new System.Drawing.Point(0, 0);
+            this.contentSplit.Margin = new System.Windows.Forms.Padding(2);
             this.contentSplit.Name = "contentSplit";
             this.contentSplit.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // contentSplit.Panel1
             // 
-            this.contentSplit.Panel1.Controls.Add(this.dataGridView1);
+            this.contentSplit.Panel1.Controls.Add(this.dgvGst);
+            this.contentSplit.Panel1.Controls.Add(this.dgvInvoices);
             // 
             // contentSplit.Panel2
             // 
@@ -125,20 +148,21 @@ namespace Prints
             this.contentSplit.Panel2.Controls.Add(this.btnPrev);
             this.contentSplit.Panel2.Controls.Add(this.btnNext);
             this.contentSplit.Panel2.Controls.Add(this.btnLast);
-            this.contentSplit.Panel2.Margin = new System.Windows.Forms.Padding(10);
-            this.contentSplit.Panel2.Padding = new System.Windows.Forms.Padding(5);
-            this.contentSplit.Size = new System.Drawing.Size(826, 505);
-            this.contentSplit.SplitterDistance = 453;
+            this.contentSplit.Panel2.Margin = new System.Windows.Forms.Padding(8);
+            this.contentSplit.Panel2.Padding = new System.Windows.Forms.Padding(4);
+            this.contentSplit.Size = new System.Drawing.Size(789, 522);
+            this.contentSplit.SplitterDistance = 467;
+            this.contentSplit.SplitterWidth = 3;
             this.contentSplit.TabIndex = 2;
             // 
-            // dataGridView1
+            // dgvInvoices
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvInvoices.AllowUserToAddRows = false;
+            this.dgvInvoices.AllowUserToDeleteRows = false;
+            this.dgvInvoices.AllowUserToOrderColumns = true;
+            this.dgvInvoices.AutoGenerateColumns = false;
+            this.dgvInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvInvoices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.numberDataGridViewTextBoxColumn,
             this.dateDataGridViewTextBoxColumn,
             this.refNumberDataGridViewTextBoxColumn,
@@ -147,24 +171,27 @@ namespace Prints
             this.totalQtyDataGridViewTextBoxColumn,
             this.subtotalDataGridViewTextBoxColumn,
             this.netAmountDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.printListItemBindingSource;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersWidth = 45;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(826, 453);
-            this.dataGridView1.TabIndex = 0;
+            this.dgvInvoices.DataSource = this.printListItemBindingSource;
+            this.dgvInvoices.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvInvoices.Location = new System.Drawing.Point(0, 0);
+            this.dgvInvoices.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvInvoices.Name = "dgvInvoices";
+            this.dgvInvoices.ReadOnly = true;
+            this.dgvInvoices.RowHeadersWidth = 45;
+            this.dgvInvoices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvInvoices.Size = new System.Drawing.Size(789, 467);
+            this.dgvInvoices.TabIndex = 0;
+            this.dgvInvoices.Visible = false;
             // 
             // dtpDate
             // 
             this.dtpDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpDate.CustomFormat = "dd-MM-yyyy";
             this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDate.Location = new System.Drawing.Point(466, 5);
+            this.dtpDate.Location = new System.Drawing.Point(507, 17);
+            this.dtpDate.Margin = new System.Windows.Forms.Padding(2);
             this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(146, 29);
+            this.dtpDate.Size = new System.Drawing.Size(114, 25);
             this.dtpDate.TabIndex = 1;
             this.dtpDate.Value = new System.DateTime(2020, 11, 17, 0, 0, 0, 0);
             this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
@@ -172,9 +199,11 @@ namespace Prints
             // btnFirst
             // 
             this.btnFirst.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFirst.Location = new System.Drawing.Point(264, 4);
+            this.btnFirst.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFirst.Location = new System.Drawing.Point(350, 16);
+            this.btnFirst.Margin = new System.Windows.Forms.Padding(2);
             this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Size = new System.Drawing.Size(95, 32);
+            this.btnFirst.Size = new System.Drawing.Size(74, 26);
             this.btnFirst.TabIndex = 0;
             this.btnFirst.Text = "First";
             this.btnFirst.UseVisualStyleBackColor = true;
@@ -183,9 +212,11 @@ namespace Prints
             // btnPrev
             // 
             this.btnPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrev.Location = new System.Drawing.Point(365, 4);
+            this.btnPrev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrev.Location = new System.Drawing.Point(429, 16);
+            this.btnPrev.Margin = new System.Windows.Forms.Padding(2);
             this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(95, 32);
+            this.btnPrev.Size = new System.Drawing.Size(74, 26);
             this.btnPrev.TabIndex = 0;
             this.btnPrev.Text = "Previous";
             this.btnPrev.UseVisualStyleBackColor = true;
@@ -194,9 +225,11 @@ namespace Prints
             // btnNext
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext.Location = new System.Drawing.Point(618, 4);
+            this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNext.Location = new System.Drawing.Point(625, 16);
+            this.btnNext.Margin = new System.Windows.Forms.Padding(2);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(95, 32);
+            this.btnNext.Size = new System.Drawing.Size(74, 26);
             this.btnNext.TabIndex = 0;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
@@ -205,9 +238,11 @@ namespace Prints
             // btnLast
             // 
             this.btnLast.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLast.Location = new System.Drawing.Point(719, 4);
+            this.btnLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLast.Location = new System.Drawing.Point(704, 16);
+            this.btnLast.Margin = new System.Windows.Forms.Padding(2);
             this.btnLast.Name = "btnLast";
-            this.btnLast.Size = new System.Drawing.Size(95, 32);
+            this.btnLast.Size = new System.Drawing.Size(74, 26);
             this.btnLast.TabIndex = 0;
             this.btnLast.Text = "Last";
             this.btnLast.UseVisualStyleBackColor = true;
@@ -216,15 +251,15 @@ namespace Prints
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(87, 36);
+            this.toolStripLabel1.Size = new System.Drawing.Size(66, 36);
             this.toolStripLabel1.Text = "Company:";
             // 
             // tscCompanies
             // 
             this.tscCompanies.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tscCompanies.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tscCompanies.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tscCompanies.Name = "tscCompanies";
-            this.tscCompanies.Size = new System.Drawing.Size(300, 39);
+            this.tscCompanies.Size = new System.Drawing.Size(234, 39);
             this.tscCompanies.SelectedIndexChanged += new System.EventHandler(this.tscCompanies_SelectedIndexChanged);
             // 
             // toolStripSeparator1
@@ -235,15 +270,15 @@ namespace Prints
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(138, 36);
+            this.toolStripLabel2.Size = new System.Drawing.Size(104, 36);
             this.toolStripLabel2.Text = "Accounting Year:";
             // 
             // tscYears
             // 
             this.tscYears.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tscYears.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tscYears.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tscYears.Name = "tscYears";
-            this.tscYears.Size = new System.Drawing.Size(150, 39);
+            this.tscYears.Size = new System.Drawing.Size(118, 39);
             this.tscYears.SelectedIndexChanged += new System.EventHandler(this.tscYears_SelectedIndexChanged);
             // 
             // tsbPrint
@@ -260,7 +295,7 @@ namespace Prints
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(18, 18);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
@@ -274,7 +309,7 @@ namespace Prints
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(1036, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(984, 39);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -287,6 +322,154 @@ namespace Prints
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 39);
+            // 
+            // dgvGst
+            // 
+            this.dgvGst.AllowUserToAddRows = false;
+            this.dgvGst.AllowUserToDeleteRows = false;
+            this.dgvGst.AutoGenerateColumns = false;
+            this.dgvGst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvGst.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.gSTINDataGridViewTextBoxColumn,
+            this.customerNameDataGridViewTextBoxColumn,
+            this.invoiceNumberDataGridViewTextBoxColumn,
+            this.invoiceDateDataGridViewTextBoxColumn,
+            this.debitNoteNumberDataGridViewTextBoxColumn,
+            this.debitNoteDateDataGridViewTextBoxColumn,
+            this.hSNSACCodeDataGridViewTextBoxColumn,
+            this.qtyDataGridViewTextBoxColumn,
+            this.beforeTaxDataGridViewTextBoxColumn,
+            this.iGSTPctDataGridViewTextBoxColumn,
+            this.iGSTAmtDataGridViewTextBoxColumn,
+            this.cGSTPctDataGridViewTextBoxColumn,
+            this.cGSTAmtDataGridViewTextBoxColumn,
+            this.sGSTPctDataGridViewTextBoxColumn,
+            this.sGSTAmtDataGridViewTextBoxColumn,
+            this.totalDataGridViewTextBoxColumn});
+            this.dgvGst.DataSource = this.gstInputBindingSource;
+            this.dgvGst.Location = new System.Drawing.Point(140, 88);
+            this.dgvGst.Name = "dgvGst";
+            this.dgvGst.ReadOnly = true;
+            this.dgvGst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvGst.Size = new System.Drawing.Size(469, 255);
+            this.dgvGst.TabIndex = 1;
+            this.dgvGst.Visible = false;
+            // 
+            // gSTINDataGridViewTextBoxColumn
+            // 
+            this.gSTINDataGridViewTextBoxColumn.DataPropertyName = "GSTIN";
+            this.gSTINDataGridViewTextBoxColumn.HeaderText = "GSTIN";
+            this.gSTINDataGridViewTextBoxColumn.Name = "gSTINDataGridViewTextBoxColumn";
+            this.gSTINDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // customerNameDataGridViewTextBoxColumn
+            // 
+            this.customerNameDataGridViewTextBoxColumn.DataPropertyName = "CustomerName";
+            this.customerNameDataGridViewTextBoxColumn.HeaderText = "CustomerName";
+            this.customerNameDataGridViewTextBoxColumn.Name = "customerNameDataGridViewTextBoxColumn";
+            this.customerNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // invoiceNumberDataGridViewTextBoxColumn
+            // 
+            this.invoiceNumberDataGridViewTextBoxColumn.DataPropertyName = "InvoiceNumber";
+            this.invoiceNumberDataGridViewTextBoxColumn.HeaderText = "InvoiceNumber";
+            this.invoiceNumberDataGridViewTextBoxColumn.Name = "invoiceNumberDataGridViewTextBoxColumn";
+            this.invoiceNumberDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // invoiceDateDataGridViewTextBoxColumn
+            // 
+            this.invoiceDateDataGridViewTextBoxColumn.DataPropertyName = "InvoiceDate";
+            this.invoiceDateDataGridViewTextBoxColumn.HeaderText = "InvoiceDate";
+            this.invoiceDateDataGridViewTextBoxColumn.Name = "invoiceDateDataGridViewTextBoxColumn";
+            this.invoiceDateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // debitNoteNumberDataGridViewTextBoxColumn
+            // 
+            this.debitNoteNumberDataGridViewTextBoxColumn.DataPropertyName = "DebitNoteNumber";
+            this.debitNoteNumberDataGridViewTextBoxColumn.HeaderText = "DebitNoteNumber";
+            this.debitNoteNumberDataGridViewTextBoxColumn.Name = "debitNoteNumberDataGridViewTextBoxColumn";
+            this.debitNoteNumberDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // debitNoteDateDataGridViewTextBoxColumn
+            // 
+            this.debitNoteDateDataGridViewTextBoxColumn.DataPropertyName = "DebitNoteDate";
+            this.debitNoteDateDataGridViewTextBoxColumn.HeaderText = "DebitNoteDate";
+            this.debitNoteDateDataGridViewTextBoxColumn.Name = "debitNoteDateDataGridViewTextBoxColumn";
+            this.debitNoteDateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // hSNSACCodeDataGridViewTextBoxColumn
+            // 
+            this.hSNSACCodeDataGridViewTextBoxColumn.DataPropertyName = "HSNSACCode";
+            this.hSNSACCodeDataGridViewTextBoxColumn.HeaderText = "HSNSACCode";
+            this.hSNSACCodeDataGridViewTextBoxColumn.Name = "hSNSACCodeDataGridViewTextBoxColumn";
+            this.hSNSACCodeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // qtyDataGridViewTextBoxColumn
+            // 
+            this.qtyDataGridViewTextBoxColumn.DataPropertyName = "Qty";
+            this.qtyDataGridViewTextBoxColumn.HeaderText = "Qty";
+            this.qtyDataGridViewTextBoxColumn.Name = "qtyDataGridViewTextBoxColumn";
+            this.qtyDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // beforeTaxDataGridViewTextBoxColumn
+            // 
+            this.beforeTaxDataGridViewTextBoxColumn.DataPropertyName = "BeforeTax";
+            this.beforeTaxDataGridViewTextBoxColumn.HeaderText = "BeforeTax";
+            this.beforeTaxDataGridViewTextBoxColumn.Name = "beforeTaxDataGridViewTextBoxColumn";
+            this.beforeTaxDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // iGSTPctDataGridViewTextBoxColumn
+            // 
+            this.iGSTPctDataGridViewTextBoxColumn.DataPropertyName = "IGSTPct";
+            this.iGSTPctDataGridViewTextBoxColumn.HeaderText = "IGSTPct";
+            this.iGSTPctDataGridViewTextBoxColumn.Name = "iGSTPctDataGridViewTextBoxColumn";
+            this.iGSTPctDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // iGSTAmtDataGridViewTextBoxColumn
+            // 
+            this.iGSTAmtDataGridViewTextBoxColumn.DataPropertyName = "IGSTAmt";
+            this.iGSTAmtDataGridViewTextBoxColumn.HeaderText = "IGSTAmt";
+            this.iGSTAmtDataGridViewTextBoxColumn.Name = "iGSTAmtDataGridViewTextBoxColumn";
+            this.iGSTAmtDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // cGSTPctDataGridViewTextBoxColumn
+            // 
+            this.cGSTPctDataGridViewTextBoxColumn.DataPropertyName = "CGSTPct";
+            this.cGSTPctDataGridViewTextBoxColumn.HeaderText = "CGSTPct";
+            this.cGSTPctDataGridViewTextBoxColumn.Name = "cGSTPctDataGridViewTextBoxColumn";
+            this.cGSTPctDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // cGSTAmtDataGridViewTextBoxColumn
+            // 
+            this.cGSTAmtDataGridViewTextBoxColumn.DataPropertyName = "CGSTAmt";
+            this.cGSTAmtDataGridViewTextBoxColumn.HeaderText = "CGSTAmt";
+            this.cGSTAmtDataGridViewTextBoxColumn.Name = "cGSTAmtDataGridViewTextBoxColumn";
+            this.cGSTAmtDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // sGSTPctDataGridViewTextBoxColumn
+            // 
+            this.sGSTPctDataGridViewTextBoxColumn.DataPropertyName = "SGSTPct";
+            this.sGSTPctDataGridViewTextBoxColumn.HeaderText = "SGSTPct";
+            this.sGSTPctDataGridViewTextBoxColumn.Name = "sGSTPctDataGridViewTextBoxColumn";
+            this.sGSTPctDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // sGSTAmtDataGridViewTextBoxColumn
+            // 
+            this.sGSTAmtDataGridViewTextBoxColumn.DataPropertyName = "SGSTAmt";
+            this.sGSTAmtDataGridViewTextBoxColumn.HeaderText = "SGSTAmt";
+            this.sGSTAmtDataGridViewTextBoxColumn.Name = "sGSTAmtDataGridViewTextBoxColumn";
+            this.sGSTAmtDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalDataGridViewTextBoxColumn
+            // 
+            this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
+            this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
+            this.totalDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // gstInputBindingSource
+            // 
+            this.gstInputBindingSource.DataSource = typeof(Prints.GstInput);
             // 
             // numberDataGridViewTextBoxColumn
             // 
@@ -366,15 +549,15 @@ namespace Prints
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1036, 544);
+            this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.listSplit);
             this.Controls.Add(this.toolStrip1);
-            this.Font = new System.Drawing.Font("Segoe UI", 12.22642F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.MinimumSize = new System.Drawing.Size(852, 581);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MinimumSize = new System.Drawing.Size(666, 478);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Prints";
@@ -388,9 +571,11 @@ namespace Prints
             this.contentSplit.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.contentSplit)).EndInit();
             this.contentSplit.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInvoices)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGst)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gstInputBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.printListItemBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -406,7 +591,7 @@ namespace Prints
         private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.Button btnPrev;
         private System.Windows.Forms.Button btnFirst;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvInvoices;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox tscCompanies;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -425,5 +610,23 @@ namespace Prints
         private System.Windows.Forms.DataGridViewTextBoxColumn totalQtyDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn netAmountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridView dgvGst;
+        private System.Windows.Forms.DataGridViewTextBoxColumn gSTINDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn customerNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn invoiceNumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn invoiceDateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn debitNoteNumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn debitNoteDateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hSNSACCodeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn qtyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn beforeTaxDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iGSTPctDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iGSTAmtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cGSTPctDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cGSTAmtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sGSTPctDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sGSTAmtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource gstInputBindingSource;
     }
 }

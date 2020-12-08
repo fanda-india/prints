@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Prints
 {
@@ -33,10 +30,10 @@ namespace Prints
         public DateTime InvoiceDate { get; set; }
         public string HSNSACCode { get; set; }
         public int Qty { get; set; }
-        public decimal Total { get; set; }
         public string TaxCode { get; set; }
         public string TaxName { get; set; }
         public decimal TaxAmount { get; set; }
+        public decimal Total { get; set; }
         public string BillNumber { get; set; }  // get CGST and SGST
     }
 }

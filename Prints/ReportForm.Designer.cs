@@ -42,39 +42,44 @@ namespace Prints
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "Prints.Invoice.rdlc";
-            this.reportViewer1.Location = new System.Drawing.Point(0, 39);
+            this.reportViewer1.Location = new System.Drawing.Point(12, 47);
+            this.reportViewer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(800, 411);
+            this.reportViewer1.Size = new System.Drawing.Size(960, 501);
             this.reportViewer1.TabIndex = 0;
             // 
             // cboInvoiceType
             // 
             this.cboInvoiceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboInvoiceType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboInvoiceType.FormattingEnabled = true;
             this.cboInvoiceType.Items.AddRange(new object[] {
             "Original",
             "Duplicate",
             "Triplicate"});
-            this.cboInvoiceType.Location = new System.Drawing.Point(90, 12);
+            this.cboInvoiceType.Location = new System.Drawing.Point(100, 13);
+            this.cboInvoiceType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboInvoiceType.Name = "cboInvoiceType";
-            this.cboInvoiceType.Size = new System.Drawing.Size(250, 21);
+            this.cboInvoiceType.Size = new System.Drawing.Size(291, 25);
             this.cboInvoiceType.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 15);
+            this.label1.Location = new System.Drawing.Point(12, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
+            this.label1.Size = new System.Drawing.Size(82, 17);
             this.label1.TabIndex = 3;
             this.label1.Text = "Invoice Type:";
             // 
             // btnShow
             // 
-            this.btnShow.Location = new System.Drawing.Point(346, 10);
+            this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShow.Location = new System.Drawing.Point(397, 9);
+            this.btnShow.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(75, 23);
+            this.btnShow.Size = new System.Drawing.Size(87, 30);
             this.btnShow.TabIndex = 5;
             this.btnShow.Text = "Show";
             this.btnShow.UseVisualStyleBackColor = true;
@@ -82,14 +87,16 @@ namespace Prints
             // 
             // ReportForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.cboInvoiceType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.reportViewer1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ReportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Invoice";

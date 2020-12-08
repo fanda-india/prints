@@ -2,12 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Prints
@@ -102,12 +96,22 @@ namespace Prints
             var pointindex = numbers.ToString().IndexOf(".");
             var paisaamt = 0;
             if (pointindex > 0)
+            {
                 paisaamt = Convert.ToInt32(numbers.ToString().Substring(pointindex + 1, 2));
+            }
 
             int number = Convert.ToInt32(numbers);
 
-            if (number == 0) return "Zero";
-            if (number == -2147483648) return "Minus Two Hundred and Fourteen Crore Seventy Four Lakh Eighty Three Thousand Six Hundred and Forty Eight";
+            if (number == 0)
+            {
+                return "Zero";
+            }
+
+            if (number == -2147483648)
+            {
+                return "Minus Two Hundred and Fourteen Crore Seventy Four Lakh Eighty Three Thousand Six Hundred and Forty Eight";
+            }
+
             int[] num = new int[4];
             int first = 0;
             int u, h, t;
@@ -137,23 +141,44 @@ namespace Prints
             }
             for (int i = first; i >= 0; i--)
             {
-                if (num[i] == 0) continue;
+                if (num[i] == 0)
+                {
+                    continue;
+                }
+
                 u = num[i] % 10; // ones
                 t = num[i] / 10;
                 h = num[i] / 100; // hundreds
                 t = t - 10 * h; // tens
-                if (h > 0) sb.Append(words0[h] + "Hundred ");
+                if (h > 0)
+                {
+                    sb.Append(words0[h] + "Hundred ");
+                }
+
                 if (u > 0 || t > 0)
                 {
-                    if (h > 0 || i == 0) sb.Append("and ");
+                    if (h > 0 || i == 0)
+                    {
+                        sb.Append("and ");
+                    }
+
                     if (t == 0)
+                    {
                         sb.Append(words0[u]);
+                    }
                     else if (t == 1)
+                    {
                         sb.Append(words1[u]);
+                    }
                     else
+                    {
                         sb.Append(words2[t - 2] + words0[u]);
+                    }
                 }
-                if (i != 0) sb.Append(words3[i - 1]);
+                if (i != 0)
+                {
+                    sb.Append(words3[i - 1]);
+                }
             }
 
             if (paisaamt == 0 && paisaconversion == false)
