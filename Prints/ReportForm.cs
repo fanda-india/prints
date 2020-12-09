@@ -9,9 +9,18 @@ namespace Prints
     internal partial class ReportForm : Form
     {
         private readonly Company company;
+
+        // Invoice
         private readonly Party party;
+
         private readonly SalesHeader header;
         private readonly List<SalesLineItem> lineItems;
+
+        // GstInput
+        private readonly DateTime dateFrom;
+
+        private readonly DateTime dateTo;
+        private readonly List<GstInput> gstInputs;
 
         public ReportForm(Company company, Party party, SalesHeader header, List<SalesLineItem> lineItems)
         {
@@ -20,6 +29,24 @@ namespace Prints
             this.party = party;
             this.header = header;
             this.lineItems = lineItems;
+
+            Text = "Invoice";
+        }
+
+        public ReportForm(Company company, DateTime dateFrom, DateTime dateTo, List<GstInput> gstInputs)
+        {
+            InitializeComponent();
+            this.company = company;
+            this.dateFrom = dateFrom;
+            this.dateTo = dateTo;
+            this.gstInputs = gstInputs;
+
+            lblInvoiceType.Visible = false;
+            cboInvoiceType.Visible = false;
+            btnShow.Visible = false;
+            Text = "GST Input Report";
+
+            ShowGstInput();
         }
 
         private void ReportForm_Load(object sender, EventArgs e)
@@ -29,10 +56,12 @@ namespace Prints
 
         private void btnShow_Click(object sender, EventArgs e)
         {
-            ShowReport();
+            ShowInvoice();
         }
 
-        private void ShowReport()
+        #region Invoice
+
+        private void ShowInvoice()
         {
             string[] partiular = header.Particular.Split(',');
             string selectedBy = string.Empty;
@@ -192,5 +221,36 @@ namespace Prints
             }
             return sb.ToString().TrimEnd();
         }
+
+        #endregion Invoice
+
+        #region GstInput
+
+        private void ShowGstInput()
+        {
+            ReportParameter[] reportParameters = new ReportParameter[]
+            {
+                new ReportParameter("CompanyName", company.Name),
+            //    new ReportParameter("CompanyAddress", company.Address),
+            //    new ReportParameter("CompanyCity", company.City),
+            //    new ReportParameter("CompanyPhone1", company.Phone1),
+            //    new ReportParameter("CompanyPhone2", company.Phone2),
+            //    new ReportParameter("CompanyFax", company.Fax),
+            //    new ReportParameter("CompanyPAN", company.PAN),
+            //    new ReportParameter("CompanyGSTIN", company.GSTIN),
+            //    new ReportParameter("CompanyAreaCode", company.Areacode),
+            //    new ReportParameter("CompanyBankName", company.BankName),
+            //    new ReportParameter("CompanyBankAcctNum", company.BankAcctNum),
+            //    new ReportParameter("CompanyBankIfsc", company.BankIfsc),
+                new ReportParameter("DateFrom", dateFrom.ToString("dd-MM-yyyy")),
+                new ReportParameter("DateTo", dateTo.ToString("dd-MM-yyyy"))
+            };
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "Prints.GstInput.rdlc";
+            this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("GstInput", gstInputs));
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
+            this.reportViewer1.RefreshReport();
+        }
+
+        #endregion GstInput
     }
 }

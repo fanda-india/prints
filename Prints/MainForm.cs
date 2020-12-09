@@ -19,6 +19,9 @@ namespace Prints
         private Company SelectedCompany;
         private AccountingYear SelectedYear;
 
+        private DateTime DateFrom;
+        private DateTime DateTo;
+
         public MainForm()
         {
             InitializeComponent();
@@ -34,6 +37,18 @@ namespace Prints
         private void MainForm_Load(object sender, EventArgs e)
         {
             LoadCompanies();
+
+            foreach (DataGridViewColumn col in dgvGst.Columns)
+            {
+                if (col.DataPropertyName == "Qty" || col.DataPropertyName == "BeforeTax" ||
+                    col.DataPropertyName == "IGSTPct" || col.DataPropertyName == "IGSTAmt" ||
+                    col.DataPropertyName == "CGSTPct" || col.DataPropertyName == "CGSTAMT" ||
+                    col.DataPropertyName == "SGSTPct" || col.DataPropertyName == "SGSTAMT" ||
+                    col.DataPropertyName == "Total")
+                {
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+            }
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -84,8 +99,7 @@ namespace Prints
 
         private void lstMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string menuItem = lstMenu.SelectedItem as string;
-            switch (menuItem)
+            switch (lstMenu.SelectedItem as string)
             {
                 case "Invoices":
                     try
@@ -95,6 +109,7 @@ namespace Prints
                         dgvGst.Visible = false;
                         dtpDate.Visible = true;
                         cboMonth.Visible = false;
+                        chkFullyear.Visible = false;
 
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
                         LoadInvoices(fileExt);
@@ -114,6 +129,7 @@ namespace Prints
                         cboMonth.Visible = true;
                         cboMonth.Location = dtpDate.Location;
                         dtpDate.Visible = false;
+                        chkFullyear.Visible = true;
 
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
                         LoadGSTInputReport(fileExt);
@@ -133,20 +149,37 @@ namespace Prints
 
         private void tsbPrint_Click(object sender, EventArgs e)
         {
-            var printHeader = printListItemBindingSource.Current as PrintHeader;
-            if (printHeader != null)
+            switch (lstMenu.SelectedItem as string)
             {
-                try
-                {
-                    string fileExt = string.Format("{0:000}", SelectedCompany.Code);
-                    PrintInvoice(printHeader, fileExt);
-                }
-                catch
-                {
-                    PrintInvoice(printHeader, "DBF");
-                }
+                case "Invoices":
+                    var printHeader = printListItemBindingSource.Current as PrintHeader;
+                    if (printHeader != null)
+                    {
+                        try
+                        {
+                            string fileExt = string.Format("{0:000}", SelectedCompany.Code);
+                            PrintInvoice(printHeader, fileExt);
+                        }
+                        catch
+                        {
+                            PrintInvoice(printHeader, "DBF");
+                        }
+                    }
+
+                    break;
+
+                case "GST Input Report":
+                    List<GstInput> gstInputs = gstInputBindingSource.DataSource as List<GstInput>;
+                    if (gstInputs != null)
+                    {
+                        PrintGstInput(DateFrom, DateTo, gstInputs);
+                    }
+
+                    break;
             }
         }
+
+        #region Navigation
 
         private void btnFirst_Click(object sender, EventArgs e)
         {
@@ -201,6 +234,29 @@ namespace Prints
         {
             lstMenu_SelectedIndexChanged(this, null);
         }
+
+        private void chkFullyear_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkFullyear.Checked)
+            {
+                btnFirst.Enabled = false;
+                btnPrev.Enabled = false;
+                btnNext.Enabled = false;
+                btnLast.Enabled = false;
+                cboMonth.Enabled = false;
+            }
+            else
+            {
+                btnFirst.Enabled = true;
+                btnPrev.Enabled = true;
+                btnNext.Enabled = true;
+                btnLast.Enabled = true;
+                cboMonth.Enabled = true;
+            }
+            lstMenu_SelectedIndexChanged(this, null);
+        }
+
+        #endregion Navigation
 
         private void LoadCompanies()
         {
@@ -337,10 +393,29 @@ namespace Prints
             }
         }
 
-        private void LoadGSTInputReport(string fileExtension, DateTime fromDate = default, DateTime toDate = default)
+        private void LoadGSTInputReport(string fileExtension)
         {
-            fromDate = new DateTime(2019, 4, 1);
-            toDate = new DateTime(2020, 4, 30);
+            DateTime fromDate;
+            DateTime toDate;
+            if (chkFullyear.Checked)
+            {
+                fromDate = SelectedYear.FromDate;
+                toDate = SelectedYear.ToDate;
+            }
+            else
+            {
+                int monthNumber = cboMonth.SelectedIndex >= 0 && cboMonth.SelectedIndex <= 8
+                    ? cboMonth.SelectedIndex + 4
+                    : cboMonth.SelectedIndex - 8;
+                int yearNumber = monthNumber >= 4 && monthNumber <= 12
+                    ? SelectedYear.FromDate.Year
+                    : SelectedYear.ToDate.Year;
+
+                fromDate = new DateTime(yearNumber, monthNumber, 1);
+                toDate = new DateTime(yearNumber, monthNumber, DateTime.DaysInMonth(yearNumber, monthNumber));
+            }
+            this.DateFrom = fromDate;
+            this.DateTo = toDate;
 
             string invHdr = $"INV_HDR.{fileExtension}";
             string acctMast = $"ACCTMAST.{fileExtension}";
@@ -356,7 +431,7 @@ namespace Prints
                 string query =
                     "SELECT a.SAL_TAX_NO AS GSTIN, a.NAME AS CustomerName, " +
                     "i.BILL_NO AS InvoiceNumber, i.BILL_DT AS InvoiceDate, " +
-                    "i.REF_NO AS DebitNoteNumber, i.REF_DT AS DebitNoteDate, " +
+                    "i.REF_NO AS RefNumber, i.REF_DT AS RefDate, " +
                     "'HSN/SAC' AS HSNSACCode, i.TOT_QTY AS Qty, i.SUB_TOT-i.DISCOUNT1 AS BeforeTax, " +
                     "i.PER_IGST AS IGSTPct, i.IGST AS IGSTAmt, " +
                     "i.PER_CGST AS CGSTPct, i.CGST AS CGSTAmt, " +
@@ -371,7 +446,8 @@ namespace Prints
                 // Journals
                 query =
                     "SELECT h.BILL_NO BillNumber, a.SAL_TAX_NO AS GSTIN, a.NAME AS CustomerName, " +
-                    "d.REF_NO AS InvoiceNumber, d.REF_DT AS InvoiceDate, " +
+                    "h.BILL_NO AS InvoiceNumber, h.BILL_DT AS InvoiceDate, " +
+                    "d.REF_NO AS RefNumber, d.REF_DT AS RefDate, " +
                     "'HSN/SAC' AS HSNSACCode, d.Qty AS Qty, h.NET_AMOUNT AS Total, " +
                     "d.TAXCODE, d.TAXNAME, d.TAXAMOUNT " +
                     $"FROM {jnlHdr} AS h " +
@@ -407,8 +483,10 @@ namespace Prints
                 AddToInvoices(invoices, expenses);
 
                 gstInputBindingSource.DataSource = invoices
-                    .OrderBy(i => i.GSTIN)
-                    .ThenBy(i => i.InvoiceNumber);
+                    .OrderBy(i => string.IsNullOrWhiteSpace(i.GSTIN) ? 0 : 1)
+                    .ThenBy(i => i.InvoiceNumber)
+                    .ThenBy(i => i.InvoiceDate)
+                    .ToList();
             }
         }
 
@@ -424,6 +502,8 @@ namespace Prints
                 string customerName = string.Empty;
                 string invoiceNumber = string.Empty;
                 DateTime? invoiceDate = null;
+                string refNumber = string.Empty;
+                DateTime? refDate = null;
                 int qty = 0;
                 decimal beforeTax = 0.0m;
                 decimal igstPct = 0.0m;
@@ -441,6 +521,8 @@ namespace Prints
                         customerName = item.CustomerName.Trim();
                         invoiceNumber = item.InvoiceNumber.Trim();
                         invoiceDate = item.InvoiceDate.Value.Year == 1899 ? null : item.InvoiceDate;
+                        refNumber = item.RefNumber;
+                        refDate = item.RefDate;
                         qty = item.Qty;
                         total = item.Total;
 
@@ -479,6 +561,8 @@ namespace Prints
                                 CustomerName = customerName,
                                 InvoiceNumber = invoiceNumber,
                                 InvoiceDate = invoiceDate,
+                                RefNumber = refNumber,
+                                RefDate = refDate,
                                 HSNSACCode = "HSN/SAC",
                                 Qty = qty,
                                 BeforeTax = beforeTax,
@@ -497,6 +581,8 @@ namespace Prints
                         customerName = item.CustomerName.Trim();
                         invoiceNumber = item.InvoiceNumber.Trim();
                         invoiceDate = item.InvoiceDate.Value.Year == 1899 ? null : item.InvoiceDate;
+                        refNumber = item.RefNumber;
+                        refDate = item.RefDate;
                         qty = item.Qty;
                         total = item.Total;
                         beforeTax = 0.0m;
@@ -540,6 +626,8 @@ namespace Prints
                         CustomerName = customerName,
                         InvoiceNumber = invoiceNumber,
                         InvoiceDate = invoiceDate,
+                        RefNumber = refNumber,
+                        RefDate = refDate,
                         HSNSACCode = "HSN/SAC",
                         Qty = qty,
                         BeforeTax = beforeTax,
@@ -552,6 +640,14 @@ namespace Prints
                         Total = total,
                     });
                 }
+            }
+        }
+
+        private void PrintGstInput(DateTime dateFrom, DateTime dateTo, List<GstInput> gstInputs)
+        {
+            using (var rptForm = new ReportForm(SelectedCompany, dateFrom, dateTo, gstInputs))
+            {
+                rptForm.ShowDialog(this);
             }
         }
 

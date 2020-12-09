@@ -8,8 +8,8 @@ namespace Prints
         public string CustomerName { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTime? InvoiceDate { get; set; } = null;
-        public string DebitNoteNumber { get; set; }
-        public DateTime? DebitNoteDate { get; set; } = null;
+        public string RefNumber { get; set; }
+        public DateTime? RefDate { get; set; } = null;
         public string HSNSACCode { get; set; }
         public int Qty { get; set; }
         public decimal BeforeTax { get; set; }
@@ -28,6 +28,8 @@ namespace Prints
         public string CustomerName { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTime? InvoiceDate { get; set; } = null;
+        public string RefNumber { get; set; }
+        public DateTime? RefDate { get; set; } = null;
         public string HSNSACCode { get; set; }
         public int Qty { get; set; }
         public string TaxCode { get; set; }

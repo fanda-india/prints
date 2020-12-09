@@ -92,6 +92,7 @@
     </Compile>
     <Compile Include="SalesHeader.cs" />
     <Compile Include="SalesLineItem.cs" />
+    <EmbeddedResource Include="GstInput.rdlc" />
     <EmbeddedResource Include="Invoice.rdlc" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

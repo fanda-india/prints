@@ -32,7 +32,7 @@ namespace Prints
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReportForm));
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.cboInvoiceType = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblInvoiceType = new System.Windows.Forms.Label();
             this.btnShow = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -64,14 +64,14 @@ namespace Prints
             this.cboInvoiceType.Size = new System.Drawing.Size(291, 25);
             this.cboInvoiceType.TabIndex = 4;
             // 
-            // label1
+            // lblInvoiceType
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 17);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Invoice Type:";
+            this.lblInvoiceType.AutoSize = true;
+            this.lblInvoiceType.Location = new System.Drawing.Point(12, 16);
+            this.lblInvoiceType.Name = "lblInvoiceType";
+            this.lblInvoiceType.Size = new System.Drawing.Size(82, 17);
+            this.lblInvoiceType.TabIndex = 3;
+            this.lblInvoiceType.Text = "Invoice Type:";
             // 
             // btnShow
             // 
@@ -92,7 +92,7 @@ namespace Prints
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.cboInvoiceType);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblInvoiceType);
             this.Controls.Add(this.reportViewer1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -110,7 +110,7 @@ namespace Prints
 
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
         private System.Windows.Forms.ComboBox cboInvoiceType;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblInvoiceType;
         private System.Windows.Forms.Button btnShow;
     }
 }

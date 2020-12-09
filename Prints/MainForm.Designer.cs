@@ -50,6 +50,7 @@ namespace Prints
             this.dgvGst = new System.Windows.Forms.DataGridView();
             this.dgvInvoices = new System.Windows.Forms.DataGridView();
             this.cboMonth = new System.Windows.Forms.ComboBox();
+            this.chkFullyear = new System.Windows.Forms.CheckBox();
             this.gSTINDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.invoiceNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -224,7 +225,6 @@ namespace Prints
             // 
             this.lstMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.lstMenu.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstMenu.FormattingEnabled = true;
             this.lstMenu.IntegralHeight = false;
             this.lstMenu.ItemHeight = 17;
@@ -317,6 +317,7 @@ namespace Prints
             // 
             // cboMonth
             // 
+            this.cboMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cboMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboMonth.FormattingEnabled = true;
             this.cboMonth.Items.AddRange(new object[] {
@@ -339,6 +340,19 @@ namespace Prints
             this.cboMonth.Visible = false;
             this.cboMonth.SelectedIndexChanged += new System.EventHandler(this.cboMonth_SelectedIndexChanged);
             // 
+            // chkFullyear
+            // 
+            this.chkFullyear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkFullyear.AutoSize = true;
+            this.chkFullyear.Location = new System.Drawing.Point(210, 524);
+            this.chkFullyear.Name = "chkFullyear";
+            this.chkFullyear.Size = new System.Drawing.Size(143, 21);
+            this.chkFullyear.TabIndex = 9;
+            this.chkFullyear.Text = "Full Accounting Year";
+            this.chkFullyear.UseVisualStyleBackColor = true;
+            this.chkFullyear.Visible = false;
+            this.chkFullyear.CheckedChanged += new System.EventHandler(this.chkFullyear_CheckedChanged);
+            // 
             // gSTINDataGridViewTextBoxColumn
             // 
             this.gSTINDataGridViewTextBoxColumn.DataPropertyName = "GSTIN";
@@ -349,42 +363,42 @@ namespace Prints
             // customerNameDataGridViewTextBoxColumn
             // 
             this.customerNameDataGridViewTextBoxColumn.DataPropertyName = "CustomerName";
-            this.customerNameDataGridViewTextBoxColumn.HeaderText = "CustomerName";
+            this.customerNameDataGridViewTextBoxColumn.HeaderText = "Customer Name";
             this.customerNameDataGridViewTextBoxColumn.Name = "customerNameDataGridViewTextBoxColumn";
             this.customerNameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // invoiceNumberDataGridViewTextBoxColumn
             // 
             this.invoiceNumberDataGridViewTextBoxColumn.DataPropertyName = "InvoiceNumber";
-            this.invoiceNumberDataGridViewTextBoxColumn.HeaderText = "InvoiceNumber";
+            this.invoiceNumberDataGridViewTextBoxColumn.HeaderText = "Invoice No.";
             this.invoiceNumberDataGridViewTextBoxColumn.Name = "invoiceNumberDataGridViewTextBoxColumn";
             this.invoiceNumberDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // invoiceDateDataGridViewTextBoxColumn
             // 
             this.invoiceDateDataGridViewTextBoxColumn.DataPropertyName = "InvoiceDate";
-            this.invoiceDateDataGridViewTextBoxColumn.HeaderText = "InvoiceDate";
+            this.invoiceDateDataGridViewTextBoxColumn.HeaderText = "Invoice Date";
             this.invoiceDateDataGridViewTextBoxColumn.Name = "invoiceDateDataGridViewTextBoxColumn";
             this.invoiceDateDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // debitNoteNumberDataGridViewTextBoxColumn
             // 
-            this.debitNoteNumberDataGridViewTextBoxColumn.DataPropertyName = "DebitNoteNumber";
-            this.debitNoteNumberDataGridViewTextBoxColumn.HeaderText = "DebitNoteNumber";
+            this.debitNoteNumberDataGridViewTextBoxColumn.DataPropertyName = "RefNumber";
+            this.debitNoteNumberDataGridViewTextBoxColumn.HeaderText = "Ref.Number";
             this.debitNoteNumberDataGridViewTextBoxColumn.Name = "debitNoteNumberDataGridViewTextBoxColumn";
             this.debitNoteNumberDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // debitNoteDateDataGridViewTextBoxColumn
             // 
-            this.debitNoteDateDataGridViewTextBoxColumn.DataPropertyName = "DebitNoteDate";
-            this.debitNoteDateDataGridViewTextBoxColumn.HeaderText = "DebitNoteDate";
+            this.debitNoteDateDataGridViewTextBoxColumn.DataPropertyName = "RefDate";
+            this.debitNoteDateDataGridViewTextBoxColumn.HeaderText = "Ref.Date";
             this.debitNoteDateDataGridViewTextBoxColumn.Name = "debitNoteDateDataGridViewTextBoxColumn";
             this.debitNoteDateDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // hSNSACCodeDataGridViewTextBoxColumn
             // 
             this.hSNSACCodeDataGridViewTextBoxColumn.DataPropertyName = "HSNSACCode";
-            this.hSNSACCodeDataGridViewTextBoxColumn.HeaderText = "HSNSACCode";
+            this.hSNSACCodeDataGridViewTextBoxColumn.HeaderText = "HSNSAC Code";
             this.hSNSACCodeDataGridViewTextBoxColumn.Name = "hSNSACCodeDataGridViewTextBoxColumn";
             this.hSNSACCodeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -398,49 +412,49 @@ namespace Prints
             // beforeTaxDataGridViewTextBoxColumn
             // 
             this.beforeTaxDataGridViewTextBoxColumn.DataPropertyName = "BeforeTax";
-            this.beforeTaxDataGridViewTextBoxColumn.HeaderText = "BeforeTax";
+            this.beforeTaxDataGridViewTextBoxColumn.HeaderText = "Before Tax";
             this.beforeTaxDataGridViewTextBoxColumn.Name = "beforeTaxDataGridViewTextBoxColumn";
             this.beforeTaxDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // iGSTPctDataGridViewTextBoxColumn
             // 
             this.iGSTPctDataGridViewTextBoxColumn.DataPropertyName = "IGSTPct";
-            this.iGSTPctDataGridViewTextBoxColumn.HeaderText = "IGSTPct";
+            this.iGSTPctDataGridViewTextBoxColumn.HeaderText = "IGST %";
             this.iGSTPctDataGridViewTextBoxColumn.Name = "iGSTPctDataGridViewTextBoxColumn";
             this.iGSTPctDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // iGSTAmtDataGridViewTextBoxColumn
             // 
             this.iGSTAmtDataGridViewTextBoxColumn.DataPropertyName = "IGSTAmt";
-            this.iGSTAmtDataGridViewTextBoxColumn.HeaderText = "IGSTAmt";
+            this.iGSTAmtDataGridViewTextBoxColumn.HeaderText = "IGST Amount";
             this.iGSTAmtDataGridViewTextBoxColumn.Name = "iGSTAmtDataGridViewTextBoxColumn";
             this.iGSTAmtDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // cGSTPctDataGridViewTextBoxColumn
             // 
             this.cGSTPctDataGridViewTextBoxColumn.DataPropertyName = "CGSTPct";
-            this.cGSTPctDataGridViewTextBoxColumn.HeaderText = "CGSTPct";
+            this.cGSTPctDataGridViewTextBoxColumn.HeaderText = "CGST %";
             this.cGSTPctDataGridViewTextBoxColumn.Name = "cGSTPctDataGridViewTextBoxColumn";
             this.cGSTPctDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // cGSTAmtDataGridViewTextBoxColumn
             // 
             this.cGSTAmtDataGridViewTextBoxColumn.DataPropertyName = "CGSTAmt";
-            this.cGSTAmtDataGridViewTextBoxColumn.HeaderText = "CGSTAmt";
+            this.cGSTAmtDataGridViewTextBoxColumn.HeaderText = "CGST Amount";
             this.cGSTAmtDataGridViewTextBoxColumn.Name = "cGSTAmtDataGridViewTextBoxColumn";
             this.cGSTAmtDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // sGSTPctDataGridViewTextBoxColumn
             // 
             this.sGSTPctDataGridViewTextBoxColumn.DataPropertyName = "SGSTPct";
-            this.sGSTPctDataGridViewTextBoxColumn.HeaderText = "SGSTPct";
+            this.sGSTPctDataGridViewTextBoxColumn.HeaderText = "SGST %";
             this.sGSTPctDataGridViewTextBoxColumn.Name = "sGSTPctDataGridViewTextBoxColumn";
             this.sGSTPctDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // sGSTAmtDataGridViewTextBoxColumn
             // 
             this.sGSTAmtDataGridViewTextBoxColumn.DataPropertyName = "SGSTAmt";
-            this.sGSTAmtDataGridViewTextBoxColumn.HeaderText = "SGSTAmt";
+            this.sGSTAmtDataGridViewTextBoxColumn.HeaderText = "SGST Amount";
             this.sGSTAmtDataGridViewTextBoxColumn.Name = "sGSTAmtDataGridViewTextBoxColumn";
             this.sGSTAmtDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -458,7 +472,7 @@ namespace Prints
             // numberDataGridViewTextBoxColumn
             // 
             this.numberDataGridViewTextBoxColumn.DataPropertyName = "Number";
-            this.numberDataGridViewTextBoxColumn.HeaderText = "Number";
+            this.numberDataGridViewTextBoxColumn.HeaderText = "Invoice No.";
             this.numberDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.numberDataGridViewTextBoxColumn.Name = "numberDataGridViewTextBoxColumn";
             this.numberDataGridViewTextBoxColumn.ReadOnly = true;
@@ -476,7 +490,7 @@ namespace Prints
             // refNumberDataGridViewTextBoxColumn
             // 
             this.refNumberDataGridViewTextBoxColumn.DataPropertyName = "RefNumber";
-            this.refNumberDataGridViewTextBoxColumn.HeaderText = "RefNumber";
+            this.refNumberDataGridViewTextBoxColumn.HeaderText = "Ref.No.";
             this.refNumberDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.refNumberDataGridViewTextBoxColumn.Name = "refNumberDataGridViewTextBoxColumn";
             this.refNumberDataGridViewTextBoxColumn.ReadOnly = true;
@@ -503,7 +517,7 @@ namespace Prints
             // totalQtyDataGridViewTextBoxColumn
             // 
             this.totalQtyDataGridViewTextBoxColumn.DataPropertyName = "TotalQty";
-            this.totalQtyDataGridViewTextBoxColumn.HeaderText = "TotalQty";
+            this.totalQtyDataGridViewTextBoxColumn.HeaderText = "Total Qty";
             this.totalQtyDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.totalQtyDataGridViewTextBoxColumn.Name = "totalQtyDataGridViewTextBoxColumn";
             this.totalQtyDataGridViewTextBoxColumn.ReadOnly = true;
@@ -521,7 +535,7 @@ namespace Prints
             // netAmountDataGridViewTextBoxColumn
             // 
             this.netAmountDataGridViewTextBoxColumn.DataPropertyName = "NetAmount";
-            this.netAmountDataGridViewTextBoxColumn.HeaderText = "NetAmount";
+            this.netAmountDataGridViewTextBoxColumn.HeaderText = "Net Amount";
             this.netAmountDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.netAmountDataGridViewTextBoxColumn.Name = "netAmountDataGridViewTextBoxColumn";
             this.netAmountDataGridViewTextBoxColumn.ReadOnly = true;
@@ -536,6 +550,7 @@ namespace Prints
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.chkFullyear);
             this.Controls.Add(this.cboMonth);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dtpDate);
@@ -586,6 +601,8 @@ namespace Prints
         private System.Windows.Forms.ListBox lstMenu;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvGst;
+        private System.Windows.Forms.DataGridView dgvInvoices;
+        private System.Windows.Forms.ComboBox cboMonth;
         private System.Windows.Forms.DataGridViewTextBoxColumn gSTINDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn customerNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn invoiceNumberDataGridViewTextBoxColumn;
@@ -602,7 +619,6 @@ namespace Prints
         private System.Windows.Forms.DataGridViewTextBoxColumn sGSTPctDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn sGSTAmtDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridView dgvInvoices;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn refNumberDataGridViewTextBoxColumn;
@@ -611,6 +627,6 @@ namespace Prints
         private System.Windows.Forms.DataGridViewTextBoxColumn totalQtyDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotalDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn netAmountDataGridViewTextBoxColumn;
-        private System.Windows.Forms.ComboBox cboMonth;
+        private System.Windows.Forms.CheckBox chkFullyear;
     }
 }
