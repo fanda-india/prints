@@ -31,10 +31,6 @@ namespace Prints
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.listSplit = new System.Windows.Forms.SplitContainer();
-            this.lstMenu = new System.Windows.Forms.ListBox();
-            this.contentSplit = new System.Windows.Forms.SplitContainer();
-            this.dgvInvoices = new System.Windows.Forms.DataGridView();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.btnFirst = new System.Windows.Forms.Button();
             this.btnPrev = new System.Windows.Forms.Button();
@@ -49,7 +45,11 @@ namespace Prints
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.lstMenu = new System.Windows.Forms.ListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvGst = new System.Windows.Forms.DataGridView();
+            this.dgvInvoices = new System.Windows.Forms.DataGridView();
+            this.cboMonth = new System.Windows.Forms.ComboBox();
             this.gSTINDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.invoiceNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,135 +76,35 @@ namespace Prints
             this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.netAmountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.printListItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.listSplit)).BeginInit();
-            this.listSplit.Panel1.SuspendLayout();
-            this.listSplit.Panel2.SuspendLayout();
-            this.listSplit.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.contentSplit)).BeginInit();
-            this.contentSplit.Panel1.SuspendLayout();
-            this.contentSplit.Panel2.SuspendLayout();
-            this.contentSplit.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInvoices)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGst)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInvoices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gstInputBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.printListItemBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // listSplit
-            // 
-            this.listSplit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listSplit.Location = new System.Drawing.Point(0, 39);
-            this.listSplit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.listSplit.Name = "listSplit";
-            // 
-            // listSplit.Panel1
-            // 
-            this.listSplit.Panel1.Controls.Add(this.lstMenu);
-            // 
-            // listSplit.Panel2
-            // 
-            this.listSplit.Panel2.Controls.Add(this.contentSplit);
-            this.listSplit.Size = new System.Drawing.Size(984, 522);
-            this.listSplit.SplitterDistance = 190;
-            this.listSplit.SplitterWidth = 5;
-            this.listSplit.TabIndex = 1;
-            // 
-            // lstMenu
-            // 
-            this.lstMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lstMenu.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstMenu.FormattingEnabled = true;
-            this.lstMenu.ItemHeight = 17;
-            this.lstMenu.Items.AddRange(new object[] {
-            "Invoices",
-            "GST Input Report",
-            "GST Output Report",
-            "Receipts"});
-            this.lstMenu.Location = new System.Drawing.Point(0, 0);
-            this.lstMenu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.lstMenu.Name = "lstMenu";
-            this.lstMenu.Size = new System.Drawing.Size(190, 522);
-            this.lstMenu.TabIndex = 0;
-            this.lstMenu.SelectedIndexChanged += new System.EventHandler(this.lstMenu_SelectedIndexChanged);
-            // 
-            // contentSplit
-            // 
-            this.contentSplit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.contentSplit.Location = new System.Drawing.Point(0, 0);
-            this.contentSplit.Margin = new System.Windows.Forms.Padding(2);
-            this.contentSplit.Name = "contentSplit";
-            this.contentSplit.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // contentSplit.Panel1
-            // 
-            this.contentSplit.Panel1.Controls.Add(this.dgvGst);
-            this.contentSplit.Panel1.Controls.Add(this.dgvInvoices);
-            // 
-            // contentSplit.Panel2
-            // 
-            this.contentSplit.Panel2.Controls.Add(this.dtpDate);
-            this.contentSplit.Panel2.Controls.Add(this.btnFirst);
-            this.contentSplit.Panel2.Controls.Add(this.btnPrev);
-            this.contentSplit.Panel2.Controls.Add(this.btnNext);
-            this.contentSplit.Panel2.Controls.Add(this.btnLast);
-            this.contentSplit.Panel2.Margin = new System.Windows.Forms.Padding(8);
-            this.contentSplit.Panel2.Padding = new System.Windows.Forms.Padding(4);
-            this.contentSplit.Size = new System.Drawing.Size(789, 522);
-            this.contentSplit.SplitterDistance = 467;
-            this.contentSplit.SplitterWidth = 3;
-            this.contentSplit.TabIndex = 2;
-            // 
-            // dgvInvoices
-            // 
-            this.dgvInvoices.AllowUserToAddRows = false;
-            this.dgvInvoices.AllowUserToDeleteRows = false;
-            this.dgvInvoices.AllowUserToOrderColumns = true;
-            this.dgvInvoices.AutoGenerateColumns = false;
-            this.dgvInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvInvoices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.numberDataGridViewTextBoxColumn,
-            this.dateDataGridViewTextBoxColumn,
-            this.refNumberDataGridViewTextBoxColumn,
-            this.partyDataGridViewTextBoxColumn,
-            this.cityDataGridViewTextBoxColumn,
-            this.totalQtyDataGridViewTextBoxColumn,
-            this.subtotalDataGridViewTextBoxColumn,
-            this.netAmountDataGridViewTextBoxColumn});
-            this.dgvInvoices.DataSource = this.printListItemBindingSource;
-            this.dgvInvoices.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvInvoices.Location = new System.Drawing.Point(0, 0);
-            this.dgvInvoices.Margin = new System.Windows.Forms.Padding(2);
-            this.dgvInvoices.Name = "dgvInvoices";
-            this.dgvInvoices.ReadOnly = true;
-            this.dgvInvoices.RowHeadersWidth = 45;
-            this.dgvInvoices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvInvoices.Size = new System.Drawing.Size(789, 467);
-            this.dgvInvoices.TabIndex = 0;
-            this.dgvInvoices.Visible = false;
             // 
             // dtpDate
             // 
             this.dtpDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpDate.CustomFormat = "dd-MM-yyyy";
             this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDate.Location = new System.Drawing.Point(507, 17);
+            this.dtpDate.Location = new System.Drawing.Point(703, 522);
             this.dtpDate.Margin = new System.Windows.Forms.Padding(2);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(114, 25);
-            this.dtpDate.TabIndex = 1;
+            this.dtpDate.TabIndex = 4;
             this.dtpDate.Value = new System.DateTime(2020, 11, 17, 0, 0, 0, 0);
             this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
             // 
             // btnFirst
             // 
             this.btnFirst.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFirst.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFirst.Location = new System.Drawing.Point(350, 16);
+            this.btnFirst.Location = new System.Drawing.Point(547, 522);
             this.btnFirst.Margin = new System.Windows.Forms.Padding(2);
             this.btnFirst.Name = "btnFirst";
-            this.btnFirst.Size = new System.Drawing.Size(74, 26);
-            this.btnFirst.TabIndex = 0;
+            this.btnFirst.Size = new System.Drawing.Size(74, 28);
+            this.btnFirst.TabIndex = 2;
             this.btnFirst.Text = "First";
             this.btnFirst.UseVisualStyleBackColor = true;
             this.btnFirst.Click += new System.EventHandler(this.btnFirst_Click);
@@ -212,12 +112,11 @@ namespace Prints
             // btnPrev
             // 
             this.btnPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrev.Location = new System.Drawing.Point(429, 16);
+            this.btnPrev.Location = new System.Drawing.Point(625, 522);
             this.btnPrev.Margin = new System.Windows.Forms.Padding(2);
             this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(74, 26);
-            this.btnPrev.TabIndex = 0;
+            this.btnPrev.Size = new System.Drawing.Size(74, 28);
+            this.btnPrev.TabIndex = 3;
             this.btnPrev.Text = "Previous";
             this.btnPrev.UseVisualStyleBackColor = true;
             this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
@@ -225,12 +124,11 @@ namespace Prints
             // btnNext
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNext.Location = new System.Drawing.Point(625, 16);
+            this.btnNext.Location = new System.Drawing.Point(821, 522);
             this.btnNext.Margin = new System.Windows.Forms.Padding(2);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(74, 26);
-            this.btnNext.TabIndex = 0;
+            this.btnNext.Size = new System.Drawing.Size(74, 28);
+            this.btnNext.TabIndex = 5;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
@@ -238,12 +136,11 @@ namespace Prints
             // btnLast
             // 
             this.btnLast.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLast.Location = new System.Drawing.Point(704, 16);
+            this.btnLast.Location = new System.Drawing.Point(899, 522);
             this.btnLast.Margin = new System.Windows.Forms.Padding(2);
             this.btnLast.Name = "btnLast";
-            this.btnLast.Size = new System.Drawing.Size(74, 26);
-            this.btnLast.TabIndex = 0;
+            this.btnLast.Size = new System.Drawing.Size(74, 28);
+            this.btnLast.TabIndex = 6;
             this.btnLast.Text = "Last";
             this.btnLast.UseVisualStyleBackColor = true;
             this.btnLast.Click += new System.EventHandler(this.btnLast_Click);
@@ -323,11 +220,46 @@ namespace Prints
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 39);
             // 
+            // lstMenu
+            // 
+            this.lstMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lstMenu.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstMenu.FormattingEnabled = true;
+            this.lstMenu.IntegralHeight = false;
+            this.lstMenu.ItemHeight = 17;
+            this.lstMenu.Items.AddRange(new object[] {
+            "Invoices",
+            "GST Input Report",
+            "GST Output Report",
+            "Receipts"});
+            this.lstMenu.Location = new System.Drawing.Point(13, 44);
+            this.lstMenu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lstMenu.Name = "lstMenu";
+            this.lstMenu.Size = new System.Drawing.Size(190, 503);
+            this.lstMenu.TabIndex = 1;
+            this.lstMenu.SelectedIndexChanged += new System.EventHandler(this.lstMenu_SelectedIndexChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.dgvGst);
+            this.groupBox1.Controls.Add(this.dgvInvoices);
+            this.groupBox1.Location = new System.Drawing.Point(210, 44);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(762, 473);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Details";
+            // 
             // dgvGst
             // 
             this.dgvGst.AllowUserToAddRows = false;
             this.dgvGst.AllowUserToDeleteRows = false;
             this.dgvGst.AutoGenerateColumns = false;
+            this.dgvGst.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvGst.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvGst.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.gSTINDataGridViewTextBoxColumn,
@@ -347,13 +279,65 @@ namespace Prints
             this.sGSTAmtDataGridViewTextBoxColumn,
             this.totalDataGridViewTextBoxColumn});
             this.dgvGst.DataSource = this.gstInputBindingSource;
-            this.dgvGst.Location = new System.Drawing.Point(140, 88);
+            this.dgvGst.Location = new System.Drawing.Point(44, 74);
             this.dgvGst.Name = "dgvGst";
             this.dgvGst.ReadOnly = true;
             this.dgvGst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvGst.Size = new System.Drawing.Size(469, 255);
+            this.dgvGst.Size = new System.Drawing.Size(607, 373);
             this.dgvGst.TabIndex = 1;
             this.dgvGst.Visible = false;
+            // 
+            // dgvInvoices
+            // 
+            this.dgvInvoices.AllowUserToAddRows = false;
+            this.dgvInvoices.AllowUserToDeleteRows = false;
+            this.dgvInvoices.AllowUserToOrderColumns = true;
+            this.dgvInvoices.AutoGenerateColumns = false;
+            this.dgvInvoices.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvInvoices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.numberDataGridViewTextBoxColumn,
+            this.dateDataGridViewTextBoxColumn,
+            this.refNumberDataGridViewTextBoxColumn,
+            this.partyDataGridViewTextBoxColumn,
+            this.cityDataGridViewTextBoxColumn,
+            this.totalQtyDataGridViewTextBoxColumn,
+            this.subtotalDataGridViewTextBoxColumn,
+            this.netAmountDataGridViewTextBoxColumn});
+            this.dgvInvoices.DataSource = this.printListItemBindingSource;
+            this.dgvInvoices.Location = new System.Drawing.Point(5, 23);
+            this.dgvInvoices.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvInvoices.Name = "dgvInvoices";
+            this.dgvInvoices.ReadOnly = true;
+            this.dgvInvoices.RowHeadersWidth = 45;
+            this.dgvInvoices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvInvoices.Size = new System.Drawing.Size(578, 384);
+            this.dgvInvoices.TabIndex = 0;
+            this.dgvInvoices.Visible = false;
+            // 
+            // cboMonth
+            // 
+            this.cboMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMonth.FormattingEnabled = true;
+            this.cboMonth.Items.AddRange(new object[] {
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+            "January",
+            "February",
+            "March"});
+            this.cboMonth.Location = new System.Drawing.Point(428, 522);
+            this.cboMonth.Name = "cboMonth";
+            this.cboMonth.Size = new System.Drawing.Size(114, 25);
+            this.cboMonth.TabIndex = 8;
+            this.cboMonth.Visible = false;
+            this.cboMonth.SelectedIndexChanged += new System.EventHandler(this.cboMonth_SelectedIndexChanged);
             // 
             // gSTINDataGridViewTextBoxColumn
             // 
@@ -552,8 +536,15 @@ namespace Prints
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
-            this.Controls.Add(this.listSplit);
+            this.Controls.Add(this.cboMonth);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.dtpDate);
+            this.Controls.Add(this.lstMenu);
+            this.Controls.Add(this.btnFirst);
+            this.Controls.Add(this.btnPrev);
             this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.btnLast);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -563,18 +554,11 @@ namespace Prints
             this.Text = "Prints";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
-            this.listSplit.Panel1.ResumeLayout(false);
-            this.listSplit.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.listSplit)).EndInit();
-            this.listSplit.ResumeLayout(false);
-            this.contentSplit.Panel1.ResumeLayout(false);
-            this.contentSplit.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.contentSplit)).EndInit();
-            this.contentSplit.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInvoices)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGst)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInvoices)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gstInputBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.printListItemBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -583,15 +567,11 @@ namespace Prints
         }
 
         #endregion
-        private System.Windows.Forms.SplitContainer listSplit;
-        private System.Windows.Forms.ListBox lstMenu;
-        private System.Windows.Forms.SplitContainer contentSplit;
         private System.Windows.Forms.Button btnLast;
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.Button btnPrev;
         private System.Windows.Forms.Button btnFirst;
-        private System.Windows.Forms.DataGridView dgvInvoices;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox tscCompanies;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -602,14 +582,9 @@ namespace Prints
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.BindingSource printListItemBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numberDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn refNumberDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn partyDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cityDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalQtyDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn subtotalDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn netAmountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource gstInputBindingSource;
+        private System.Windows.Forms.ListBox lstMenu;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvGst;
         private System.Windows.Forms.DataGridViewTextBoxColumn gSTINDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn customerNameDataGridViewTextBoxColumn;
@@ -627,6 +602,15 @@ namespace Prints
         private System.Windows.Forms.DataGridViewTextBoxColumn sGSTPctDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn sGSTAmtDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource gstInputBindingSource;
+        private System.Windows.Forms.DataGridView dgvInvoices;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn refNumberDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn partyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalQtyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn subtotalDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn netAmountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ComboBox cboMonth;
     }
 }
