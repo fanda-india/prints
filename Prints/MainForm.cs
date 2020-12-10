@@ -132,13 +132,33 @@ namespace Prints
                         chkFullyear.Visible = true;
 
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
-                        LoadGSTInputReport(fileExt);
+                        LoadGSTReport(fileExt, GstReport.Input);
                     }
                     catch (Exception ex)
                     {
-                        LoadGSTInputReport("DBF");
+                        LoadGSTReport("DBF", GstReport.Input);
                     }
 
+                    break;
+
+                case "GST Output Report":
+                    try
+                    {
+                        dgvGst.Visible = true;
+                        dgvGst.Dock = DockStyle.Fill;
+                        dgvInvoices.Visible = false;
+                        cboMonth.Visible = true;
+                        cboMonth.Location = dtpDate.Location;
+                        dtpDate.Visible = false;
+                        chkFullyear.Visible = true;
+
+                        string fileExt = string.Format("{0:000}", SelectedCompany.Code);
+                        LoadGSTReport(fileExt, GstReport.Output);
+                    }
+                    catch (Exception ex)
+                    {
+                        LoadGSTReport("DBF", GstReport.Output);
+                    }
                     break;
 
                 case "Receipts":
@@ -172,7 +192,16 @@ namespace Prints
                     List<GstInput> gstInputs = gstInputBindingSource.DataSource as List<GstInput>;
                     if (gstInputs != null)
                     {
-                        PrintGstInput(DateFrom, DateTo, gstInputs);
+                        PrintGstReport(DateFrom, DateTo, gstInputs);
+                    }
+
+                    break;
+
+                case "GST Output Report":
+                    List<GstInput> gstOutputs = gstInputBindingSource.DataSource as List<GstInput>;
+                    if (gstOutputs != null)
+                    {
+                        PrintGstReport(DateFrom, DateTo, gstOutputs);
                     }
 
                     break;
@@ -393,7 +422,7 @@ namespace Prints
             }
         }
 
-        private void LoadGSTInputReport(string fileExtension)
+        private void LoadGSTReport(string fileExtension, GstReport report)
         {
             DateTime fromDate;
             DateTime toDate;
@@ -427,6 +456,13 @@ namespace Prints
             using (var con = new OleDbConnection(YearConnectionString))
             {
                 con.Open();
+
+                string filter;
+                if (report == GstReport.Input)
+                    filter = "i.CAT IN ('P', 'R', 'K', 'J')";
+                else //if (report == GstReport.Output)
+                    filter = "i.CAT IN ('S', 'U')";
+
                 // Invoices and Raw-material purchase
                 string query =
                     "SELECT a.SAL_TAX_NO AS GSTIN, a.NAME AS CustomerName, " +
@@ -437,12 +473,16 @@ namespace Prints
                     "i.PER_CGST AS CGSTPct, i.CGST AS CGSTAmt, " +
                     "i.PER_SGST AS SGSTPct, i.SGST AS SGSTAmt, i.NET_AMT AS Total " +
                     $"FROM {invHdr} AS i INNER JOIN {acctMast} AS a ON i.CODE=a.CODE " +
-                    $"WHERE CAT IN ('P', 'R', 'K', 'J') AND " +
-                    $"BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
-                    $"BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}')";
+                    $"WHERE {filter} AND " +
+                    $"i.BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
+                    $"i.BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}')";
                 var invoices = con.Query<GstInput>(query)
                     .ToList();
 
+                if (report == GstReport.Input)
+                    filter = "d.DB_CR = 'D'";
+                else //if (report == GstReport.Output)
+                    filter = "d.DB_CR = 'C'";
                 // Journals
                 query =
                     "SELECT h.BILL_NO BillNumber, a.SAL_TAX_NO AS GSTIN, a.NAME AS CustomerName, " +
@@ -452,35 +492,38 @@ namespace Prints
                     "d.TAXCODE, d.TAXNAME, d.TAXAMOUNT " +
                     $"FROM {jnlHdr} AS h " +
                     "INNER JOIN " +
-                    $"(SELECT BILL_NO, CODE AS TAXCODE, NAME AS TAXNAME, QTY, AMOUNT AS TAXAMOUNT, REF_NO, REF_DT FROM {jnlDtl}) AS d " +
+                    $"(SELECT BILL_NO, CODE AS TAXCODE, NAME AS TAXNAME, QTY, AMOUNT AS TAXAMOUNT, REF_NO, REF_DT, DB_CR FROM {jnlDtl}) AS d " +
                     "ON h.BILL_NO=d.BILL_NO " +
                     $"INNER JOIN {acctMast} AS a ON h.CODE=a.CODE " +
-                    $"WHERE d.TAXCODE LIKE 'BI%' AND " +
-                    $"BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
-                    $"BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}') " +
+                    $"WHERE d.TAXCODE LIKE 'BI%' AND {filter} AND " +
+                    $"h.BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
+                    $"h.BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}') " +
                     "ORDER BY h.BILL_NO";
                 var journals = con.Query<TaxInput>(query)
                     .ToList();
                 AddToInvoices(invoices, journals);
 
-                // Receipts
-                query =
-                    "SELECT h.BILL_NO BillNumber, a.SAL_TAX_NO GSTIN, a.NAME CustomerName, " +
-                    "h.BILL_NO InvoiceNumber, h.BILL_DT InvoiceDate, " +
-                    "'HSN/SAC' HSNSACCode, 0 AS Qty, h.EXP_TOT Total, " +
-                    "e.TAXCODE, e.TAXNAME, e.TAXAMOUNT " +
-                    $"FROM {rcpHdr} AS h " +
-                    $"INNER JOIN " +
-                    $"(SELECT BILL_NO, EXP_CODE AS TAXCODE, EXP_NAME AS TAXNAME, EXP_AMT AS TAXAMOUNT FROM {rcpExp}) AS e " +
-                    $"ON h.BILL_NO=e.BILL_NO " +
-                    $"INNER JOIN {acctMast} a ON h.CODE=a.CODE " +
-                    $"WHERE e.TAXCODE LIKE 'BI%' AND " +
-                    $"BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
-                    $"BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}') " +
-                    "ORDER BY h.BILL_NO";
-                var expenses = con.Query<TaxInput>(query)
-                    .ToList();
-                AddToInvoices(invoices, expenses);
+                if (report == GstReport.Input)
+                {
+                    // Receipts
+                    query =
+                        "SELECT h.BILL_NO BillNumber, a.SAL_TAX_NO GSTIN, a.NAME CustomerName, " +
+                        "h.BILL_NO InvoiceNumber, h.BILL_DT InvoiceDate, " +
+                        "'HSN/SAC' HSNSACCode, 0 AS Qty, h.EXP_TOT Total, " +
+                        "e.TAXCODE, e.TAXNAME, e.TAXAMOUNT " +
+                        $"FROM {rcpHdr} AS h " +
+                        $"INNER JOIN " +
+                        $"(SELECT BILL_NO, EXP_CODE AS TAXCODE, EXP_NAME AS TAXNAME, EXP_AMT AS TAXAMOUNT FROM {rcpExp}) AS e " +
+                        $"ON h.BILL_NO=e.BILL_NO " +
+                        $"INNER JOIN {acctMast} a ON h.CODE=a.CODE " +
+                        $"WHERE e.TAXCODE LIKE 'BI%' AND " +
+                        $"BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
+                        $"BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}') " +
+                        "ORDER BY h.BILL_NO";
+                    var expenses = con.Query<TaxInput>(query)
+                        .ToList();
+                    AddToInvoices(invoices, expenses);
+                }
 
                 gstInputBindingSource.DataSource = invoices
                     .OrderBy(i => string.IsNullOrWhiteSpace(i.GSTIN) ? 0 : 1)
@@ -643,7 +686,7 @@ namespace Prints
             }
         }
 
-        private void PrintGstInput(DateTime dateFrom, DateTime dateTo, List<GstInput> gstInputs)
+        private void PrintGstReport(DateTime dateFrom, DateTime dateTo, List<GstInput> gstInputs)
         {
             using (var rptForm = new ReportForm(SelectedCompany, dateFrom, dateTo, gstInputs))
             {
@@ -654,5 +697,11 @@ namespace Prints
         private void LoadReceipts()
         {
         }
+    }
+
+    internal enum GstReport
+    {
+        Input = 0,
+        Output = 1
     }
 }

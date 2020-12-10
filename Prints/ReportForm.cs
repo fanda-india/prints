@@ -44,7 +44,7 @@ namespace Prints
             lblInvoiceType.Visible = false;
             cboInvoiceType.Visible = false;
             btnShow.Visible = false;
-            Text = "GST Input Report";
+            Text = "GST Report";
 
             ShowGstInput();
         }
