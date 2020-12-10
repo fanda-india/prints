@@ -329,7 +329,7 @@ namespace Prints
                 {
                     string dirName = dir.Name;
 
-                    if (!dirName.StartsWith("AY"))
+                    if (!dirName.StartsWith("AY", StringComparison.OrdinalIgnoreCase))
                     {
                         continue;
                     }
