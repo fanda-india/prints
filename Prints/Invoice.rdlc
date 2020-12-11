@@ -4,18 +4,18 @@
   <Author>Balamurugan Thanikachalam</Author>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="WinReports">
+    <DataSource Name="Prints">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>ec62f451-0597-426c-8403-04d88423b315</rd:DataSourceID>
+      <rd:DataSourceID>dcd679de-a1b0-450e-bd1d-fe43498ae9c1</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="SalesLineItems">
       <Query>
-        <DataSourceName>WinReports</DataSourceName>
+        <DataSourceName>Prints</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -37,9 +37,9 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>WinReports</rd:DataSetName>
+        <rd:DataSetName>Prints</rd:DataSetName>
         <rd:TableName>SalesLineItem</rd:TableName>
-        <rd:ObjectDataSourceType>WinReports.SalesLineItem, WinReports, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:ObjectDataSourceType>Prints.SalesLineItem, Prints, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

@@ -109,7 +109,9 @@ namespace Prints
                         dgvGst.Visible = false;
                         dtpDate.Visible = true;
                         cboMonth.Visible = false;
+
                         chkFullyear.Visible = false;
+                        EnableNavigation(true);
 
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
                         LoadInvoices(fileExt);
@@ -129,7 +131,9 @@ namespace Prints
                         cboMonth.Visible = true;
                         cboMonth.Location = dtpDate.Location;
                         dtpDate.Visible = false;
+
                         chkFullyear.Visible = true;
+                        EnableNavigation(!chkFullyear.Checked);
 
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
                         LoadGSTReport(fileExt, GstReport.Input);
@@ -150,7 +154,9 @@ namespace Prints
                         cboMonth.Visible = true;
                         cboMonth.Location = dtpDate.Location;
                         dtpDate.Visible = false;
+
                         chkFullyear.Visible = true;
+                        EnableNavigation(!chkFullyear.Checked);
 
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
                         LoadGSTReport(fileExt, GstReport.Output);
@@ -266,26 +272,20 @@ namespace Prints
 
         private void chkFullyear_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkFullyear.Checked)
-            {
-                btnFirst.Enabled = false;
-                btnPrev.Enabled = false;
-                btnNext.Enabled = false;
-                btnLast.Enabled = false;
-                cboMonth.Enabled = false;
-            }
-            else
-            {
-                btnFirst.Enabled = true;
-                btnPrev.Enabled = true;
-                btnNext.Enabled = true;
-                btnLast.Enabled = true;
-                cboMonth.Enabled = true;
-            }
+            EnableNavigation(!chkFullyear.Checked);
             lstMenu_SelectedIndexChanged(this, null);
         }
 
         #endregion Navigation
+
+        private void EnableNavigation(bool enable = true)
+        {
+            btnFirst.Enabled = enable;
+            btnPrev.Enabled = enable;
+            btnNext.Enabled = enable;
+            btnLast.Enabled = enable;
+            cboMonth.Enabled = enable;
+        }
 
         private void LoadCompanies()
         {
