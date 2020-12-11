@@ -479,6 +479,16 @@ namespace Prints
                 var invoices = con.Query<GstInput>(query)
                     .ToList();
 
+                invoices
+                    .ForEach(i =>
+                    {
+                        i.GSTIN = i.GSTIN.Trim();
+                        i.CustomerName = i.CustomerName.Trim();
+                        i.InvoiceNumber = i.InvoiceNumber.Trim();
+                        i.RefNumber = i.RefNumber.Trim();
+                        i.RefDate = i.RefDate?.Year == 1899 ? null : i.RefDate;
+                    });
+
                 if (report == GstReport.Input)
                     filter = "d.DB_CR = 'D'";
                 else //if (report == GstReport.Output)
@@ -501,6 +511,16 @@ namespace Prints
                     "ORDER BY h.BILL_NO";
                 var journals = con.Query<TaxInput>(query)
                     .ToList();
+                journals
+                    .ForEach(i =>
+                    {
+                        i.GSTIN = i.GSTIN.Trim();
+                        i.CustomerName = i.CustomerName.Trim();
+                        i.InvoiceNumber = i.InvoiceNumber.Trim();
+                        i.RefNumber = i.RefNumber.Trim();
+                        i.RefDate = i.RefDate?.Year == 1899 ? null : i.RefDate;
+                    });
+
                 AddToInvoices(invoices, journals);
 
                 if (report == GstReport.Input)
@@ -522,6 +542,15 @@ namespace Prints
                         "ORDER BY h.BILL_NO";
                     var expenses = con.Query<TaxInput>(query)
                         .ToList();
+                    expenses
+                        .ForEach(i =>
+                        {
+                            i.GSTIN = i.GSTIN.Trim();
+                            i.CustomerName = i.CustomerName.Trim();
+                            i.InvoiceNumber = i.InvoiceNumber.Trim();
+                            //i.RefNumber = i.RefNumber.Trim();
+                            //i.RefDate = i.RefDate?.Year == 1899 ? null : i.RefDate;
+                        });
                     AddToInvoices(invoices, expenses);
                 }
 
