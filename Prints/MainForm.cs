@@ -468,7 +468,7 @@ namespace Prints
                     "SELECT a.SAL_TAX_NO AS GSTIN, a.NAME AS CustomerName, " +
                     "i.BILL_NO AS InvoiceNumber, i.BILL_DT AS InvoiceDate, " +
                     "i.REF_NO AS RefNumber, i.REF_DT AS RefDate, " +
-                    "'HSN/SAC' AS HSNSACCode, i.TOT_QTY AS Qty, i.SUB_TOT-i.DISCOUNT1 AS BeforeTax, " +
+                    "'HSN/SAC' AS HSNSACCode, i.TOT_QTY AS Qty, i.SUB_TOT-i.DISCOUNT1+i.PARCEL AS BeforeTax, " +
                     "i.PER_IGST AS IGSTPct, i.IGST AS IGSTAmt, " +
                     "i.PER_CGST AS CGSTPct, i.CGST AS CGSTAmt, " +
                     "i.PER_SGST AS SGSTPct, i.SGST AS SGSTAmt, i.NET_AMT AS Total " +
