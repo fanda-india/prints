@@ -101,6 +101,7 @@ namespace Prints
                 new ReportParameter("BillDate", header.Date.ToString("dd-MM-yyyy")),
                 new ReportParameter("TotalQty", header.TotalQty.ToString()),
                 new ReportParameter("Subtotal", header.Subtotal.ToString()),
+                new ReportParameter("Disc1Pct", header.Disc1Pct.ToString()),
                 new ReportParameter("Disc1Amt", header.Disc1Amt.ToString()),
                 new ReportParameter("SGSTPct", header.SGSTPct==0 ? string.Empty: header.SGSTPct.ToString()),
                 new ReportParameter("SGSTAmt", header.SGSTAmt==0 ? string.Empty: header.SGSTAmt.ToString()),

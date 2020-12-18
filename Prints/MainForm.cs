@@ -411,7 +411,7 @@ namespace Prints
                 salesHeader = con.QuerySingle<SalesHeader>(query);
 
                 query = "SELECT SL_NO AS SerialNumber, SAREE_NO AS SareeNumber, " +
-                    "ITEM_NAME AS Description, PRICE AS Rate " +
+                    "ITEM_NAME AS Description, ITEM_HSN AS HsnCode, PRICE AS Rate " +
                     $"FROM {salesDbf} WHERE BILL_NO='{printHeader.Number}'";
                 lineItems = con.Query<SalesLineItem>(query).ToList();
             }
