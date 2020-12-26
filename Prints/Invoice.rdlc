@@ -55,25 +55,25 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.42711in</Width>
+                  <Width>0.41109in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.72182in</Width>
+                  <Width>0.7058in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.14314in</Width>
+                  <Width>3.09309in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.78016in</Width>
+                  <Width>0.8438in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.43359in</Width>
+                  <Width>0.51454in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.09693in</Width>
+                  <Width>1.08091in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.11237in</Width>
+                  <Width>1.09635in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -582,7 +582,7 @@
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <DataSetName>SalesLineItems</DataSetName>
             <Height>0.44444in</Height>
-            <Width>7.71513in</Width>
+            <Width>7.74557in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -602,7 +602,7 @@
           </TopBorder>
         </Style>
       </Body>
-      <Width>7.71791in</Width>
+      <Width>7.74916in</Width>
       <Page>
         <PageHeader>
           <Height>2.17514in</Height>
@@ -1077,7 +1077,7 @@
             <Line Name="Line1">
               <Top>1.22222in</Top>
               <Height>0in</Height>
-              <Width>7.71791in</Width>
+              <Width>7.74916in</Width>
               <ZIndex>14</ZIndex>
               <Style>
                 <Border>
@@ -1462,7 +1462,7 @@
               <Top>1.70138in</Top>
               <Left>5.54386in</Left>
               <Height>0in</Height>
-              <Width>2.17405in</Width>
+              <Width>2.2053in</Width>
               <ZIndex>26</ZIndex>
               <Style>
                 <Border>
@@ -1787,7 +1787,7 @@
               <Top>0.55in</Top>
               <Left>0.04551cm</Left>
               <Height>0in</Height>
-              <Width>7.69999in</Width>
+              <Width>7.73124in</Width>
               <ZIndex>3</ZIndex>
               <Style>
                 <Border>
@@ -1955,7 +1955,7 @@
             <Line Name="Line8">
               <Top>1.58207in</Top>
               <Height>0in</Height>
-              <Width>7.71791in</Width>
+              <Width>7.74916in</Width>
               <ZIndex>10</ZIndex>
               <Style>
                 <Border>
@@ -2784,7 +2784,7 @@
             <Line Name="Line17">
               <Top>1.87663in</Top>
               <Height>0in</Height>
-              <Width>7.71791in</Width>
+              <Width>7.74916in</Width>
               <ZIndex>41</ZIndex>
               <Style>
                 <Border>
@@ -2957,7 +2957,7 @@
             <Line Name="Line18">
               <Top>2.62455in</Top>
               <Height>0in</Height>
-              <Width>7.71791in</Width>
+              <Width>7.74916in</Width>
               <ZIndex>47</ZIndex>
               <Style>
                 <Border>
