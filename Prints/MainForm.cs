@@ -186,7 +186,7 @@ namespace Prints
                             string fileExt = string.Format("{0:000}", SelectedCompany.Code);
                             PrintInvoice(printHeader, fileExt);
                         }
-                        catch
+                        catch (Exception ex)
                         {
                             PrintInvoice(printHeader, "DBF");
                         }

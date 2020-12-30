@@ -93,6 +93,7 @@ namespace Prints
                 new ReportParameter("CompanyBankIfsc", company.BankIfsc),
                 new ReportParameter("PartyName", party.Name),
                 new ReportParameter("PartyAddress", party.Address),
+                new ReportParameter("PartyArea", party.Area),
                 new ReportParameter("PartyCity", party.City),
                 new ReportParameter("PartyPinCode", party.PinCode),
                 new ReportParameter("PartyPhone", party.Phone),

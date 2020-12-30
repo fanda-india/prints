@@ -580,9 +580,12 @@
             </TablixRowHierarchy>
             <RepeatColumnHeaders>true</RepeatColumnHeaders>
             <RepeatRowHeaders>true</RepeatRowHeaders>
+            <FixedColumnHeaders>true</FixedColumnHeaders>
+            <FixedRowHeaders>true</FixedRowHeaders>
             <DataSetName>SalesLineItems</DataSetName>
+            <Top>0in</Top>
             <Height>0.44444in</Height>
-            <Width>7.74557in</Width>
+            <Width>7.74558in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -665,7 +668,7 @@
               <Top>0.41666in</Top>
               <Left>4.95614cm</Left>
               <Height>0.25in</Height>
-              <Width>3.84986in</Width>
+              <Width>3.75611in</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -697,7 +700,7 @@
               <Top>0.62083in</Top>
               <Left>4.95614cm</Left>
               <Height>0.2125in</Height>
-              <Width>3.84986in</Width>
+              <Width>3.75611in</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -729,7 +732,7 @@
               <Top>0.80624in</Top>
               <Left>4.95614cm</Left>
               <Height>0.2125in</Height>
-              <Width>3.84986in</Width>
+              <Width>3.75611in</Width>
               <ZIndex>3</ZIndex>
               <Style>
                 <Border>
@@ -794,9 +797,9 @@
               </Paragraphs>
               <rd:DefaultName>CompanyGSTIN</rd:DefaultName>
               <Top>0.41666in</Top>
-              <Left>6.28972in</Left>
+              <Left>6.20986in</Left>
               <Height>0.18611in</Height>
-              <Width>1.42541in</Width>
+              <Width>1.50527in</Width>
               <ZIndex>5</ZIndex>
               <Style>
                 <Border>
@@ -826,7 +829,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
               <Top>0.41666in</Top>
-              <Left>5.82887in</Left>
+              <Left>5.74901in</Left>
               <Height>0.18611in</Height>
               <Width>0.49001in</Width>
               <ZIndex>6</ZIndex>
@@ -858,7 +861,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
               <Top>0.59999in</Top>
-              <Left>5.82887in</Left>
+              <Left>5.74901in</Left>
               <Height>0.2in</Height>
               <Width>0.46501in</Width>
               <ZIndex>7</ZIndex>
@@ -891,9 +894,9 @@
               </Paragraphs>
               <rd:DefaultName>CompanyPAN</rd:DefaultName>
               <Top>0.59999in</Top>
-              <Left>6.28972in</Left>
+              <Left>6.20986in</Left>
               <Height>0.2in</Height>
-              <Width>1.42541in</Width>
+              <Width>1.50527in</Width>
               <ZIndex>8</ZIndex>
               <Style>
                 <Border>
@@ -923,7 +926,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox7</rd:DefaultName>
               <Top>0.76458in</Top>
-              <Left>5.82887in</Left>
+              <Left>5.74901in</Left>
               <Height>0.2in</Height>
               <Width>0.46501in</Width>
               <ZIndex>9</ZIndex>
@@ -956,9 +959,9 @@
               </Paragraphs>
               <rd:DefaultName>CompanyPhone1</rd:DefaultName>
               <Top>0.76458in</Top>
-              <Left>6.28972in</Left>
+              <Left>6.20986in</Left>
               <Height>0.2in</Height>
-              <Width>1.42541in</Width>
+              <Width>1.50527in</Width>
               <ZIndex>10</ZIndex>
               <Style>
                 <Border>
@@ -989,9 +992,9 @@
               </Paragraphs>
               <rd:DefaultName>CompanyPhone2</rd:DefaultName>
               <Top>0.92916in</Top>
-              <Left>6.28972in</Left>
+              <Left>6.20986in</Left>
               <Height>0.18611in</Height>
-              <Width>1.42541in</Width>
+              <Width>1.50527in</Width>
               <ZIndex>11</ZIndex>
               <Style>
                 <Border>
@@ -1023,7 +1026,7 @@
               <Top>0.96666in</Top>
               <Left>1.95124in</Left>
               <Height>0.2125in</Height>
-              <Width>3.84986in</Width>
+              <Width>3.75611in</Width>
               <ZIndex>12</ZIndex>
               <Style>
                 <Border>
@@ -1318,7 +1321,7 @@
                       <Style />
                     </TextRun>
                     <TextRun>
-                      <Value xml:space="preserve"> </Value>
+                      <Value>, </Value>
                       <Style />
                     </TextRun>
                     <TextRun>
@@ -1681,7 +1684,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>2.85094in</Height>
+          <Height>2.89658in</Height>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
             <Textbox Name="Textbox3">
@@ -1704,9 +1707,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
               <Top>0cm</Top>
-              <Left>4.36612in</Left>
+              <Left>4.20998in</Left>
               <Height>0.21944in</Height>
-              <Width>0.72763in</Width>
+              <Width>0.76432in</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1769,9 +1772,9 @@
               </Paragraphs>
               <rd:DefaultName>TotalQty</rd:DefaultName>
               <Top>0cm</Top>
-              <Left>5.09375in</Left>
+              <Left>5.05378in</Left>
               <Height>0.21944in</Height>
-              <Width>0.42639in</Width>
+              <Width>0.46636in</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -1816,7 +1819,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=IIf(CDec(Parameters!Disc1Amt.Value)=0, "", "Discount")</Value>
+                      <Value>=IIf(CDec(Parameters!Disc1Amt.Value)=0, "", "Discount:")</Value>
                       <Style />
                     </TextRun>
                     <TextRun>
@@ -1885,7 +1888,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Taxable Value</Value>
+                      <Value>Taxable Value:</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
@@ -2954,18 +2957,6 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
-            <Line Name="Line18">
-              <Top>2.62455in</Top>
-              <Height>0in</Height>
-              <Width>7.74916in</Width>
-              <ZIndex>47</ZIndex>
-              <Style>
-                <Border>
-                  <Color>DimGray</Color>
-                  <Style>Solid</Style>
-                </Border>
-              </Style>
-            </Line>
             <Textbox Name="Textbox43">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
@@ -2987,9 +2978,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox42</rd:DefaultName>
               <Top>2.64658in</Top>
-              <Height>0.20435in</Height>
-              <Width>7.71791in</Width>
-              <ZIndex>48</ZIndex>
+              <Height>0.25in</Height>
+              <Width>7.74558in</Width>
+              <ZIndex>47</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3020,7 +3011,7 @@
               <Left>0.01792in</Left>
               <Height>0.25in</Height>
               <Width>0.52945in</Width>
-              <ZIndex>49</ZIndex>
+              <ZIndex>48</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3060,7 +3051,7 @@
               <Left>5.58513in</Left>
               <Height>0.2319in</Height>
               <Width>1.06611in</Width>
-              <ZIndex>50</ZIndex>
+              <ZIndex>49</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3100,7 +3091,7 @@
               <Left>5.58513in</Left>
               <Height>0.22922in</Height>
               <Width>1.06611in</Width>
-              <ZIndex>51</ZIndex>
+              <ZIndex>50</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3140,7 +3131,7 @@
               <Left>5.58513in</Left>
               <Height>0.20283in</Height>
               <Width>1.06611in</Width>
-              <ZIndex>52</ZIndex>
+              <ZIndex>51</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3174,7 +3165,7 @@
               <Left>6.66513in</Left>
               <Height>0.2319in</Height>
               <Width>1.05001in</Width>
-              <ZIndex>53</ZIndex>
+              <ZIndex>52</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3208,7 +3199,7 @@
               <Left>6.66513in</Left>
               <Height>0.20069in</Height>
               <Width>1.05001in</Width>
-              <ZIndex>54</ZIndex>
+              <ZIndex>53</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3242,7 +3233,7 @@
               <Left>6.66513in</Left>
               <Height>0.20283in</Height>
               <Width>1.05001in</Width>
-              <ZIndex>55</ZIndex>
+              <ZIndex>54</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3260,7 +3251,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Parcel</Value>
+                      <Value>Parcel:</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                       </Style>
@@ -3276,7 +3267,7 @@
               <Left>5.58513in</Left>
               <Height>0.20283in</Height>
               <Width>1.06409in</Width>
-              <ZIndex>56</ZIndex>
+              <ZIndex>55</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3310,7 +3301,7 @@
               <Left>6.677in</Left>
               <Height>0.20246in</Height>
               <Width>1.03813in</Width>
-              <ZIndex>57</ZIndex>
+              <ZIndex>56</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3344,7 +3335,7 @@
               <Left>0.50848in</Left>
               <Height>0.21875in</Height>
               <Width>3.74535in</Width>
-              <ZIndex>58</ZIndex>
+              <ZIndex>57</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3378,7 +3369,7 @@
               <Left>0.50848in</Left>
               <Height>0.25in</Height>
               <Width>3.74535in</Width>
-              <ZIndex>59</ZIndex>
+              <ZIndex>58</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3412,6 +3403,58 @@
               <Left>0.50848in</Left>
               <Height>0.25in</Height>
               <Width>3.74535in</Width>
+              <ZIndex>59</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="PageNumber">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Globals!PageNumber</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value> of </Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Globals!TotalPages</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value xml:space="preserve"> </Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>PageNumber</rd:DefaultName>
+              <Top>2.65908in</Top>
+              <Left>5.93625in</Left>
+              <Height>0.20435in</Height>
+              <Width>1.77888in</Width>
               <ZIndex>60</ZIndex>
               <Style>
                 <Border>
@@ -3423,6 +3466,18 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
+            <Line Name="Line18">
+              <Top>2.62455in</Top>
+              <Height>0in</Height>
+              <Width>7.74916in</Width>
+              <ZIndex>61</ZIndex>
+              <Style>
+                <Border>
+                  <Color>DimGray</Color>
+                  <Style>Solid</Style>
+                </Border>
+              </Style>
+            </Line>
           </ReportItems>
           <Style>
             <Border>

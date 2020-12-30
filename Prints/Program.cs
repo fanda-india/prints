@@ -11,6 +11,9 @@ namespace Prints
         [STAThread]
         private static void Main()
         {
+            PrintBarcode pb = new PrintBarcode();
+            pb.Print();
+            Application.Exit();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
