@@ -118,6 +118,7 @@ namespace Prints
                     }
                     catch (Exception ex)
                     {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
                         LoadInvoices("DBF");
                     }
                     break;
@@ -140,6 +141,7 @@ namespace Prints
                     }
                     catch (Exception ex)
                     {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
                         LoadGSTReport("DBF", GstReport.Input);
                     }
 
@@ -163,6 +165,7 @@ namespace Prints
                     }
                     catch (Exception ex)
                     {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
                         LoadGSTReport("DBF", GstReport.Output);
                     }
                     break;
@@ -178,8 +181,7 @@ namespace Prints
             switch (lstMenu.SelectedItem as string)
             {
                 case "Invoices":
-                    var printHeader = printListItemBindingSource.Current as PrintHeader;
-                    if (printHeader != null)
+                    if (printListItemBindingSource.Current is PrintHeader printHeader)
                     {
                         try
                         {
@@ -188,6 +190,7 @@ namespace Prints
                         }
                         catch (Exception ex)
                         {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
                             PrintInvoice(printHeader, "DBF");
                         }
                     }
@@ -195,8 +198,7 @@ namespace Prints
                     break;
 
                 case "GST Input Report":
-                    List<GstInput> gstInputs = gstInputBindingSource.DataSource as List<GstInput>;
-                    if (gstInputs != null)
+                    if (gstInputBindingSource.DataSource is List<GstInput> gstInputs)
                     {
                         PrintGstReport(DateFrom, DateTo, gstInputs);
                     }
@@ -204,8 +206,7 @@ namespace Prints
                     break;
 
                 case "GST Output Report":
-                    List<GstInput> gstOutputs = gstInputBindingSource.DataSource as List<GstInput>;
-                    if (gstOutputs != null)
+                    if (gstInputBindingSource.DataSource is List<GstInput> gstOutputs)
                     {
                         PrintGstReport(DateFrom, DateTo, gstOutputs);
                     }
@@ -377,7 +378,7 @@ namespace Prints
                 string query = "SELECT BILL_NO AS Number, BILL_DT AS Date, REF_NO AS RefNumber, " +
                     "CODE AS PartyCode, NAME AS Party, CITY AS City, TOT_QTY AS TotalQty, " +
                     "SUB_TOT AS Subtotal, NET_AMT AS NetAmount " +
-                    $"FROM {fileName} WHERE CAT='S' AND BILL_DT=CTOD('{dtpDate.Value.ToString("MM/dd/yyyy")}') " +
+                    $"FROM {fileName} WHERE CAT='S' AND BILL_DT=CTOD('{dtpDate.Value:MM/dd/yyyy}') " +
                     "ORDER BY BILL_NO";
 
                 var invoices = con.Query<PrintHeader>(query);
@@ -460,6 +461,7 @@ namespace Prints
                 string filter;
                 if (report == GstReport.Input)
                     filter = "i.CAT IN ('P', 'R', 'K', 'J')";
+                //filter = "i.CAT IN ('J')";
                 else //if (report == GstReport.Output)
                     filter = "i.CAT IN ('S', 'U')";
 
@@ -469,13 +471,13 @@ namespace Prints
                     "i.BILL_NO AS InvoiceNumber, i.BILL_DT AS InvoiceDate, " +
                     "i.REF_NO AS RefNumber, i.REF_DT AS RefDate, " +
                     "'HSN/SAC' AS HSNSACCode, i.TOT_QTY AS Qty, i.SUB_TOT-i.DISCOUNT1+i.PARCEL AS BeforeTax, " +
-                    "i.PER_IGST AS IGSTPct, i.IGST AS IGSTAmt, " +
+                    "i.PER_IGST AS IGSTPct, i.IGST AS IGSTAmt, " +   // i.PER_IGST
                     "i.PER_CGST AS CGSTPct, i.CGST AS CGSTAmt, " +
                     "i.PER_SGST AS SGSTPct, i.SGST AS SGSTAmt, i.NET_AMT AS Total " +
                     $"FROM {invHdr} AS i INNER JOIN {acctMast} AS a ON i.CODE=a.CODE " +
                     $"WHERE {filter} AND " +
-                    $"i.BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
-                    $"i.BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}')";
+                    $"i.BILL_DT >= CTOD('{fromDate:MM/dd/yyyy}') AND " +
+                    $"i.BILL_DT <= CTOD('{toDate:MM/dd/yyyy}')";
                 var invoices = con.Query<GstInput>(query)
                     .ToList();
 
@@ -506,8 +508,8 @@ namespace Prints
                     "ON h.BILL_NO=d.BILL_NO " +
                     $"INNER JOIN {acctMast} AS a ON h.CODE=a.CODE " +
                     $"WHERE d.TAXCODE LIKE 'BI%' AND {filter} AND " +
-                    $"h.BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
-                    $"h.BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}') " +
+                    $"h.BILL_DT >= CTOD('{fromDate:MM/dd/yyyy}') AND " +
+                    $"h.BILL_DT <= CTOD('{toDate:MM/dd/yyyy}') " +
                     "ORDER BY h.BILL_NO";
                 var journals = con.Query<TaxInput>(query)
                     .ToList();
@@ -529,7 +531,7 @@ namespace Prints
                     query =
                         "SELECT h.BILL_NO BillNumber, a.SAL_TAX_NO GSTIN, a.NAME CustomerName, " +
                         "h.BILL_NO InvoiceNumber, h.BILL_DT InvoiceDate, " +
-                        "'HSN/SAC' HSNSACCode, 0 AS Qty, h.EXP_TOT Total, " +
+                        "'HSN/SAC' HSNSACCode, 0.0 AS Qty, h.EXP_TOT Total, " +
                         "e.TAXCODE, e.TAXNAME, e.TAXAMOUNT " +
                         $"FROM {rcpHdr} AS h " +
                         $"INNER JOIN " +
@@ -537,8 +539,8 @@ namespace Prints
                         $"ON h.BILL_NO=e.BILL_NO " +
                         $"INNER JOIN {acctMast} a ON h.CODE=a.CODE " +
                         $"WHERE e.TAXCODE LIKE 'BI%' AND " +
-                        $"BILL_DT >= CTOD('{fromDate.ToString("MM/dd/yyyy")}') AND " +
-                        $"BILL_DT <= CTOD('{toDate.ToString("MM/dd/yyyy")}') " +
+                        $"BILL_DT >= CTOD('{fromDate:MM/dd/yyyy}') AND " +
+                        $"BILL_DT <= CTOD('{toDate:MM/dd/yyyy}') " +
                         "ORDER BY h.BILL_NO";
                     var expenses = con.Query<TaxInput>(query)
                         .ToList();
@@ -576,7 +578,7 @@ namespace Prints
                 DateTime? invoiceDate = null;
                 string refNumber = string.Empty;
                 DateTime? refDate = null;
-                int qty = 0;
+                decimal qty = 0.0M;
                 decimal beforeTax = 0.0m;
                 decimal igstPct = 0.0m;
                 decimal igstAmt = 0.0m;

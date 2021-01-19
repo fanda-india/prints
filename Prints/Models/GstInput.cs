@@ -11,7 +11,7 @@ namespace Prints
         public string RefNumber { get; set; }
         public DateTime? RefDate { get; set; } = null;
         public string HSNSACCode { get; set; }
-        public int Qty { get; set; }
+        public decimal Qty { get; set; }
         public decimal BeforeTax { get; set; }
         public decimal IGSTPct { get; set; }
         public decimal IGSTAmt { get; set; }
