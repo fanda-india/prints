@@ -235,7 +235,7 @@ namespace Prints
             else
             {
                 if (cboMonth.SelectedIndex > 0)
-                    cboMonth.SelectedIndex = cboMonth.SelectedIndex - 1;
+                    cboMonth.SelectedIndex--;
             }
         }
 
@@ -249,7 +249,7 @@ namespace Prints
             else
             {
                 if (cboMonth.SelectedIndex < (cboMonth.Items.Count - 1))
-                    cboMonth.SelectedIndex = cboMonth.SelectedIndex + 1;
+                    cboMonth.SelectedIndex++;
             }
         }
 

@@ -10,10 +10,7 @@
             <TextRuns>
               <TextRun>
                 <Value>=First(Fields!TagNumber.Value, "ProductTags")</Value>
-                <Style>
-                  <FontFamily>Code 128</FontFamily>
-                  <FontSize>36pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style>
@@ -22,10 +19,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>TagNumber</rd:DefaultName>
-        <Top>0.14583in</Top>
-        <Left>0.11458in</Left>
-        <Height>0.60417in</Height>
-        <Width>1.13667in</Width>
+        <Top>0.68403in</Top>
+        <Left>0.11333in</Left>
+        <Height>0.25in</Height>
+        <Width>1.3573in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -44,7 +41,10 @@
             <TextRuns>
               <TextRun>
                 <Value>=First(Fields!TagNumber.Value, "ProductTags")</Value>
-                <Style />
+                <Style>
+                  <FontFamily>Code 128</FontFamily>
+                  <FontSize>32pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style>
@@ -53,10 +53,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>TagNumber1</rd:DefaultName>
-        <Top>0.81944in</Top>
-        <Left>0.11458in</Left>
-        <Height>0.25in</Height>
-        <Width>1.13667in</Width>
+        <Top>0.125in</Top>
+        <Left>0.11333in</Left>
+        <Height>0.48958in</Height>
+        <Width>1.3573in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -68,16 +68,48 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Textbox Name="SellingPrice">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Sum(Fields!SellingPrice.Value, "ProductTags")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>SellingPrice</rd:DefaultName>
+        <Top>1.00347in</Top>
+        <Left>0.11333in</Left>
+        <Height>0.25in</Height>
+        <Width>1.3573in</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>1.5in</Height>
+    <Height>3.5cm</Height>
     <Style />
   </Body>
-  <Width>4.01042in</Width>
+  <Width>4.04495cm</Width>
   <Page>
-    <LeftMargin>1in</LeftMargin>
-    <RightMargin>1in</RightMargin>
-    <TopMargin>1in</TopMargin>
-    <BottomMargin>1in</BottomMargin>
+    <LeftMargin>0.1in</LeftMargin>
+    <RightMargin>0.1in</RightMargin>
+    <TopMargin>0.1in</TopMargin>
+    <BottomMargin>0.1in</BottomMargin>
+    <Columns>5</Columns>
+    <ColumnSpacing>0.1in</ColumnSpacing>
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>

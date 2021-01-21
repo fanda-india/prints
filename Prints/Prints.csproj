@@ -97,6 +97,12 @@
     </Compile>
     <Compile Include="Models\SalesHeader.cs" />
     <Compile Include="Models\SalesLineItem.cs" />
+    <Compile Include="TagPrintingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TagPrintingForm.Designer.cs">
+      <DependentUpon>TagPrintingForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="GstInput.rdlc" />
     <EmbeddedResource Include="Invoice.rdlc" />
     <EmbeddedResource Include="MainForm.resx">
@@ -115,6 +121,9 @@
     </Compile>
     <EmbeddedResource Include="ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TagPrintingForm.resx">
+      <DependentUpon>TagPrintingForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\GstInput.datasource" />
