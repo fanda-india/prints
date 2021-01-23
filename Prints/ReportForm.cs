@@ -22,9 +22,18 @@ namespace Prints
         private readonly DateTime dateTo;
         private readonly List<GstInput> gstInputs;
 
-        public ReportForm(Company company, Party party, SalesHeader header, List<SalesLineItem> lineItems)
+        // Tag Printing
+        private readonly string companyName;
+
+        private readonly List<ProductTag> productTags;
+
+        public ReportForm()
         {
             InitializeComponent();
+        }
+
+        public ReportForm(Company company, Party party, SalesHeader header, List<SalesLineItem> lineItems) : this()
+        {
             this.company = company;
             this.party = party;
             this.header = header;
@@ -33,9 +42,8 @@ namespace Prints
             Text = "Invoice";
         }
 
-        public ReportForm(Company company, DateTime dateFrom, DateTime dateTo, List<GstInput> gstInputs)
+        public ReportForm(Company company, DateTime dateFrom, DateTime dateTo, List<GstInput> gstInputs) : this()
         {
-            InitializeComponent();
             this.company = company;
             this.dateFrom = dateFrom;
             this.dateTo = dateTo;
@@ -47,6 +55,19 @@ namespace Prints
             Text = "GST Report";
 
             ShowGstInput();
+        }
+
+        public ReportForm(string companyName, List<ProductTag> productTags) : this()
+        {
+            this.companyName = companyName;
+            this.productTags = productTags;
+
+            lblInvoiceType.Visible = false;
+            cboInvoiceType.Visible = false;
+            btnShow.Visible = false;
+            Text = "Tag Printing";
+
+            PrintTags();
         }
 
         private void ReportForm_Load(object sender, EventArgs e)
@@ -254,5 +275,17 @@ namespace Prints
         }
 
         #endregion GstInput
+
+        private void PrintTags()
+        {
+            ReportParameter[] reportParameters = new ReportParameter[]
+            {
+                new ReportParameter("CompanyName", companyName)
+            };
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "Prints.TagPrinting.rdlc";
+            this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("ProductTags", productTags));
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
+            this.reportViewer1.RefreshReport();
+        }
     }
 }

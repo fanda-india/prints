@@ -14,6 +14,7 @@ namespace Prints
     public partial class MainForm : Form
     {
         private readonly string DataConnectionString;
+        private readonly char[] PriceCodeConfig;
         private string YearConnectionString;
 
         private Company SelectedCompany;
@@ -32,6 +33,9 @@ namespace Prints
                 dataPath = @".\";
             }
             DataConnectionString = @"Provider=vfpoledb.1;Data Source=" + dataPath + ";Extended Properties=dBASE IV;Collating Sequence=machine;";
+            PriceCodeConfig = ConfigurationManager.AppSettings["PriceCode"].ToCharArray();
+            //var pt = new ProductTag { CostPrice = 5000 };
+            //System.Diagnostics.Debug.WriteLine(pt.PriceCode);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -173,6 +177,28 @@ namespace Prints
                 case "Receipts":
                     LoadReceipts();
                     break;
+
+                case "Tag Printing":
+                    try
+                    {
+                        dgvInvoices.Visible = true;
+                        dgvInvoices.Dock = DockStyle.Fill;
+                        dgvGst.Visible = false;
+                        dtpDate.Visible = true;
+                        cboMonth.Visible = false;
+
+                        chkFullyear.Visible = false;
+                        EnableNavigation(true);
+
+                        string fileExt = string.Format("{0:000}", SelectedCompany.Code);
+                        LoadPurchases(fileExt);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+                        LoadPurchases("DBF");
+                    }
+                    break;
             }
         }
 
@@ -211,6 +237,22 @@ namespace Prints
                         PrintGstReport(DateFrom, DateTo, gstOutputs);
                     }
 
+                    break;
+
+                case "Tag Printing":
+                    if (printListItemBindingSource.Current is PrintHeader tagPrint)
+                    {
+                        try
+                        {
+                            string fileExt = string.Format("{0:000}", SelectedCompany.Code);
+                            PrintTag(tagPrint, fileExt);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+                            PrintTag(tagPrint, "DBF");
+                        }
+                    }
                     break;
             }
         }
@@ -368,6 +410,8 @@ namespace Prints
             //lvwList.Items.Clear();
             //printListItemBindingSource.DataSource = null;
         }
+
+        #region Reports
 
         private void LoadInvoices(string fileExtension)
         {
@@ -728,6 +772,67 @@ namespace Prints
         private void LoadReceipts()
         {
         }
+
+        private void LoadPurchases(string fileExtension)
+        {
+            string fileName = $"INV_HDR.{fileExtension}";
+            using (var con = new OleDbConnection(YearConnectionString))
+            {
+                con.Open();
+                string query = "SELECT BILL_NO AS Number, BILL_DT AS Date, REF_NO AS RefNumber, " +
+                    "CODE AS PartyCode, NAME AS Party, CITY AS City, TOT_QTY AS TotalQty, " +
+                    "SUB_TOT AS Subtotal, NET_AMT AS NetAmount " +
+                    $"FROM {fileName} WHERE CAT IN('P','O') AND BILL_DT=CTOD('{dtpDate.Value:MM/dd/yyyy}') " +
+                    "ORDER BY BILL_NO";
+
+                var invoices = con.Query<PrintHeader>(query);
+                printListItemBindingSource.DataSource = invoices;
+            }
+        }
+
+        private void PrintTag(PrintHeader printTag, string fileExt)
+        {
+            //string partyDbf = $"ACCTMAST.{fileExt}";
+            //string invoiceDbf = $"INV_HDR.{fileExt}";
+            string purchaseDbf = $"PURCHASE.{fileExt}";
+
+            //Party party;
+            //SalesHeader salesHeader;
+            List<ProductTag> productTags;
+            using (var con = new OleDbConnection(YearConnectionString))
+            {
+                con.Open();
+                //string query = "SELECT NAME, ADDRESS, AREA, CITY, PIN AS PinCode, " +
+                //    "PHONE, SAL_TAX_NO AS GSTIN " +
+                //    $"FROM {partyDbf} WHERE CODE='{printTag.PartyCode}'";
+                //party = con.QuerySingle<Party>(query);
+
+                //query = "SELECT BILL_NO AS Number, BILL_DT AS Date, REF_NO AS RefNumber, " +
+                //   "TOT_QTY AS TotalQty, SUB_TOT AS Subtotal, " +
+                //   "PER_DISC1 AS Disc1Pct, DISCOUNT1 AS Disc1Amt, PER_DISC2 AS Disc2Pct, " +
+                //   "PER_SGST AS SGSTPct, SGST AS SGSTAmt, PER_CGST CGSTPct, CGST AS CGSTAmt, " +
+                //   "PER_IGST AS IGSTPct, IGST AS IGSTAmt, PARCEL, NET_AMT AS NetAmount, PARTICULAR " +
+                //   $"FROM {invoiceDbf} WHERE BILL_NO='{printTag.Number}'";
+                //salesHeader = con.QuerySingle<SalesHeader>(query);
+
+                string query = "SELECT SAREE_NO AS TagNumber, GROUP_NAME AS GroupName, " +
+                    "ITEM_NAME AS ItemName, COST AS CostPrice, SELL_PRICE AS SellingPrice " +
+                    $"FROM {purchaseDbf} WHERE BILL_NO='{printTag.Number}'";
+                productTags = con.Query<ProductTag>(query)
+                    .ToList();
+                foreach (var pt in productTags)
+                {
+                    pt.UpdatePriceCode(PriceCodeConfig);
+                }
+            }
+
+            using (var rptForm = new ReportForm(SelectedCompany.Name, productTags))
+            {
+                rptForm.ShowDialog(this);
+            }
+        }
+
+        #endregion Reports
     }
 
     internal enum GstReport
