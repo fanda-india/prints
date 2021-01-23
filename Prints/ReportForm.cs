@@ -282,10 +282,11 @@ namespace Prints
             {
                 new ReportParameter("CompanyName", companyName)
             };
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "Prints.TagPrinting.rdlc";
-            this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("ProductTags", productTags));
-            this.reportViewer1.LocalReport.SetParameters(reportParameters);
-            this.reportViewer1.RefreshReport();
+            reportViewer1.LocalReport.ReportEmbeddedResource = "Prints.TagPrinting.rdlc";
+            reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("ProductTags", productTags));
+            reportViewer1.LocalReport.SetParameters(reportParameters);
+            reportViewer1.RefreshReport();
+            reportViewer1.SetDisplayMode(DisplayMode.PrintLayout);
         }
     }
 }
