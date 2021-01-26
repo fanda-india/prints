@@ -62,7 +62,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>1.42in</Height>
+                  <Height>1.43in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -86,9 +86,9 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!TagNumber.Value</Value>
+                                  <Value>="*"+Fields!TagNumber.Value+"*"</Value>
                                   <Style>
-                                    <FontFamily>Code 128</FontFamily>
+                                    <FontFamily>Free 3 of 9</FontFamily>
                                     <FontSize>30pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -194,7 +194,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>ProductTags</DataSetName>
-            <Height>1.42in</Height>
+            <Height>1.43in</Height>
             <Width>1.5in</Width>
             <Style>
               <Border>
@@ -205,7 +205,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>1.42in</Height>
+        <Height>1.43in</Height>
         <Style />
       </Body>
       <Width>1.5in</Width>

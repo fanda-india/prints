@@ -826,7 +826,11 @@ namespace Prints
                 }
             }
 
-            using (var rptForm = new ReportForm(SelectedCompany.Name, productTags))
+            //using (var rptForm = new ReportForm(SelectedCompany.Name, productTags))
+            //{
+            //    rptForm.ShowDialog(this);
+            //}
+            using (var rptForm = new CrystalReportsForm(SelectedCompany.Name, productTags))
             {
                 rptForm.ShowDialog(this);
             }

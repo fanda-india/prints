@@ -36,6 +36,11 @@
     <ApplicationIcon>Print.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net40\Dapper.dll</HintPath>
     </Reference>
@@ -60,6 +65,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -74,6 +80,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CrystalReportsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CrystalReportsForm.Designer.cs">
+      <DependentUpon>CrystalReportsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountingYear.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\GstInput.cs" />
@@ -97,12 +109,21 @@
     </Compile>
     <Compile Include="Models\SalesHeader.cs" />
     <Compile Include="Models\SalesLineItem.cs" />
+    <Compile Include="TagPrinting.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TagPrinting.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TagPrintingForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TagPrintingForm.Designer.cs">
       <DependentUpon>TagPrintingForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CrystalReportsForm.resx">
+      <DependentUpon>CrystalReportsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GstInput.rdlc" />
     <EmbeddedResource Include="Invoice.rdlc" />
     <EmbeddedResource Include="MainForm.resx">
@@ -121,6 +142,10 @@
     </Compile>
     <EmbeddedResource Include="ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TagPrinting.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TagPrinting.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="TagPrintingForm.resx">
       <DependentUpon>TagPrintingForm.cs</DependentUpon>
@@ -148,6 +173,8 @@
   <ItemGroup>
     <Content Include="Print.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
