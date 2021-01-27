@@ -11,14 +11,14 @@ namespace Prints
 {
     public partial class CrystalReportsForm : Form
     {
-        private readonly string CompanyName;
+        //private readonly string CompanyName;
         private readonly List<ProductTag> ProductTags;
 
         public CrystalReportsForm(string companyName, List<ProductTag> productTags)
         {
             InitializeComponent();
 
-            CompanyName = companyName;
+            //CompanyName = companyName;
             ProductTags = productTags;
         }
 

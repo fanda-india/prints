@@ -53,7 +53,7 @@ namespace Prints
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.crystalReportViewer1);
             this.Name = "CrystalReportsForm";
-            this.Text = "CrystalReportsForm";
+            this.Text = "Tag Printing";
             this.Load += new System.EventHandler(this.CrystalReportsForm_Load);
             this.ResumeLayout(false);
 
