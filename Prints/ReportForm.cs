@@ -32,7 +32,7 @@ namespace Prints
             InitializeComponent();
         }
 
-        public ReportForm(Company company, Party party, SalesHeader header, List<SalesLineItem> lineItems) : this()
+        public ReportForm(string invoiceRDLC, Company company, Party party, SalesHeader header, List<SalesLineItem> lineItems) : this()
         {
             this.company = company;
             this.party = party;
@@ -40,6 +40,8 @@ namespace Prints
             this.lineItems = lineItems;
 
             Text = "Invoice";
+
+            reportViewer1.LocalReport.ReportEmbeddedResource = $"Prints.{invoiceRDLC}.rdlc";
         }
 
         public ReportForm(Company company, DateTime dateFrom, DateTime dateTo, List<GstInput> gstInputs) : this()
@@ -138,9 +140,9 @@ namespace Prints
                 new ReportParameter("SendThrough", sendThrough),
                 new ReportParameter("InvoiceType", invoiceType.ToUpper())
             };
-            this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("SalesLineItems", lineItems));
-            this.reportViewer1.LocalReport.SetParameters(reportParameters);
-            this.reportViewer1.RefreshReport();
+            reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("SalesLineItems", lineItems));
+            reportViewer1.LocalReport.SetParameters(reportParameters);
+            reportViewer1.RefreshReport();
         }
 
         private string InWords(decimal? numbers, Boolean paisaconversion = false)
@@ -254,24 +256,13 @@ namespace Prints
             ReportParameter[] reportParameters = new ReportParameter[]
             {
                 new ReportParameter("CompanyName", company.Name),
-            //    new ReportParameter("CompanyAddress", company.Address),
-            //    new ReportParameter("CompanyCity", company.City),
-            //    new ReportParameter("CompanyPhone1", company.Phone1),
-            //    new ReportParameter("CompanyPhone2", company.Phone2),
-            //    new ReportParameter("CompanyFax", company.Fax),
-            //    new ReportParameter("CompanyPAN", company.PAN),
-            //    new ReportParameter("CompanyGSTIN", company.GSTIN),
-            //    new ReportParameter("CompanyAreaCode", company.Areacode),
-            //    new ReportParameter("CompanyBankName", company.BankName),
-            //    new ReportParameter("CompanyBankAcctNum", company.BankAcctNum),
-            //    new ReportParameter("CompanyBankIfsc", company.BankIfsc),
                 new ReportParameter("DateFrom", dateFrom.ToString("dd-MM-yyyy")),
                 new ReportParameter("DateTo", dateTo.ToString("dd-MM-yyyy"))
             };
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "Prints.GstInput.rdlc";
-            this.reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("GstInput", gstInputs));
-            this.reportViewer1.LocalReport.SetParameters(reportParameters);
-            this.reportViewer1.RefreshReport();
+            reportViewer1.LocalReport.ReportEmbeddedResource = "Prints.GstInput.rdlc";
+            reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("GstInput", gstInputs));
+            reportViewer1.LocalReport.SetParameters(reportParameters);
+            reportViewer1.RefreshReport();
         }
 
         #endregion GstInput

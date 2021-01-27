@@ -51,15 +51,15 @@
     <ApplicationIcon>Print.ico</ApplicationIcon>
   </PropertyGroup>
   <!-- <PropertyGroup> -->
-    <!-- <ManifestCertificateThumbprint>0993D1310D4F18DFE6406481170AE9024AF761FE</ManifestCertificateThumbprint> -->
+  <!-- <ManifestCertificateThumbprint>0993D1310D4F18DFE6406481170AE9024AF761FE</ManifestCertificateThumbprint> -->
   <!-- <PropertyGroup> -->
-    <!-- <ManifestKeyFile>Prints_TemporaryKey.pfx</ManifestKeyFile> -->
+  <!-- <ManifestKeyFile>Prints_TemporaryKey.pfx</ManifestKeyFile> -->
   <!-- </PropertyGroup> -->
   <!-- <PropertyGroup> -->
-    <!-- <GenerateManifests>true</GenerateManifests> -->
+  <!-- <GenerateManifests>true</GenerateManifests> -->
   <!-- </PropertyGroup> -->
   <!-- <PropertyGroup> -->
-    <!-- <SignManifests>true</SignManifests> -->
+  <!-- <SignManifests>true</SignManifests> -->
   <!-- </PropertyGroup> -->
   <ItemGroup>
     <Reference Include="AxShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
@@ -147,6 +147,7 @@
       <DependentUpon>CrystalReportsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GstInput.rdlc" />
+    <EmbeddedResource Include="Invoice2.rdlc" />
     <EmbeddedResource Include="Invoice.rdlc" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -200,11 +201,11 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <!-- <ItemGroup> -->
-    <!-- <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1"> -->
-      <!-- <Visible>False</Visible> -->
-      <!-- <ProductName>.NET Framework 3.5 SP1</ProductName> -->
-      <!-- <Install>false</Install> -->
-    <!-- </BootstrapperPackage> -->
+  <!-- <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1"> -->
+  <!-- <Visible>False</Visible> -->
+  <!-- <ProductName>.NET Framework 3.5 SP1</ProductName> -->
+  <!-- <Install>false</Install> -->
+  <!-- </BootstrapperPackage> -->
   <!-- </ItemGroup> -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

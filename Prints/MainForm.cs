@@ -13,8 +13,14 @@ namespace Prints
 {
     public partial class MainForm : Form
     {
-        private readonly string DataConnectionString;
+        #region AppConfig
+
         private readonly char[] PriceCodeConfig;
+        private readonly string InvoiceRDLC;
+
+        #endregion AppConfig
+
+        private readonly string DataConnectionString;
         private string YearConnectionString;
 
         private Company SelectedCompany;
@@ -27,15 +33,38 @@ namespace Prints
         {
             InitializeComponent();
 
+            #region AppConfig
+
+            #region DataPath
+
             string dataPath = ConfigurationManager.AppSettings["DataPath"];
             if (string.IsNullOrEmpty(dataPath))
             {
                 dataPath = @".\";
             }
             DataConnectionString = @"Provider=vfpoledb.1;Data Source=" + dataPath + ";Extended Properties=dBASE IV;Collating Sequence=machine;";
-            PriceCodeConfig = ConfigurationManager.AppSettings["PriceCode"].ToCharArray();
-            //var pt = new ProductTag { CostPrice = 5000 };
-            //System.Diagnostics.Debug.WriteLine(pt.PriceCode);
+
+            #endregion DataPath
+
+            #region PriceCode
+
+            string priceCode = ConfigurationManager.AppSettings["PriceCode"];
+            if (string.IsNullOrEmpty(priceCode))
+                priceCode = "ABCDEFGHIJ";
+
+            PriceCodeConfig = priceCode.ToCharArray();
+
+            #endregion PriceCode
+
+            #region InvoiceRDLC
+
+            InvoiceRDLC = ConfigurationManager.AppSettings["InvoiceRDLC"];
+            if (string.IsNullOrWhiteSpace(InvoiceRDLC))
+                InvoiceRDLC = "Invoice";
+
+            #endregion InvoiceRDLC
+
+            #endregion AppConfig
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -461,7 +490,7 @@ namespace Prints
                 lineItems = con.Query<SalesLineItem>(query).ToList();
             }
 
-            using (var rptForm = new ReportForm(SelectedCompany, party, salesHeader, lineItems))
+            using (var rptForm = new ReportForm(InvoiceRDLC, SelectedCompany, party, salesHeader, lineItems))
             {
                 rptForm.ShowDialog(this);
             }
