@@ -1187,7 +1187,7 @@
                       <Style />
                     </TextRun>
                     <TextRun>
-                      <Value>, </Value>
+                      <Value xml:space="preserve">  </Value>
                       <Style />
                     </TextRun>
                     <TextRun>
@@ -1532,7 +1532,7 @@
               </ReportItems>
               <KeepTogether>true</KeepTogether>
               <Height>0.15277in</Height>
-              <Width>7.71513in</Width>
+              <Width>7.74916in</Width>
               <ZIndex>30</ZIndex>
               <Style>
                 <Border>
@@ -2841,7 +2841,7 @@
               <rd:DefaultName>Textbox42</rd:DefaultName>
               <Top>2.64658in</Top>
               <Height>0.25in</Height>
-              <Width>7.74558in</Width>
+              <Width>7.74916in</Width>
               <ZIndex>47</ZIndex>
               <Style>
                 <Border>
