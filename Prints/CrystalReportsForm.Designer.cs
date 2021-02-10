@@ -31,6 +31,7 @@ namespace Prints
         {
             this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.TagPrinting1 = new Prints.TagPrinting();
+            this.TagPrinting21 = new Prints.TagPrinting2();
             this.SuspendLayout();
             // 
             // crystalReportViewer1
@@ -41,7 +42,7 @@ namespace Prints
             this.crystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crystalReportViewer1.Location = new System.Drawing.Point(0, 0);
             this.crystalReportViewer1.Name = "crystalReportViewer1";
-            this.crystalReportViewer1.ReportSource = this.TagPrinting1;
+            this.crystalReportViewer1.ReportSource = this.TagPrinting21;
             this.crystalReportViewer1.Size = new System.Drawing.Size(800, 450);
             this.crystalReportViewer1.TabIndex = 0;
             this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
@@ -63,5 +64,6 @@ namespace Prints
 
         private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
         private TagPrinting TagPrinting1;
+        private TagPrinting2 TagPrinting21;
     }
 }

@@ -131,6 +131,12 @@
     </Compile>
     <Compile Include="Models\SalesHeader.cs" />
     <Compile Include="Models\SalesLineItem.cs" />
+    <Compile Include="TagPrinting2.cs">
+      <DependentUpon>TagPrinting2.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="TagPrinting.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -151,6 +157,10 @@
     <EmbeddedResource Include="Invoice.rdlc" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TagPrinting2.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TagPrinting2.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="TagPrinting.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
