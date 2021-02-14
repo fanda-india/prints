@@ -17,6 +17,7 @@ namespace Prints
 
         private readonly char[] PriceCodeConfig;
         private readonly string InvoiceRDLC;
+        private readonly string TagRPT;
 
         #endregion AppConfig
 
@@ -63,6 +64,14 @@ namespace Prints
                 InvoiceRDLC = "Invoice";
 
             #endregion InvoiceRDLC
+
+            #region TagRPT
+
+            TagRPT = ConfigurationManager.AppSettings["TagRPT"];
+            if (string.IsNullOrWhiteSpace(TagRPT))
+                TagRPT = "TagPrinting2";
+
+            #endregion TagRPT
 
             #endregion AppConfig
         }
@@ -859,7 +868,7 @@ namespace Prints
             //{
             //    rptForm.ShowDialog(this);
             //}
-            using (var rptForm = new CrystalReportsForm(SelectedCompany.Name, productTags))
+            using (var rptForm = new CrystalReportsForm(TagRPT, SelectedCompany.Name, productTags))
             {
                 rptForm.ShowDialog(this);
             }
