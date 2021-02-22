@@ -41,5 +41,10 @@ namespace Prints
             }
             //TagPrinting21.SetDataSource(ProductTags);
         }
+
+        private void tagKbSilks_InitReport(object sender, EventArgs e)
+        {
+
+        }
     }
 }

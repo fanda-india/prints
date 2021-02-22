@@ -48,6 +48,10 @@ namespace Prints
             this.crystalReportViewer1.TabIndex = 0;
             this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             // 
+            // tagKbSilks
+            // 
+            this.tagKbSilks.InitReport += new System.EventHandler(this.tagKbSilks_InitReport);
+            // 
             // CrystalReportsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
