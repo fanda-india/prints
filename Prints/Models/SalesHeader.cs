@@ -17,6 +17,7 @@ namespace Prints
         public decimal Disc1Amt { get; set; }
         public decimal Disc2Pct { get; set; }
         public decimal Disc2Amt { get; set; }
+        public decimal TotalBTax { get; set; }
         public decimal SGSTPct { get; set; }
         public decimal SGSTAmt { get; set; }
         public decimal CGSTPct { get; set; }

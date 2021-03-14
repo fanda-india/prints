@@ -488,6 +488,7 @@ namespace Prints
                 query = "SELECT BILL_NO AS Number, BILL_DT AS Date, REF_NO AS RefNumber, " +
                    "TOT_QTY AS TotalQty, SUB_TOT AS Subtotal, " +
                    "PER_DISC1 AS Disc1Pct, DISCOUNT1 AS Disc1Amt, PER_DISC2 AS Disc2Pct, " +
+                   "TOTALBTAX AS TotalBTax, " +
                    "PER_SGST AS SGSTPct, SGST AS SGSTAmt, PER_CGST CGSTPct, CGST AS CGSTAmt, " +
                    "PER_IGST AS IGSTPct, IGST AS IGSTAmt, PARCEL, NET_AMT AS NetAmount, PARTICULAR " +
                    $"FROM {invoiceDbf} WHERE BILL_NO='{printHeader.Number}'";

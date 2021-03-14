@@ -75,6 +75,7 @@ namespace Prints
         private void ReportForm_Load(object sender, EventArgs e)
         {
             cboInvoiceType.SelectedIndex = 0;
+            btnShow.PerformClick();
         }
 
         private void btnShow_Click(object sender, EventArgs e)
@@ -127,8 +128,9 @@ namespace Prints
                 new ReportParameter("Subtotal", header.Subtotal.ToString()),
                 new ReportParameter("Disc1Pct", header.Disc1Pct.ToString()),
                 new ReportParameter("Disc1Amt", header.Disc1Amt.ToString()),
-                new ReportParameter("SGSTPct", header.SGSTPct==0 ? string.Empty: header.SGSTPct.ToString()),
-                new ReportParameter("SGSTAmt", header.SGSTAmt==0 ? string.Empty: header.SGSTAmt.ToString()),
+                new ReportParameter("TotalBTax", header.TotalBTax==0 ? (header.Subtotal-header.Disc1Amt).ToString() : header.TotalBTax.ToString()),
+                new ReportParameter("SGSTPct", header.SGSTPct==0 ? string.Empty : header.SGSTPct.ToString()),
+                new ReportParameter("SGSTAmt", header.SGSTAmt==0 ? string.Empty : header.SGSTAmt.ToString()),
                 new ReportParameter("CGSTPct", header.CGSTPct==0? string.Empty : header.CGSTPct.ToString()),
                 new ReportParameter("CGSTAmt", header.CGSTAmt==0 ? string.Empty : header.CGSTAmt.ToString()),
                 new ReportParameter("IGSTPct", header.IGSTPct==0 ? string.Empty : header.IGSTPct.ToString()),
