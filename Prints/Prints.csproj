@@ -143,12 +143,6 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="TagPrinting.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TagPrinting.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="TagPrintingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,7 +167,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TagPrinting2.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="TagPrinting.rdlc" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -186,10 +179,6 @@
     </Compile>
     <EmbeddedResource Include="ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TagPrinting.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>TagPrinting.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="TagPrintingForm.resx">
       <DependentUpon>TagPrintingForm.cs</DependentUpon>
