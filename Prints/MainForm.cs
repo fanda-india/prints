@@ -869,7 +869,7 @@ namespace Prints
             //{
             //    rptForm.ShowDialog(this);
             //}
-            using (var rptForm = new CrystalReportsForm(TagRPT, SelectedCompany.Name, productTags))
+            using (var rptForm = new CrystalReportsForm(TagRPT, productTags))   // SelectedCompany.Name
             {
                 rptForm.ShowDialog(this);
             }

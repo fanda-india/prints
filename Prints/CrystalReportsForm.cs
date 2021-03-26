@@ -11,7 +11,7 @@ namespace Prints
         //private readonly string CompanyName;
         private readonly List<ProductTag> ProductTags;
 
-        public CrystalReportsForm(string tagRpt, string companyName, List<ProductTag> productTags)
+        public CrystalReportsForm(string tagRpt, List<ProductTag> productTags)
         {
             InitializeComponent();
 
@@ -24,10 +24,10 @@ namespace Prints
         {
             switch (TagRPT.ToLower())
             {
-                case "tagprinting":
-                    tagPrinting.SetDataSource(ProductTags);
-                    crystalReportViewer1.ReportSource = tagPrinting;
-                    break;
+                //case "tagprinting":
+                //    tagPrinting.SetDataSource(ProductTags);
+                //    crystalReportViewer1.ReportSource = tagPrinting;
+                //    break;
 
                 case "tagprinting2":
                     tagPrinting2.SetDataSource(ProductTags);
@@ -40,11 +40,6 @@ namespace Prints
                     break;
             }
             //TagPrinting21.SetDataSource(ProductTags);
-        }
-
-        private void tagKbSilks_InitReport(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -32,7 +32,6 @@ namespace Prints
             this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.tagPrinting2 = new Prints.TagPrinting2();
             this.tagKbSilks = new Prints.TagKbSilks();
-            this.tagPrinting = new Prints.TagPrinting();
             this.SuspendLayout();
             // 
             // crystalReportViewer1

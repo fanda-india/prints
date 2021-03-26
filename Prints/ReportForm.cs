@@ -11,21 +11,23 @@ namespace Prints
         private readonly Company company;
 
         // Invoice
-        private readonly Party party;
 
+        private readonly Party party;
         private readonly SalesHeader header;
         private readonly List<SalesLineItem> lineItems;
 
         // GstInput
-        private readonly DateTime dateFrom;
 
+        private readonly DateTime dateFrom;
         private readonly DateTime dateTo;
         private readonly List<GstInput> gstInputs;
 
         // Tag Printing
-        private readonly string companyName;
 
+        private readonly string companyName;
         private readonly List<ProductTag> productTags;
+
+        #region Constructors
 
         public ReportForm()
         {
@@ -71,6 +73,8 @@ namespace Prints
 
             PrintTags();
         }
+
+        #endregion Constructors
 
         private void ReportForm_Load(object sender, EventArgs e)
         {
@@ -269,6 +273,8 @@ namespace Prints
 
         #endregion GstInput
 
+        #region TagPrinting
+
         private void PrintTags()
         {
             ReportParameter[] reportParameters = new ReportParameter[]
@@ -281,5 +287,7 @@ namespace Prints
             reportViewer1.RefreshReport();
             reportViewer1.SetDisplayMode(DisplayMode.PrintLayout);
         }
+
+        #endregion TagPrinting
     }
 }

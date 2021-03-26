@@ -109,6 +109,12 @@
     <Compile Include="CrystalReportsForm.Designer.cs">
       <DependentUpon>CrystalReportsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InvoiceRagu.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvoiceRagu.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Models\AccountingYear.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\GstInput.cs" />
@@ -156,6 +162,10 @@
     <EmbeddedResource Include="InvoiceKBS.rdlc" />
     <EmbeddedResource Include="Invoice2.rdlc" />
     <EmbeddedResource Include="Invoice.rdlc" />
+    <EmbeddedResource Include="InvoiceRagu.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InvoiceRagu.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
