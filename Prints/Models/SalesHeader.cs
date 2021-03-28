@@ -2,7 +2,7 @@
 
 namespace Prints
 {
-    internal class SalesHeader
+    public class SalesHeader
     {
         private string number;
         private string refNumber;
@@ -11,6 +11,7 @@ namespace Prints
         public string Number { get => number; set => number = value.Trim(); }
         public DateTime Date { get; set; }
         public string RefNumber { get => refNumber; set => refNumber = value.Trim(); }
+        public string PartyCode { get; set; }
         public int TotalQty { get; set; }
         public decimal Subtotal { get; set; }
         public decimal Disc1Pct { get; set; }
@@ -27,5 +28,7 @@ namespace Prints
         public decimal Parcel { get; set; }
         public decimal NetAmount { get; set; }
         public string Particular { get => particular; set => particular = value.Trim(); }
+        public string AmountInWords { get; set; }
+        public string GSTIN { get; set; }
     }
 }

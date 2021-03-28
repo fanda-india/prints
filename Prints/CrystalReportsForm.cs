@@ -1,28 +1,57 @@
-﻿using System;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+
+using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
 
 namespace Prints
 {
     public partial class CrystalReportsForm : Form
     {
-        private readonly string TagRPT;
+        private readonly string ReportName;
 
-        //private readonly string CompanyName;
+        // Print tags
+
         private readonly List<ProductTag> ProductTags;
 
-        public CrystalReportsForm(string tagRpt, List<ProductTag> productTags)
+        // Invoice
+
+        private readonly SalesHeader SalesHeader;
+        private readonly Party Party;
+        private readonly List<SalesLineItem> SalesLineItems;
+
+        #region Constructors
+
+        public CrystalReportsForm(string reportName, List<ProductTag> productTags)
         {
             InitializeComponent();
 
-            TagRPT = tagRpt;
-            //CompanyName = companyName;
+            Text = "Tag Printing";
+
+            ReportName = reportName;
             ProductTags = productTags;
         }
 
+        public CrystalReportsForm(string reportName, SalesHeader header,
+            Party party, List<SalesLineItem> items)
+        {
+            InitializeComponent();
+
+            Text = "Invoice Printing";
+
+            ReportName = reportName;
+            SalesHeader = header;
+            Party = party;
+            SalesLineItems = items;
+        }
+
+        #endregion Constructors
+
         private void CrystalReportsForm_Load(object sender, EventArgs e)
         {
-            switch (TagRPT.ToLower())
+            switch (ReportName.ToLower())
             {
                 //case "tagprinting":
                 //    tagPrinting.SetDataSource(ProductTags);
@@ -37,6 +66,17 @@ namespace Prints
                 case "tagkbsilks":
                     tagKbSilks.SetDataSource(ProductTags);
                     crystalReportViewer1.ReportSource = tagKbSilks;
+                    break;
+
+                case "invoiceragu":
+
+                    SalesHeader.NetAmount = Math.Round(SalesHeader.NetAmount, 0, MidpointRounding.AwayFromZero);
+                    SalesHeader.AmountInWords = "Rupees " + PrintHelper.InWords(SalesHeader.NetAmount, true).ToLower() + " only";
+
+                    invoiceRagu1.Database.Tables["Prints_SalesHeader"].SetDataSource(new[] { SalesHeader });
+                    invoiceRagu1.Database.Tables["Prints_Party"].SetDataSource(new[] { Party });
+                    invoiceRagu1.Database.Tables["Prints_SalesLineItem"].SetDataSource(SalesLineItems);
+                    crystalReportViewer1.ReportSource = invoiceRagu1;
                     break;
             }
             //TagPrinting21.SetDataSource(ProductTags);

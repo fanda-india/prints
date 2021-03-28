@@ -32,6 +32,7 @@ namespace Prints
             this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.tagPrinting2 = new Prints.TagPrinting2();
             this.tagKbSilks = new Prints.TagKbSilks();
+            this.invoiceRagu1 = new Prints.InvoiceRagu();
             this.SuspendLayout();
             // 
             // crystalReportViewer1
@@ -47,10 +48,6 @@ namespace Prints
             this.crystalReportViewer1.TabIndex = 0;
             this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             // 
-            // tagKbSilks
-            // 
-            this.tagKbSilks.InitReport += new System.EventHandler(this.tagKbSilks_InitReport);
-            // 
             // CrystalReportsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -58,6 +55,7 @@ namespace Prints
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.crystalReportViewer1);
             this.Name = "CrystalReportsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tag Printing";
             this.Load += new System.EventHandler(this.CrystalReportsForm_Load);
             this.ResumeLayout(false);
@@ -67,8 +65,9 @@ namespace Prints
         #endregion
 
         private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
-        private TagPrinting tagPrinting;
+        //private TagPrinting tagPrinting;
         private TagPrinting2 tagPrinting2;
         private TagKbSilks tagKbSilks;
+        private InvoiceRagu invoiceRagu1;
     }
 }

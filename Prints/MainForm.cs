@@ -480,13 +480,13 @@ namespace Prints
             using (var con = new OleDbConnection(YearConnectionString))
             {
                 con.Open();
-                string query = "SELECT NAME, ADDRESS, AREA, CITY, PIN AS PinCode, " +
+                string query = "SELECT CODE, NAME, ADDRESS, AREA, CITY, PIN AS PinCode, " +
                     "PHONE, SAL_TAX_NO AS GSTIN " +
                     $"FROM {partyDbf} WHERE CODE='{printHeader.PartyCode}'";
                 party = con.QuerySingle<Party>(query);
 
                 query = "SELECT BILL_NO AS Number, BILL_DT AS Date, REF_NO AS RefNumber, " +
-                   "TOT_QTY AS TotalQty, SUB_TOT AS Subtotal, " +
+                   "CODE AS PartyCode, TOT_QTY AS TotalQty, SUB_TOT AS Subtotal, " +
                    "PER_DISC1 AS Disc1Pct, DISCOUNT1 AS Disc1Amt, PER_DISC2 AS Disc2Pct, " +
                    "TOTALBTAX AS TotalBTax, " +
                    "PER_SGST AS SGSTPct, SGST AS SGSTAmt, PER_CGST CGSTPct, CGST AS CGSTAmt, " +
@@ -494,15 +494,26 @@ namespace Prints
                    $"FROM {invoiceDbf} WHERE BILL_NO='{printHeader.Number}'";
                 salesHeader = con.QuerySingle<SalesHeader>(query);
 
-                query = "SELECT SL_NO AS SerialNumber, SAREE_NO AS SareeNumber, " +
+                query = "SELECT BILL_NO AS InvoiceNumber, SL_NO AS SerialNumber, SAREE_NO AS SareeNumber, " +
                     "ITEM_NAME AS Description, ITEM_HSN AS HsnCode, PRICE AS Rate " +
                     $"FROM {salesDbf} WHERE BILL_NO='{printHeader.Number}'";
                 lineItems = con.Query<SalesLineItem>(query).ToList();
             }
+            salesHeader.GSTIN = SelectedCompany.GSTIN;
 
-            using (var rptForm = new ReportForm(InvoiceRDLC, SelectedCompany, party, salesHeader, lineItems))
+            if (InvoiceRDLC == "InvoiceRagu")
             {
-                rptForm.ShowDialog(this);
+                using (var rptForm = new CrystalReportsForm(InvoiceRDLC, salesHeader, party, lineItems))   // SelectedCompany.Name
+                {
+                    rptForm.ShowDialog(this);
+                }
+            }
+            else
+            {
+                using (var rptForm = new ReportForm(InvoiceRDLC, SelectedCompany, party, salesHeader, lineItems))
+                {
+                    rptForm.ShowDialog(this);
+                }
             }
         }
 
