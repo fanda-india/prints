@@ -53,11 +53,6 @@ namespace Prints
         {
             switch (ReportName.ToLower())
             {
-                //case "tagprinting":
-                //    tagPrinting.SetDataSource(ProductTags);
-                //    crystalReportViewer1.ReportSource = tagPrinting;
-                //    break;
-
                 case "tagprinting2":
                     tagPrinting2.SetDataSource(ProductTags);
                     crystalReportViewer1.ReportSource = tagPrinting2;
@@ -66,6 +61,11 @@ namespace Prints
                 case "tagkbsilks":
                     tagKbSilks.SetDataSource(ProductTags);
                     crystalReportViewer1.ReportSource = tagKbSilks;
+                    break;
+
+                case "tagkbs":
+                    tagKBS1.SetDataSource(ProductTags);
+                    crystalReportViewer1.ReportSource = tagKBS1;
                     break;
 
                 case "invoiceragu":

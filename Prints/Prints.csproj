@@ -115,12 +115,12 @@
       <DependentUpon>InvoiceRagu.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="InvoiceRagu.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InvoiceRagu.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
+    <!-- <Compile Include="InvoiceRagu.cs"> -->
+      <!-- <AutoGen>True</AutoGen> -->
+      <!-- <DesignTime>True</DesignTime> -->
+      <!-- <DependentUpon>InvoiceRagu.rpt</DependentUpon> -->
+      <!-- <SubType>Component</SubType> -->
+    <!-- </Compile> -->
     <Compile Include="Models\AccountingYear.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\GstInput.cs" />
@@ -145,11 +145,17 @@
     </Compile>
     <Compile Include="Models\SalesHeader.cs" />
     <Compile Include="Models\SalesLineItem.cs" />
+    <Compile Include="TagKBS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TagKBS.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TagKbSilks.cs">
       <DependentUpon>TagKbSilks.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="TagPrinting2.cs">
       <DependentUpon>TagPrinting2.rpt</DependentUpon>
@@ -176,6 +182,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TagKBS.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TagKBS.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="TagKbSilks.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

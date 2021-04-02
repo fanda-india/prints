@@ -33,6 +33,7 @@ namespace Prints
             this.tagPrinting2 = new Prints.TagPrinting2();
             this.tagKbSilks = new Prints.TagKbSilks();
             this.invoiceRagu1 = new Prints.InvoiceRagu();
+            this.tagKBS1 = new Prints.TagKBS();
             this.SuspendLayout();
             // 
             // crystalReportViewer1
@@ -47,6 +48,11 @@ namespace Prints
             this.crystalReportViewer1.Size = new System.Drawing.Size(800, 450);
             this.crystalReportViewer1.TabIndex = 0;
             this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
+            // 
+            // tagPrinting2
+            // 
+            this.tagPrinting2.FileName = "rassdk://C:\\Users\\tbala\\AppData\\Local\\Temp\\temp_c72d13f7-918d-46d1-8082-da8d390a5" +
+    "045.rpt";
             // 
             // CrystalReportsForm
             // 
@@ -69,5 +75,6 @@ namespace Prints
         private TagPrinting2 tagPrinting2;
         private TagKbSilks tagKbSilks;
         private InvoiceRagu invoiceRagu1;
+        private TagKBS tagKBS1;
     }
 }
