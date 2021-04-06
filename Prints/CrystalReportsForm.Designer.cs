@@ -34,6 +34,7 @@ namespace Prints
             this.tagKbSilks = new Prints.TagKbSilks();
             this.invoiceRagu1 = new Prints.InvoiceRagu();
             this.tagKBS1 = new Prints.TagKBS();
+            this.invoiceRaguDuplicate1 = new Prints.InvoiceRaguDuplicate();
             this.SuspendLayout();
             // 
             // crystalReportViewer1
@@ -76,5 +77,6 @@ namespace Prints
         private TagKbSilks tagKbSilks;
         private InvoiceRagu invoiceRagu1;
         private TagKBS tagKBS1;
+        private InvoiceRaguDuplicate invoiceRaguDuplicate1;
     }
 }

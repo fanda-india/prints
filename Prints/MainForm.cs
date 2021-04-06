@@ -153,6 +153,7 @@ namespace Prints
                         cboMonth.Visible = false;
 
                         chkFullyear.Visible = false;
+                        tsbDuplicate.Visible = true;
                         EnableNavigation(true);
 
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
@@ -176,6 +177,7 @@ namespace Prints
                         dtpDate.Visible = false;
 
                         chkFullyear.Visible = true;
+                        tsbDuplicate.Visible = false;
                         EnableNavigation(!chkFullyear.Checked);
 
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
@@ -200,6 +202,7 @@ namespace Prints
                         dtpDate.Visible = false;
 
                         chkFullyear.Visible = true;
+                        tsbDuplicate.Visible = false;
                         EnableNavigation(!chkFullyear.Checked);
 
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
@@ -213,6 +216,7 @@ namespace Prints
                     break;
 
                 case "Receipts":
+                    tsbDuplicate.Visible = false;
                     LoadReceipts();
                     break;
 
@@ -226,6 +230,7 @@ namespace Prints
                         cboMonth.Visible = false;
 
                         chkFullyear.Visible = false;
+                        tsbDuplicate.Visible = false;
                         EnableNavigation(true);
 
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
@@ -291,6 +296,29 @@ namespace Prints
                             PrintTag(tagPrint, "DBF");
                         }
                     }
+                    break;
+            }
+        }
+
+        private void tsbDuplicate_Click(object sender, EventArgs e)
+        {
+            switch (lstMenu.SelectedItem as string)
+            {
+                case "Invoices":
+                    if (printListItemBindingSource.Current is PrintHeader printHeader)
+                    {
+                        try
+                        {
+                            string fileExt = string.Format("{0:000}", SelectedCompany.Code);
+                            PrintInvoice(printHeader, fileExt, true);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+                            PrintInvoice(printHeader, "DBF", true);
+                        }
+                    }
+
                     break;
             }
         }
@@ -468,11 +496,12 @@ namespace Prints
             }
         }
 
-        private void PrintInvoice(PrintHeader printHeader, string fileExt)
+        private void PrintInvoice(PrintHeader printHeader, string fileExt, bool isDuplicate = false)
         {
             string partyDbf = $"ACCTMAST.{fileExt}";
             string invoiceDbf = $"INV_HDR.{fileExt}";
             string salesDbf = $"SALES.{fileExt}";
+            string stockDbf = $"SARSTOCK.{fileExt}";
 
             Party party;
             SalesHeader salesHeader;
@@ -494,16 +523,19 @@ namespace Prints
                    $"FROM {invoiceDbf} WHERE BILL_NO='{printHeader.Number}'";
                 salesHeader = con.QuerySingle<SalesHeader>(query);
 
-                query = "SELECT BILL_NO AS InvoiceNumber, SL_NO AS SerialNumber, SAREE_NO AS SareeNumber, " +
-                    "ITEM_NAME AS Description, ITEM_HSN AS HsnCode, PRICE AS Rate " +
-                    $"FROM {salesDbf} WHERE BILL_NO='{printHeader.Number}'";
+                query = "SELECT s.BILL_NO AS InvoiceNumber, s.SL_NO AS SerialNumber, s.SAREE_NO AS SareeNumber, " +
+                    "s.ITEM_NAME AS Description, s.ITEM_HSN AS HsnCode, s.PRICE AS Rate, p.NAME AS SupplierName " +
+                    $"FROM {salesDbf} AS s " +
+                    $"INNER JOIN ({stockDbf} AS t INNER JOIN {partyDbf} AS p ON t.CODE=p.CODE) ON s.SAREE_NO=t.SAREE_NO " +
+                    $"WHERE s.BILL_NO='{printHeader.Number}' " +
+                    $"ORDER BY s.BILL_NO, s.SL_NO";
                 lineItems = con.Query<SalesLineItem>(query).ToList();
             }
             salesHeader.GSTIN = SelectedCompany.GSTIN;
 
             if (InvoiceRDLC == "InvoiceRagu")
             {
-                using (var rptForm = new CrystalReportsForm(InvoiceRDLC, salesHeader, party, lineItems))   // SelectedCompany.Name
+                using (var rptForm = new CrystalReportsForm(InvoiceRDLC, salesHeader, party, lineItems, isDuplicate))   // SelectedCompany.Name
                 {
                     rptForm.ShowDialog(this);
                 }

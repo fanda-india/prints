@@ -110,16 +110,28 @@
       <DependentUpon>CrystalReportsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InvoiceRagu.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>InvoiceRagu.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="InvoiceRaguDuplicate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvoiceRaguDuplicate.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InvoiceRaguDuplicate.cs">
+      <SubType>Component</SubType>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvoiceRaguDuplicate.rpt</DependentUpon>
     </Compile>
     <!-- <Compile Include="InvoiceRagu.cs"> -->
-      <!-- <AutoGen>True</AutoGen> -->
-      <!-- <DesignTime>True</DesignTime> -->
-      <!-- <DependentUpon>InvoiceRagu.rpt</DependentUpon> -->
-      <!-- <SubType>Component</SubType> -->
+    <!-- <AutoGen>True</AutoGen> -->
+    <!-- <DesignTime>True</DesignTime> -->
+    <!-- <DependentUpon>InvoiceRagu.rpt</DependentUpon> -->
+    <!-- <SubType>Component</SubType> -->
     <!-- </Compile> -->
     <Compile Include="Models\AccountingYear.cs" />
     <Compile Include="Models\Company.cs" />
@@ -179,6 +191,10 @@
     <EmbeddedResource Include="InvoiceRagu.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>InvoiceRagu.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InvoiceRaguDuplicate.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InvoiceRaguDuplicate.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

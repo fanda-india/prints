@@ -21,6 +21,7 @@ namespace Prints
         private readonly SalesHeader SalesHeader;
         private readonly Party Party;
         private readonly List<SalesLineItem> SalesLineItems;
+        private bool IsDuplicate;
 
         #region Constructors
 
@@ -35,7 +36,7 @@ namespace Prints
         }
 
         public CrystalReportsForm(string reportName, SalesHeader header,
-            Party party, List<SalesLineItem> items)
+            Party party, List<SalesLineItem> items, bool isDuplicate = false)
         {
             InitializeComponent();
 
@@ -45,6 +46,7 @@ namespace Prints
             SalesHeader = header;
             Party = party;
             SalesLineItems = items;
+            IsDuplicate = isDuplicate;
         }
 
         #endregion Constructors
@@ -73,10 +75,20 @@ namespace Prints
                     SalesHeader.NetAmount = Math.Round(SalesHeader.NetAmount, 0, MidpointRounding.AwayFromZero);
                     SalesHeader.AmountInWords = "Rupees " + PrintHelper.InWords(SalesHeader.NetAmount, true).ToLower() + " only";
 
-                    invoiceRagu1.Database.Tables["Prints_SalesHeader"].SetDataSource(new[] { SalesHeader });
-                    invoiceRagu1.Database.Tables["Prints_Party"].SetDataSource(new[] { Party });
-                    invoiceRagu1.Database.Tables["Prints_SalesLineItem"].SetDataSource(SalesLineItems);
-                    crystalReportViewer1.ReportSource = invoiceRagu1;
+                    if (IsDuplicate)
+                    {
+                        invoiceRaguDuplicate1.Database.Tables["Prints_SalesHeader"].SetDataSource(new[] { SalesHeader });
+                        invoiceRaguDuplicate1.Database.Tables["Prints_Party"].SetDataSource(new[] { Party });
+                        invoiceRaguDuplicate1.Database.Tables["Prints_SalesLineItem"].SetDataSource(SalesLineItems);
+                        crystalReportViewer1.ReportSource = invoiceRaguDuplicate1;
+                    }
+                    else
+                    {
+                        invoiceRagu1.Database.Tables["Prints_SalesHeader"].SetDataSource(new[] { SalesHeader });
+                        invoiceRagu1.Database.Tables["Prints_Party"].SetDataSource(new[] { Party });
+                        invoiceRagu1.Database.Tables["Prints_SalesLineItem"].SetDataSource(SalesLineItems);
+                        crystalReportViewer1.ReportSource = invoiceRagu1;
+                    }
                     break;
             }
             //TagPrinting21.SetDataSource(ProductTags);
