@@ -145,27 +145,33 @@
   <data name="tsbDuplicate.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        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
+        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
 </value>
   </data>
   <metadata name="gstInputBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>332, 21</value>
+  </metadata>
+  <metadata name="gstInputBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>332, 21</value>
+  </metadata>
+  <metadata name="printListItemBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>133, 21</value>
   </metadata>
   <metadata name="printListItemBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>133, 21</value>

@@ -34,16 +34,24 @@ namespace Prints
             InitializeComponent();
         }
 
-        public ReportForm(string invoiceRDLC, Company company, Party party, SalesHeader header, List<SalesLineItem> lineItems) : this()
+        public ReportForm(string invoiceRDLC, Company company, Party party,
+            SalesHeader header, List<SalesLineItem> lineItems, string FormText = "Invoice") : this()
         {
             this.company = company;
             this.party = party;
             this.header = header;
             this.lineItems = lineItems;
 
-            Text = "Invoice";
-
+            Text = FormText;
             reportViewer1.LocalReport.ReportEmbeddedResource = $"Prints.{invoiceRDLC}.rdlc";
+
+            if (FormText == "Debit Note")
+            {
+                lblInvoiceType.Visible = false;
+                cboInvoiceType.Visible = false;
+                btnShow.Visible = false;
+                ShowInvoice();
+            }
         }
 
         public ReportForm(Company company, DateTime dateFrom, DateTime dateTo, List<GstInput> gstInputs) : this()
@@ -104,6 +112,7 @@ namespace Prints
                 sendThrough = partiular[1];
             }
             string invoiceType = cboInvoiceType.SelectedItem as string;
+            invoiceType = invoiceType == null ? "ORIGINAL" : invoiceType;
 
             ReportParameter[] reportParameters = new ReportParameter[]
             {

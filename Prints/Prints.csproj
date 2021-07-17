@@ -121,12 +121,12 @@
       <DependentUpon>InvoiceRaguDuplicate.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="InvoiceRaguDuplicate.cs">
-      <SubType>Component</SubType>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InvoiceRaguDuplicate.rpt</DependentUpon>
-    </Compile>
+    <!-- <Compile Include="InvoiceRaguDuplicate.cs"> -->
+    <!-- <SubType>Component</SubType> -->
+    <!-- <AutoGen>True</AutoGen> -->
+    <!-- <DesignTime>True</DesignTime> -->
+    <!-- <DependentUpon>InvoiceRaguDuplicate.rpt</DependentUpon> -->
+    <!-- </Compile> -->
     <!-- <Compile Include="InvoiceRagu.cs"> -->
     <!-- <AutoGen>True</AutoGen> -->
     <!-- <DesignTime>True</DesignTime> -->
@@ -184,6 +184,7 @@
     <EmbeddedResource Include="CrystalReportsForm.resx">
       <DependentUpon>CrystalReportsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DebitNote.rdlc" />
     <EmbeddedResource Include="GstInput.rdlc" />
     <EmbeddedResource Include="InvoiceKBS.rdlc" />
     <EmbeddedResource Include="Invoice2.rdlc" />
