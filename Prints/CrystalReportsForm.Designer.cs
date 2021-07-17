@@ -49,7 +49,7 @@ namespace Prints
             // 
             // tagKbSilks
             // 
-            this.tagKbSilks.InitReport += new System.EventHandler(this.tagKbSilks_InitReport);
+            //this.tagKbSilks.InitReport += new System.EventHandler(this.tagKbSilks_InitReport);
             // 
             // CrystalReportsForm
             // 
@@ -67,7 +67,7 @@ namespace Prints
         #endregion
 
         private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
-        private TagPrinting tagPrinting;
+        //private TagPrinting tagPrinting;
         private TagPrinting2 tagPrinting2;
         private TagKbSilks tagKbSilks;
     }
