@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace Prints
@@ -27,6 +28,8 @@ namespace Prints
         private readonly string companyName;
         private readonly List<ProductTag> productTags;
 
+        private readonly string tranName;
+
         #region Constructors
 
         public ReportForm()
@@ -35,17 +38,20 @@ namespace Prints
         }
 
         public ReportForm(string invoiceRDLC, Company company, Party party,
-            SalesHeader header, List<SalesLineItem> lineItems, string FormText = "Invoice") : this()
+            SalesHeader header, List<SalesLineItem> lineItems,
+            string formText = "Invoice",
+            string tranName = "") : this()
         {
             this.company = company;
             this.party = party;
             this.header = header;
             this.lineItems = lineItems;
+            this.tranName = tranName;
 
-            Text = FormText;
+            Text = formText;
             reportViewer1.LocalReport.ReportEmbeddedResource = $"Prints.{invoiceRDLC}.rdlc";
 
-            if (FormText == "Debit Note")
+            if (formText == "Debit Note")
             {
                 lblInvoiceType.Visible = false;
                 cboInvoiceType.Visible = false;
@@ -135,7 +141,7 @@ namespace Prints
                 new ReportParameter("PartyPinCode", party.PinCode),
                 new ReportParameter("PartyPhone", party.Phone),
                 new ReportParameter("PartyGSTIN", party.GSTIN),
-                new ReportParameter("BillNumber", header.Number),
+                new ReportParameter("BillNumber", header.Number.Substring(header.Number.Length-5)),
                 new ReportParameter("BillDate", header.Date.ToString("dd-MM-yyyy")),
                 new ReportParameter("TotalQty", header.TotalQty.ToString()),
                 new ReportParameter("Subtotal", header.Subtotal.ToString()),
@@ -153,7 +159,8 @@ namespace Prints
                 new ReportParameter("NetAmount", header.NetAmount.ToString()),
                 new ReportParameter("SelectedBy", selectedBy),
                 new ReportParameter("SendThrough", sendThrough),
-                new ReportParameter("InvoiceType", invoiceType.ToUpper())
+                new ReportParameter("InvoiceType", invoiceType.ToUpper()),
+                new ReportParameter("LUTNumber", tranName.ToLower().Contains("international") ? company.CST : string.Empty)
             };
             reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("SalesLineItems", lineItems));
             reportViewer1.LocalReport.SetParameters(reportParameters);

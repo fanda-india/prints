@@ -991,7 +991,7 @@
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>=Mid(Parameters!BillNumber.Value,3)</Value>
+                      <Value>=Parameters!BillNumber.Value</Value>
                       <Style>
                         <FontWeight>Bold</FontWeight>
                       </Style>
@@ -1524,13 +1524,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>STATE CODE: </Value>
-                      <Style>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value>=Parameters!CompanyAreaCode.Value</Value>
+                      <Value>=IIF(Parameters!LUTNumber.Value="","","LUT: "+Parameters!LUTNumber.Value)</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
@@ -1544,7 +1538,7 @@
               <rd:DefaultName>Textbox7</rd:DefaultName>
               <Top>1.01666in</Top>
               <Height>0.225in</Height>
-              <Width>1.34633in</Width>
+              <Width>1.92346in</Width>
               <ZIndex>31</ZIndex>
               <Style>
                 <Border>
@@ -1587,6 +1581,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Top>0cm</Top>
               <Left>4.20998in</Left>
               <Height>0.21944in</Height>
               <Width>0.81335in</Width>
@@ -1617,6 +1612,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Subtotal</rd:DefaultName>
+              <Top>0cm</Top>
               <Left>6.65124in</Left>
               <Height>0.21944in</Height>
               <Width>1.06667in</Width>
@@ -1650,6 +1646,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>TotalQty</rd:DefaultName>
+              <Top>0cm</Top>
               <Left>5.02333in</Left>
               <Height>0.21944in</Height>
               <Width>0.49681in</Width>
@@ -1678,6 +1675,7 @@
               </Style>
             </Line>
             <Line Name="Line6">
+              <Top>0cm</Top>
               <Left>5.54792in</Left>
               <Height>1.58207in</Height>
               <Width>0in</Width>
@@ -3612,11 +3610,17 @@
       <DataType>Float</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="LUTNumber">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>11</NumberOfRows>
+      <NumberOfRows>12</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -3812,6 +3816,11 @@
           <ColumnIndex>3</ColumnIndex>
           <RowIndex>10</RowIndex>
           <ParameterName>TotalBTax</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>11</RowIndex>
+          <ParameterName>LUTNumber</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

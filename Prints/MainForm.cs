@@ -545,7 +545,7 @@ namespace Prints
                 con.Open();
                 string query = "SELECT BILL_NO AS Number, BILL_DT AS Date, REF_NO AS RefNumber, " +
                     "CODE AS PartyCode, NAME AS Party, CITY AS City, TOT_QTY AS TotalQty, " +
-                    "SUB_TOT AS Subtotal, NET_AMT AS NetAmount " +
+                    "SUB_TOT AS Subtotal, NET_AMT AS NetAmount, TRAN_CODE AS TranCode " +
                     $"FROM {fileName} WHERE CAT='S' AND BILL_DT=CTOD('{dtpDate.Value:MM/dd/yyyy}') " +
                     "ORDER BY BILL_NO";
 
@@ -564,6 +564,7 @@ namespace Prints
             Party party;
             SalesHeader salesHeader;
             List<SalesLineItem> lineItems;
+            string tranName = string.Empty;
             using (var con = new OleDbConnection(YearConnectionString))
             {
                 con.Open();
@@ -588,19 +589,24 @@ namespace Prints
                     $"WHERE s.BILL_NO='{printHeader.Number}' " +
                     $"ORDER BY s.BILL_NO, s.SL_NO";
                 lineItems = con.Query<SalesLineItem>(query).ToList();
+
+                query = $"SELECT NAME FROM {partyDbf} WHERE CODE='{printHeader.TranCode}'";
+                tranName = con.ExecuteScalar<string>(query);
             }
             salesHeader.GSTIN = SelectedCompany.GSTIN;
 
             if (InvoiceRDLC == "InvoiceRagu")
             {
-                using (var rptForm = new CrystalReportsForm(InvoiceRDLC, salesHeader, party, lineItems, isDuplicate))   // SelectedCompany.Name
+                using (var rptForm = new CrystalReportsForm(InvoiceRDLC, salesHeader, party,
+                    lineItems, isDuplicate))   // SelectedCompany.Name
                 {
                     rptForm.ShowDialog(this);
                 }
             }
             else
             {
-                using (var rptForm = new ReportForm(InvoiceRDLC, SelectedCompany, party, salesHeader, lineItems))
+                using (var rptForm = new ReportForm(InvoiceRDLC, SelectedCompany, party,
+                    salesHeader, lineItems, "Invoice", tranName))
                 {
                     rptForm.ShowDialog(this);
                 }

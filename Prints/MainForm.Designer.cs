@@ -244,7 +244,6 @@ namespace Prints
             this.lstMenu.ItemHeight = 17;
             this.lstMenu.Items.AddRange(new object[] {
             "Invoices",
-            "Credit Notes",
             "Debit Notes",
             "GST Input Report",
             "GST Output Report",

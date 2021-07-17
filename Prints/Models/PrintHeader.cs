@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 
 namespace Prints
 {
@@ -19,6 +20,7 @@ namespace Prints
         public int TotalQty { get; set; }
         public decimal Subtotal { get; set; }
         public decimal NetAmount { get; set; }
+        public string TranCode { get; set; }
     }
 
     //public class PrintListItemMap : EntityMap<PrintListItem>
