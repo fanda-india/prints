@@ -46,7 +46,7 @@ namespace Prints
             this.reportViewer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(960, 501);
+            this.reportViewer1.Size = new System.Drawing.Size(937, 495);
             this.reportViewer1.TabIndex = 0;
             // 
             // cboInvoiceType
@@ -89,7 +89,7 @@ namespace Prints
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 561);
+            this.ClientSize = new System.Drawing.Size(961, 555);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.cboInvoiceType);
             this.Controls.Add(this.lblInvoiceType);

@@ -1,7 +1,8 @@
 ﻿namespace Prints
 {
-    internal class Party
+    public class Party
     {
+        private string code;
         private string name;
         private string address;
         private string area;
@@ -10,6 +11,7 @@
         private string phone;
         private string gstin;
 
+        public string Code { get => code; set => code = value.Trim(); }
         public string Name { get => name; set => name = value.Trim(); }
         public string Address { get => address; set => address = value.Trim(); }
         public string Area { get => area; set => area = value.Trim(); }

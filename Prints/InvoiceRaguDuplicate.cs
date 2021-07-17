@@ -16,14 +16,14 @@ namespace Prints {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class InvoiceRagu : ReportClass {
+    public class InvoiceRaguDuplicate : ReportClass {
         
-        public InvoiceRagu() {
+        public InvoiceRaguDuplicate() {
         }
         
         public override string ResourceName {
             get {
-                return "InvoiceRagu.rpt";
+                return "InvoiceRaguDuplicate.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Prints {
         
         public override string FullResourceName {
             get {
-                return "Prints.InvoiceRagu.rpt";
+                return "Prints.InvoiceRaguDuplicate.rpt";
             }
             set {
                 // Do nothing
@@ -154,9 +154,9 @@ namespace Prints {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedInvoiceRagu : Component, ICachedReport {
+    public class CachedInvoiceRaguDuplicate : Component, ICachedReport {
         
-        public CachedInvoiceRagu() {
+        public CachedInvoiceRaguDuplicate() {
         }
         
         [Browsable(false)]
@@ -193,7 +193,7 @@ namespace Prints {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            InvoiceRagu rpt = new InvoiceRagu();
+            InvoiceRaguDuplicate rpt = new InvoiceRaguDuplicate();
             rpt.Site = this.Site;
             return rpt;
         }

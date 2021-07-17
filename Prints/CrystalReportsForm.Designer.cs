@@ -32,10 +32,13 @@ namespace Prints
             this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.tagPrinting2 = new Prints.TagPrinting2();
             this.tagKbSilks = new Prints.TagKbSilks();
+            this.invoiceRagu1 = new Prints.InvoiceRagu();
+            this.tagKBS1 = new Prints.TagKBS();
+            this.invoiceRaguDuplicate1 = new Prints.InvoiceRaguDuplicate();
             this.SuspendLayout();
-            // 
+            //
             // crystalReportViewer1
-            // 
+            //
             this.crystalReportViewer1.ActiveViewIndex = 0;
             this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
@@ -46,18 +49,19 @@ namespace Prints
             this.crystalReportViewer1.Size = new System.Drawing.Size(800, 450);
             this.crystalReportViewer1.TabIndex = 0;
             this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
-            // 
-            // tagKbSilks
-            // 
+            //
+            // tagPrinting2
+            //
             //this.tagKbSilks.InitReport += new System.EventHandler(this.tagKbSilks_InitReport);
-            // 
+            //
             // CrystalReportsForm
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.crystalReportViewer1);
             this.Name = "CrystalReportsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tag Printing";
             this.Load += new System.EventHandler(this.CrystalReportsForm_Load);
             this.ResumeLayout(false);
@@ -70,5 +74,8 @@ namespace Prints
         //private TagPrinting tagPrinting;
         private TagPrinting2 tagPrinting2;
         private TagKbSilks tagKbSilks;
+        private InvoiceRagu invoiceRagu1;
+        private TagKBS tagKBS1;
+        private InvoiceRaguDuplicate invoiceRaguDuplicate1;
     }
 }

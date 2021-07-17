@@ -16,14 +16,14 @@ namespace Prints {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class InvoiceRagu : ReportClass {
+    public class TagKBS : ReportClass {
         
-        public InvoiceRagu() {
+        public TagKBS() {
         }
         
         public override string ResourceName {
             get {
-                return "InvoiceRagu.rpt";
+                return "TagKBS.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace Prints {
         
         public override string FullResourceName {
             get {
-                return "Prints.InvoiceRagu.rpt";
+                return "Prints.TagKBS.rpt";
             }
             set {
                 // Do nothing
@@ -87,76 +87,12 @@ namespace Prints {
                 return this.ReportDefinition.Sections[4];
             }
         }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_PartyName {
-            get {
-                return this.DataDefinition.ParameterFields[0];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_PartyAddress {
-            get {
-                return this.DataDefinition.ParameterFields[1];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_PartyAddress2 {
-            get {
-                return this.DataDefinition.ParameterFields[2];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_PartyPhone {
-            get {
-                return this.DataDefinition.ParameterFields[3];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_PartyGST {
-            get {
-                return this.DataDefinition.ParameterFields[4];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_InvoiceNumber {
-            get {
-                return this.DataDefinition.ParameterFields[5];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_InvoiceDate {
-            get {
-                return this.DataDefinition.ParameterFields[6];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_RefNumber {
-            get {
-                return this.DataDefinition.ParameterFields[7];
-            }
-        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedInvoiceRagu : Component, ICachedReport {
+    public class CachedTagKBS : Component, ICachedReport {
         
-        public CachedInvoiceRagu() {
+        public CachedTagKBS() {
         }
         
         [Browsable(false)]
@@ -193,7 +129,7 @@ namespace Prints {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            InvoiceRagu rpt = new InvoiceRagu();
+            TagKBS rpt = new TagKBS();
             rpt.Site = this.Site;
             return rpt;
         }
