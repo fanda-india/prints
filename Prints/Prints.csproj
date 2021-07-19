@@ -178,6 +178,7 @@
     <EmbeddedResource Include="CrystalReportsForm.resx">
       <DependentUpon>CrystalReportsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DebitNote.rdlc" />
     <EmbeddedResource Include="GstInput.rdlc" />
     <EmbeddedResource Include="InvoiceKBS.rdlc" />
     <EmbeddedResource Include="Invoice2.rdlc" />

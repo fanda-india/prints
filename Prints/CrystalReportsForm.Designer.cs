@@ -36,9 +36,9 @@ namespace Prints
             this.tagKBS1 = new Prints.TagKBS();
             this.invoiceRaguDuplicate1 = new Prints.InvoiceRaguDuplicate();
             this.SuspendLayout();
-            // 
+            //
             // crystalReportViewer1
-            // 
+            //
             this.crystalReportViewer1.ActiveViewIndex = 0;
             this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
@@ -49,14 +49,13 @@ namespace Prints
             this.crystalReportViewer1.Size = new System.Drawing.Size(800, 450);
             this.crystalReportViewer1.TabIndex = 0;
             this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
-            // 
+            //
             // tagPrinting2
-            // 
-            this.tagPrinting2.FileName = "rassdk://C:\\Users\\tbala\\AppData\\Local\\Temp\\temp_c72d13f7-918d-46d1-8082-da8d390a5" +
-    "045.rpt";
-            // 
+            //
+            //this.tagKbSilks.InitReport += new System.EventHandler(this.tagKbSilks_InitReport);
+            //
             // CrystalReportsForm
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);

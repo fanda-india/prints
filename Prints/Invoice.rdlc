@@ -396,7 +396,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Description.Value</Value>
+                                  <Value>=Left(Fields!Description.Value,30)</Value>
                                   <Style>
                                     <FontFamily />
                                   </Style>
@@ -1706,7 +1706,6 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
-              <Top>0cm</Top>
               <Left>4.20998in</Left>
               <Height>0.21944in</Height>
               <Width>0.76432in</Width>
@@ -1737,7 +1736,6 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Subtotal</rd:DefaultName>
-              <Top>0cm</Top>
               <Left>6.65124in</Left>
               <Height>0.21944in</Height>
               <Width>1.06667in</Width>
@@ -1771,7 +1769,6 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>TotalQty</rd:DefaultName>
-              <Top>0cm</Top>
               <Left>5.05378in</Left>
               <Height>0.21944in</Height>
               <Width>0.46636in</Width>
@@ -1800,7 +1797,6 @@
               </Style>
             </Line>
             <Line Name="Line6">
-              <Top>0cm</Top>
               <Left>5.54792in</Left>
               <Height>1.58207in</Height>
               <Width>0in</Width>
@@ -3725,6 +3721,12 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="TotalBTax">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -3920,6 +3922,11 @@
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>10</RowIndex>
           <ParameterName>Disc1Pct</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>10</RowIndex>
+          <ParameterName>TotalBTax</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

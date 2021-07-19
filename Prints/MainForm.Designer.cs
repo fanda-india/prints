@@ -45,13 +45,10 @@ namespace Prints
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbDuplicate = new System.Windows.Forms.ToolStripButton();
             this.lstMenu = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvGst = new System.Windows.Forms.DataGridView();
-            this.dgvInvoices = new System.Windows.Forms.DataGridView();
-            this.cboMonth = new System.Windows.Forms.ComboBox();
-            this.chkFullyear = new System.Windows.Forms.CheckBox();
-            this.tsbDuplicate = new System.Windows.Forms.ToolStripButton();
             this.gSTINDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.invoiceNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,6 +66,7 @@ namespace Prints
             this.sGSTAmtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gstInputBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dgvInvoices = new System.Windows.Forms.DataGridView();
             this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.refNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,11 +76,13 @@ namespace Prints
             this.subtotalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.netAmountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.printListItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cboMonth = new System.Windows.Forms.ComboBox();
+            this.chkFullyear = new System.Windows.Forms.CheckBox();
             this.toolStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGst)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInvoices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gstInputBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInvoices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.printListItemBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -223,6 +223,18 @@ namespace Prints
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 39);
             // 
+            // tsbDuplicate
+            // 
+            this.tsbDuplicate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbDuplicate.Image = ((System.Drawing.Image)(resources.GetObject("tsbDuplicate.Image")));
+            this.tsbDuplicate.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbDuplicate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbDuplicate.Name = "tsbDuplicate";
+            this.tsbDuplicate.Size = new System.Drawing.Size(36, 36);
+            this.tsbDuplicate.Text = "Duplicate";
+            this.tsbDuplicate.Visible = false;
+            this.tsbDuplicate.Click += new System.EventHandler(this.tsbDuplicate_Click);
+            // 
             // lstMenu
             // 
             this.lstMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -232,9 +244,9 @@ namespace Prints
             this.lstMenu.ItemHeight = 17;
             this.lstMenu.Items.AddRange(new object[] {
             "Invoices",
+            "Debit Notes",
             "GST Input Report",
             "GST Output Report",
-            "Receipts",
             "Tag Printing"});
             this.lstMenu.Location = new System.Drawing.Point(13, 44);
             this.lstMenu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -289,84 +301,6 @@ namespace Prints
             this.dgvGst.Size = new System.Drawing.Size(607, 373);
             this.dgvGst.TabIndex = 1;
             this.dgvGst.Visible = false;
-            // 
-            // dgvInvoices
-            // 
-            this.dgvInvoices.AllowUserToAddRows = false;
-            this.dgvInvoices.AllowUserToDeleteRows = false;
-            this.dgvInvoices.AllowUserToOrderColumns = true;
-            this.dgvInvoices.AutoGenerateColumns = false;
-            this.dgvInvoices.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvInvoices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.numberDataGridViewTextBoxColumn,
-            this.dateDataGridViewTextBoxColumn,
-            this.refNumberDataGridViewTextBoxColumn,
-            this.partyDataGridViewTextBoxColumn,
-            this.cityDataGridViewTextBoxColumn,
-            this.totalQtyDataGridViewTextBoxColumn,
-            this.subtotalDataGridViewTextBoxColumn,
-            this.netAmountDataGridViewTextBoxColumn});
-            this.dgvInvoices.DataSource = this.printListItemBindingSource;
-            this.dgvInvoices.Location = new System.Drawing.Point(5, 23);
-            this.dgvInvoices.Margin = new System.Windows.Forms.Padding(2);
-            this.dgvInvoices.Name = "dgvInvoices";
-            this.dgvInvoices.ReadOnly = true;
-            this.dgvInvoices.RowHeadersWidth = 45;
-            this.dgvInvoices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvInvoices.Size = new System.Drawing.Size(578, 384);
-            this.dgvInvoices.TabIndex = 0;
-            this.dgvInvoices.Visible = false;
-            // 
-            // cboMonth
-            // 
-            this.cboMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboMonth.FormattingEnabled = true;
-            this.cboMonth.Items.AddRange(new object[] {
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-            "January",
-            "February",
-            "March"});
-            this.cboMonth.Location = new System.Drawing.Point(428, 522);
-            this.cboMonth.Name = "cboMonth";
-            this.cboMonth.Size = new System.Drawing.Size(114, 25);
-            this.cboMonth.TabIndex = 8;
-            this.cboMonth.Visible = false;
-            this.cboMonth.SelectedIndexChanged += new System.EventHandler(this.cboMonth_SelectedIndexChanged);
-            // 
-            // chkFullyear
-            // 
-            this.chkFullyear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkFullyear.AutoSize = true;
-            this.chkFullyear.Location = new System.Drawing.Point(210, 524);
-            this.chkFullyear.Name = "chkFullyear";
-            this.chkFullyear.Size = new System.Drawing.Size(143, 21);
-            this.chkFullyear.TabIndex = 9;
-            this.chkFullyear.Text = "Full Accounting Year";
-            this.chkFullyear.UseVisualStyleBackColor = true;
-            this.chkFullyear.Visible = false;
-            this.chkFullyear.CheckedChanged += new System.EventHandler(this.chkFullyear_CheckedChanged);
-            // 
-            // tsbDuplicate
-            // 
-            this.tsbDuplicate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbDuplicate.Image = ((System.Drawing.Image)(resources.GetObject("tsbDuplicate.Image")));
-            this.tsbDuplicate.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tsbDuplicate.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbDuplicate.Name = "tsbDuplicate";
-            this.tsbDuplicate.Size = new System.Drawing.Size(36, 36);
-            this.tsbDuplicate.Text = "Duplicate";
-            this.tsbDuplicate.Visible = false;
-            this.tsbDuplicate.Click += new System.EventHandler(this.tsbDuplicate_Click);
             // 
             // gSTINDataGridViewTextBoxColumn
             // 
@@ -484,6 +418,34 @@ namespace Prints
             // 
             this.gstInputBindingSource.DataSource = typeof(Prints.Tax);
             // 
+            // dgvInvoices
+            // 
+            this.dgvInvoices.AllowUserToAddRows = false;
+            this.dgvInvoices.AllowUserToDeleteRows = false;
+            this.dgvInvoices.AllowUserToOrderColumns = true;
+            this.dgvInvoices.AutoGenerateColumns = false;
+            this.dgvInvoices.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvInvoices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.numberDataGridViewTextBoxColumn,
+            this.dateDataGridViewTextBoxColumn,
+            this.refNumberDataGridViewTextBoxColumn,
+            this.partyDataGridViewTextBoxColumn,
+            this.cityDataGridViewTextBoxColumn,
+            this.totalQtyDataGridViewTextBoxColumn,
+            this.subtotalDataGridViewTextBoxColumn,
+            this.netAmountDataGridViewTextBoxColumn});
+            this.dgvInvoices.DataSource = this.printListItemBindingSource;
+            this.dgvInvoices.Location = new System.Drawing.Point(5, 23);
+            this.dgvInvoices.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvInvoices.Name = "dgvInvoices";
+            this.dgvInvoices.ReadOnly = true;
+            this.dgvInvoices.RowHeadersWidth = 45;
+            this.dgvInvoices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvInvoices.Size = new System.Drawing.Size(578, 384);
+            this.dgvInvoices.TabIndex = 0;
+            this.dgvInvoices.Visible = false;
+            // 
             // numberDataGridViewTextBoxColumn
             // 
             this.numberDataGridViewTextBoxColumn.DataPropertyName = "Number";
@@ -560,6 +522,44 @@ namespace Prints
             // 
             this.printListItemBindingSource.DataSource = typeof(Prints.PrintHeader);
             // 
+            // cboMonth
+            // 
+            this.cboMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMonth.FormattingEnabled = true;
+            this.cboMonth.Items.AddRange(new object[] {
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+            "January",
+            "February",
+            "March"});
+            this.cboMonth.Location = new System.Drawing.Point(428, 522);
+            this.cboMonth.Name = "cboMonth";
+            this.cboMonth.Size = new System.Drawing.Size(114, 25);
+            this.cboMonth.TabIndex = 8;
+            this.cboMonth.Visible = false;
+            this.cboMonth.SelectedIndexChanged += new System.EventHandler(this.cboMonth_SelectedIndexChanged);
+            // 
+            // chkFullyear
+            // 
+            this.chkFullyear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkFullyear.AutoSize = true;
+            this.chkFullyear.Location = new System.Drawing.Point(210, 524);
+            this.chkFullyear.Name = "chkFullyear";
+            this.chkFullyear.Size = new System.Drawing.Size(143, 21);
+            this.chkFullyear.TabIndex = 9;
+            this.chkFullyear.Text = "Full Accounting Year";
+            this.chkFullyear.UseVisualStyleBackColor = true;
+            this.chkFullyear.Visible = false;
+            this.chkFullyear.CheckedChanged += new System.EventHandler(this.chkFullyear_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -588,8 +588,8 @@ namespace Prints
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGst)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInvoices)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gstInputBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInvoices)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.printListItemBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
