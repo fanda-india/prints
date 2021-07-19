@@ -121,21 +121,10 @@
       <DependentUpon>InvoiceRaguDuplicate.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="InvoiceRaguDuplicate.cs">
-      <SubType>Component</SubType>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InvoiceRaguDuplicate.rpt</DependentUpon>
-    </Compile>
-    <!-- <Compile Include="InvoiceRagu.cs"> -->
-    <!-- <AutoGen>True</AutoGen> -->
-    <!-- <DesignTime>True</DesignTime> -->
-    <!-- <DependentUpon>InvoiceRagu.rpt</DependentUpon> -->
-    <!-- <SubType>Component</SubType> -->
-    <!-- </Compile> -->
     <Compile Include="Models\AccountingYear.cs" />
+    <Compile Include="Models\ApplicationConfiguration.cs" />
     <Compile Include="Models\Company.cs" />
-    <Compile Include="Models\GstInput.cs" />
+    <Compile Include="Models\Tax.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +138,11 @@
     <Compile Include="PrintHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,11 +230,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
+    <!-- <Compile Include="Properties\Settings.Designer.cs"> -->
+      <!-- <AutoGen>True</AutoGen> -->
+      <!-- <DependentUpon>Settings.settings</DependentUpon> -->
+      <!-- <DesignTimeSharedInput>True</DesignTimeSharedInput> -->
+    <!-- </Compile> -->
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -254,6 +248,7 @@
   <ItemGroup>
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
+  <ItemGroup />
   <!-- <ItemGroup> -->
   <!-- <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1"> -->
   <!-- <Visible>False</Visible> -->
