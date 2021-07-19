@@ -482,7 +482,7 @@ namespace Prints
             // 
             // gstInputBindingSource
             // 
-            this.gstInputBindingSource.DataSource = typeof(Prints.GstInput);
+            this.gstInputBindingSource.DataSource = typeof(Prints.Tax);
             // 
             // numberDataGridViewTextBoxColumn
             // 

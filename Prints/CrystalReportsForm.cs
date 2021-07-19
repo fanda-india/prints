@@ -21,7 +21,7 @@ namespace Prints
         private readonly SalesHeader SalesHeader;
         private readonly Party Party;
         private readonly List<SalesLineItem> SalesLineItems;
-        private bool IsDuplicate;
+        private readonly bool IsDuplicate;
 
         #region Constructors
 

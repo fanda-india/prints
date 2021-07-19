@@ -20,7 +20,7 @@ namespace Prints
 
         private readonly DateTime dateFrom;
         private readonly DateTime dateTo;
-        private readonly List<GstInput> gstInputs;
+        private readonly List<Tax> gstInputs;
 
         // Tag Printing
 
@@ -46,7 +46,7 @@ namespace Prints
             reportViewer1.LocalReport.ReportEmbeddedResource = $"Prints.{invoiceRDLC}.rdlc";
         }
 
-        public ReportForm(Company company, DateTime dateFrom, DateTime dateTo, List<GstInput> gstInputs) : this()
+        public ReportForm(Company company, DateTime dateFrom, DateTime dateTo, List<Tax> gstInputs) : this()
         {
             this.company = company;
             this.dateFrom = dateFrom;

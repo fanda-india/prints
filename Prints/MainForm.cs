@@ -1,5 +1,7 @@
 ﻿using Dapper;
 
+using Prints.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,9 +17,10 @@ namespace Prints
     {
         #region AppConfig
 
-        private readonly char[] PriceCodeConfig;
-        private readonly string InvoiceRDLC;
-        private readonly string TagRPT;
+        //private readonly char[] PriceCodeConfig;
+        //private readonly string InvoiceRDLC;
+        //private readonly string TagRPT;
+        private readonly ApplicationConfiguration ApplicationConfiguration;
 
         #endregion AppConfig
 
@@ -36,6 +39,8 @@ namespace Prints
 
             #region AppConfig
 
+            ApplicationConfiguration = new ApplicationConfiguration();
+
             #region DataPath
 
             string dataPath = ConfigurationManager.AppSettings["DataPath"];
@@ -53,25 +58,37 @@ namespace Prints
             if (string.IsNullOrEmpty(priceCode))
                 priceCode = "ABCDEFGHIJ";
 
-            PriceCodeConfig = priceCode.ToCharArray();
-
             #endregion PriceCode
 
-            #region InvoiceRDLC
+            #region InvoiceForm
 
-            InvoiceRDLC = ConfigurationManager.AppSettings["InvoiceRDLC"];
-            if (string.IsNullOrWhiteSpace(InvoiceRDLC))
-                InvoiceRDLC = "Invoice";
+            string invoiceForm = ConfigurationManager.AppSettings["InvoiceForm"];
+            if (string.IsNullOrEmpty(invoiceForm))
+                invoiceForm = "MS";
 
-            #endregion InvoiceRDLC
+            #endregion InvoiceForm
 
-            #region TagRPT
+            #region InvoiceReport
 
-            TagRPT = ConfigurationManager.AppSettings["TagRPT"];
-            if (string.IsNullOrWhiteSpace(TagRPT))
-                TagRPT = "TagPrinting2";
+            string invoiceReport = ConfigurationManager.AppSettings["InvoiceReport"];
+            if (string.IsNullOrWhiteSpace(invoiceReport))
+                invoiceReport = "Invoice";
 
-            #endregion TagRPT
+            #endregion InvoiceReport
+
+            #region TagReport
+
+            string tagReport = ConfigurationManager.AppSettings["TagReport"];
+            if (string.IsNullOrWhiteSpace(tagReport))
+                tagReport = "TagPrinting2";
+
+            #endregion TagReport
+
+            ApplicationConfiguration.DataPath = dataPath;
+            ApplicationConfiguration.PriceCodeConfig = priceCode.ToCharArray();
+            ApplicationConfiguration.InvoiceForm = invoiceForm;
+            ApplicationConfiguration.InvoiceReport = invoiceReport;
+            ApplicationConfiguration.TagReport = tagReport;
 
             #endregion AppConfig
         }
@@ -267,7 +284,7 @@ namespace Prints
                     break;
 
                 case "GST Input Report":
-                    if (gstInputBindingSource.DataSource is List<GstInput> gstInputs)
+                    if (gstInputBindingSource.DataSource is List<Tax> gstInputs)
                     {
                         PrintGstReport(DateFrom, DateTo, gstInputs);
                     }
@@ -275,7 +292,7 @@ namespace Prints
                     break;
 
                 case "GST Output Report":
-                    if (gstInputBindingSource.DataSource is List<GstInput> gstOutputs)
+                    if (gstInputBindingSource.DataSource is List<Tax> gstOutputs)
                     {
                         PrintGstReport(DateFrom, DateTo, gstOutputs);
                     }
@@ -533,16 +550,16 @@ namespace Prints
             }
             salesHeader.GSTIN = SelectedCompany.GSTIN;
 
-            if (InvoiceRDLC == "InvoiceRagu")
+            if (ApplicationConfiguration.InvoiceForm == "CR")
             {
-                using (var rptForm = new CrystalReportsForm(InvoiceRDLC, salesHeader, party, lineItems, isDuplicate))   // SelectedCompany.Name
+                using (var rptForm = new CrystalReportsForm(ApplicationConfiguration.InvoiceReport, salesHeader, party, lineItems, isDuplicate))   // SelectedCompany.Name
                 {
                     rptForm.ShowDialog(this);
                 }
             }
             else
             {
-                using (var rptForm = new ReportForm(InvoiceRDLC, SelectedCompany, party, salesHeader, lineItems))
+                using (var rptForm = new ReportForm(ApplicationConfiguration.InvoiceReport, SelectedCompany, party, salesHeader, lineItems))
                 {
                     rptForm.ShowDialog(this);
                 }
@@ -604,7 +621,7 @@ namespace Prints
                     $"WHERE {filter} AND " +
                     $"i.BILL_DT >= CTOD('{fromDate:MM/dd/yyyy}') AND " +
                     $"i.BILL_DT <= CTOD('{toDate:MM/dd/yyyy}')";
-                var invoices = con.Query<GstInput>(query)
+                var invoices = con.Query<Tax>(query)
                     .ToList();
 
                 invoices
@@ -637,7 +654,7 @@ namespace Prints
                     $"h.BILL_DT >= CTOD('{fromDate:MM/dd/yyyy}') AND " +
                     $"h.BILL_DT <= CTOD('{toDate:MM/dd/yyyy}') " +
                     "ORDER BY h.BILL_NO";
-                var journals = con.Query<TaxInput>(query)
+                var journals = con.Query<Journal>(query)
                     .ToList();
                 journals
                     .ForEach(i =>
@@ -668,7 +685,7 @@ namespace Prints
                         $"BILL_DT >= CTOD('{fromDate:MM/dd/yyyy}') AND " +
                         $"BILL_DT <= CTOD('{toDate:MM/dd/yyyy}') " +
                         "ORDER BY h.BILL_NO";
-                    var expenses = con.Query<TaxInput>(query)
+                    var expenses = con.Query<Journal>(query)
                         .ToList();
                     expenses
                         .ForEach(i =>
@@ -690,7 +707,7 @@ namespace Prints
             }
         }
 
-        private void AddToInvoices(List<GstInput> invoices, List<TaxInput> journals)
+        private void AddToInvoices(List<Tax> invoices, List<Journal> journals)
         {
             if (journals == null || journals.Count == 0)
                 return;
@@ -713,7 +730,7 @@ namespace Prints
                 decimal sgstPct = 0.0m;
                 decimal sgstAmt = 0.0m;
                 decimal total = 0.0m;
-                foreach (TaxInput item in journals)
+                foreach (Journal item in journals)
                 {
                     if (billNumber == item.BillNumber)
                     {
@@ -755,7 +772,7 @@ namespace Prints
                     {
                         if (!string.IsNullOrWhiteSpace(billNumber) && beforeTax != total)
                         {
-                            invoices.Add(new GstInput
+                            invoices.Add(new Tax
                             {
                                 GSTIN = gstin,
                                 CustomerName = customerName,
@@ -820,7 +837,7 @@ namespace Prints
                 }
                 if (!string.IsNullOrWhiteSpace(billNumber) && beforeTax != total)
                 {
-                    invoices.Add(new GstInput
+                    invoices.Add(new Tax
                     {
                         GSTIN = gstin,
                         CustomerName = customerName,
@@ -843,7 +860,7 @@ namespace Prints
             }
         }
 
-        private void PrintGstReport(DateTime dateFrom, DateTime dateTo, List<GstInput> gstInputs)
+        private void PrintGstReport(DateTime dateFrom, DateTime dateTo, List<Tax> gstInputs)
         {
             using (var rptForm = new ReportForm(SelectedCompany, dateFrom, dateTo, gstInputs))
             {
@@ -904,7 +921,7 @@ namespace Prints
                     .ToList();
                 foreach (var pt in productTags)
                 {
-                    pt.UpdatePriceCode(PriceCodeConfig);
+                    pt.UpdatePriceCode(ApplicationConfiguration.PriceCodeConfig);
                 }
             }
 
@@ -912,7 +929,7 @@ namespace Prints
             //{
             //    rptForm.ShowDialog(this);
             //}
-            using (var rptForm = new CrystalReportsForm(TagRPT, productTags))   // SelectedCompany.Name
+            using (var rptForm = new CrystalReportsForm(ApplicationConfiguration.TagReport, productTags))   // SelectedCompany.Name
             {
                 rptForm.ShowDialog(this);
             }

@@ -2,7 +2,7 @@
 
 namespace Prints
 {
-    internal class GstInput
+    internal class Tax
     {
         public string GSTIN { get; set; }
         public string CustomerName { get; set; }
@@ -22,7 +22,7 @@ namespace Prints
         public decimal Total { get; set; }
     }
 
-    internal class TaxInput
+    internal class Journal
     {
         public string GSTIN { get; set; }
         public string CustomerName { get; set; }
