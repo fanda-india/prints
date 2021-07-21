@@ -94,7 +94,7 @@ namespace Prints
             this.dtpDate.Location = new System.Drawing.Point(703, 522);
             this.dtpDate.Margin = new System.Windows.Forms.Padding(2);
             this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(114, 25);
+            this.dtpDate.Size = new System.Drawing.Size(114, 29);
             this.dtpDate.TabIndex = 4;
             this.dtpDate.Value = new System.DateTime(2020, 11, 17, 0, 0, 0, 0);
             this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
@@ -150,7 +150,7 @@ namespace Prints
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(66, 36);
+            this.toolStripLabel1.Size = new System.Drawing.Size(87, 36);
             this.toolStripLabel1.Text = "Company:";
             // 
             // tscCompanies
@@ -169,7 +169,7 @@ namespace Prints
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(104, 36);
+            this.toolStripLabel2.Size = new System.Drawing.Size(138, 36);
             this.toolStripLabel2.Text = "Accounting Year:";
             // 
             // tscYears
@@ -241,9 +241,10 @@ namespace Prints
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lstMenu.FormattingEnabled = true;
             this.lstMenu.IntegralHeight = false;
-            this.lstMenu.ItemHeight = 17;
+            this.lstMenu.ItemHeight = 21;
             this.lstMenu.Items.AddRange(new object[] {
             "Invoices",
+            "Credit Notes",
             "Debit Notes",
             "GST Input Report",
             "GST Output Report",
@@ -297,6 +298,7 @@ namespace Prints
             this.dgvGst.Location = new System.Drawing.Point(44, 74);
             this.dgvGst.Name = "dgvGst";
             this.dgvGst.ReadOnly = true;
+            this.dgvGst.RowHeadersWidth = 51;
             this.dgvGst.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvGst.Size = new System.Drawing.Size(607, 373);
             this.dgvGst.TabIndex = 1;
@@ -306,113 +308,145 @@ namespace Prints
             // 
             this.gSTINDataGridViewTextBoxColumn.DataPropertyName = "GSTIN";
             this.gSTINDataGridViewTextBoxColumn.HeaderText = "GSTIN";
+            this.gSTINDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.gSTINDataGridViewTextBoxColumn.Name = "gSTINDataGridViewTextBoxColumn";
             this.gSTINDataGridViewTextBoxColumn.ReadOnly = true;
+            this.gSTINDataGridViewTextBoxColumn.Width = 125;
             // 
             // customerNameDataGridViewTextBoxColumn
             // 
             this.customerNameDataGridViewTextBoxColumn.DataPropertyName = "CustomerName";
             this.customerNameDataGridViewTextBoxColumn.HeaderText = "Customer Name";
+            this.customerNameDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.customerNameDataGridViewTextBoxColumn.Name = "customerNameDataGridViewTextBoxColumn";
             this.customerNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.customerNameDataGridViewTextBoxColumn.Width = 125;
             // 
             // invoiceNumberDataGridViewTextBoxColumn
             // 
             this.invoiceNumberDataGridViewTextBoxColumn.DataPropertyName = "InvoiceNumber";
             this.invoiceNumberDataGridViewTextBoxColumn.HeaderText = "Invoice No.";
+            this.invoiceNumberDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.invoiceNumberDataGridViewTextBoxColumn.Name = "invoiceNumberDataGridViewTextBoxColumn";
             this.invoiceNumberDataGridViewTextBoxColumn.ReadOnly = true;
+            this.invoiceNumberDataGridViewTextBoxColumn.Width = 125;
             // 
             // invoiceDateDataGridViewTextBoxColumn
             // 
             this.invoiceDateDataGridViewTextBoxColumn.DataPropertyName = "InvoiceDate";
             this.invoiceDateDataGridViewTextBoxColumn.HeaderText = "Invoice Date";
+            this.invoiceDateDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.invoiceDateDataGridViewTextBoxColumn.Name = "invoiceDateDataGridViewTextBoxColumn";
             this.invoiceDateDataGridViewTextBoxColumn.ReadOnly = true;
+            this.invoiceDateDataGridViewTextBoxColumn.Width = 125;
             // 
             // debitNoteNumberDataGridViewTextBoxColumn
             // 
             this.debitNoteNumberDataGridViewTextBoxColumn.DataPropertyName = "RefNumber";
             this.debitNoteNumberDataGridViewTextBoxColumn.HeaderText = "Ref.Number";
+            this.debitNoteNumberDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.debitNoteNumberDataGridViewTextBoxColumn.Name = "debitNoteNumberDataGridViewTextBoxColumn";
             this.debitNoteNumberDataGridViewTextBoxColumn.ReadOnly = true;
+            this.debitNoteNumberDataGridViewTextBoxColumn.Width = 125;
             // 
             // debitNoteDateDataGridViewTextBoxColumn
             // 
             this.debitNoteDateDataGridViewTextBoxColumn.DataPropertyName = "RefDate";
             this.debitNoteDateDataGridViewTextBoxColumn.HeaderText = "Ref.Date";
+            this.debitNoteDateDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.debitNoteDateDataGridViewTextBoxColumn.Name = "debitNoteDateDataGridViewTextBoxColumn";
             this.debitNoteDateDataGridViewTextBoxColumn.ReadOnly = true;
+            this.debitNoteDateDataGridViewTextBoxColumn.Width = 125;
             // 
             // hSNSACCodeDataGridViewTextBoxColumn
             // 
             this.hSNSACCodeDataGridViewTextBoxColumn.DataPropertyName = "HSNSACCode";
             this.hSNSACCodeDataGridViewTextBoxColumn.HeaderText = "HSNSAC Code";
+            this.hSNSACCodeDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.hSNSACCodeDataGridViewTextBoxColumn.Name = "hSNSACCodeDataGridViewTextBoxColumn";
             this.hSNSACCodeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.hSNSACCodeDataGridViewTextBoxColumn.Width = 125;
             // 
             // qtyDataGridViewTextBoxColumn
             // 
             this.qtyDataGridViewTextBoxColumn.DataPropertyName = "Qty";
             this.qtyDataGridViewTextBoxColumn.HeaderText = "Qty";
+            this.qtyDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.qtyDataGridViewTextBoxColumn.Name = "qtyDataGridViewTextBoxColumn";
             this.qtyDataGridViewTextBoxColumn.ReadOnly = true;
+            this.qtyDataGridViewTextBoxColumn.Width = 125;
             // 
             // beforeTaxDataGridViewTextBoxColumn
             // 
             this.beforeTaxDataGridViewTextBoxColumn.DataPropertyName = "BeforeTax";
             this.beforeTaxDataGridViewTextBoxColumn.HeaderText = "Before Tax";
+            this.beforeTaxDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.beforeTaxDataGridViewTextBoxColumn.Name = "beforeTaxDataGridViewTextBoxColumn";
             this.beforeTaxDataGridViewTextBoxColumn.ReadOnly = true;
+            this.beforeTaxDataGridViewTextBoxColumn.Width = 125;
             // 
             // iGSTPctDataGridViewTextBoxColumn
             // 
             this.iGSTPctDataGridViewTextBoxColumn.DataPropertyName = "IGSTPct";
             this.iGSTPctDataGridViewTextBoxColumn.HeaderText = "IGST %";
+            this.iGSTPctDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.iGSTPctDataGridViewTextBoxColumn.Name = "iGSTPctDataGridViewTextBoxColumn";
             this.iGSTPctDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iGSTPctDataGridViewTextBoxColumn.Width = 125;
             // 
             // iGSTAmtDataGridViewTextBoxColumn
             // 
             this.iGSTAmtDataGridViewTextBoxColumn.DataPropertyName = "IGSTAmt";
             this.iGSTAmtDataGridViewTextBoxColumn.HeaderText = "IGST Amount";
+            this.iGSTAmtDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.iGSTAmtDataGridViewTextBoxColumn.Name = "iGSTAmtDataGridViewTextBoxColumn";
             this.iGSTAmtDataGridViewTextBoxColumn.ReadOnly = true;
+            this.iGSTAmtDataGridViewTextBoxColumn.Width = 125;
             // 
             // cGSTPctDataGridViewTextBoxColumn
             // 
             this.cGSTPctDataGridViewTextBoxColumn.DataPropertyName = "CGSTPct";
             this.cGSTPctDataGridViewTextBoxColumn.HeaderText = "CGST %";
+            this.cGSTPctDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.cGSTPctDataGridViewTextBoxColumn.Name = "cGSTPctDataGridViewTextBoxColumn";
             this.cGSTPctDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cGSTPctDataGridViewTextBoxColumn.Width = 125;
             // 
             // cGSTAmtDataGridViewTextBoxColumn
             // 
             this.cGSTAmtDataGridViewTextBoxColumn.DataPropertyName = "CGSTAmt";
             this.cGSTAmtDataGridViewTextBoxColumn.HeaderText = "CGST Amount";
+            this.cGSTAmtDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.cGSTAmtDataGridViewTextBoxColumn.Name = "cGSTAmtDataGridViewTextBoxColumn";
             this.cGSTAmtDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cGSTAmtDataGridViewTextBoxColumn.Width = 125;
             // 
             // sGSTPctDataGridViewTextBoxColumn
             // 
             this.sGSTPctDataGridViewTextBoxColumn.DataPropertyName = "SGSTPct";
             this.sGSTPctDataGridViewTextBoxColumn.HeaderText = "SGST %";
+            this.sGSTPctDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.sGSTPctDataGridViewTextBoxColumn.Name = "sGSTPctDataGridViewTextBoxColumn";
             this.sGSTPctDataGridViewTextBoxColumn.ReadOnly = true;
+            this.sGSTPctDataGridViewTextBoxColumn.Width = 125;
             // 
             // sGSTAmtDataGridViewTextBoxColumn
             // 
             this.sGSTAmtDataGridViewTextBoxColumn.DataPropertyName = "SGSTAmt";
             this.sGSTAmtDataGridViewTextBoxColumn.HeaderText = "SGST Amount";
+            this.sGSTAmtDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.sGSTAmtDataGridViewTextBoxColumn.Name = "sGSTAmtDataGridViewTextBoxColumn";
             this.sGSTAmtDataGridViewTextBoxColumn.ReadOnly = true;
+            this.sGSTAmtDataGridViewTextBoxColumn.Width = 125;
             // 
             // totalDataGridViewTextBoxColumn
             // 
             this.totalDataGridViewTextBoxColumn.DataPropertyName = "Total";
             this.totalDataGridViewTextBoxColumn.HeaderText = "Total";
+            this.totalDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.totalDataGridViewTextBoxColumn.Name = "totalDataGridViewTextBoxColumn";
             this.totalDataGridViewTextBoxColumn.ReadOnly = true;
+            this.totalDataGridViewTextBoxColumn.Width = 125;
             // 
             // gstInputBindingSource
             // 
@@ -542,7 +576,7 @@ namespace Prints
             "March"});
             this.cboMonth.Location = new System.Drawing.Point(428, 522);
             this.cboMonth.Name = "cboMonth";
-            this.cboMonth.Size = new System.Drawing.Size(114, 25);
+            this.cboMonth.Size = new System.Drawing.Size(114, 29);
             this.cboMonth.TabIndex = 8;
             this.cboMonth.Visible = false;
             this.cboMonth.SelectedIndexChanged += new System.EventHandler(this.cboMonth_SelectedIndexChanged);
@@ -551,9 +585,9 @@ namespace Prints
             // 
             this.chkFullyear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkFullyear.AutoSize = true;
-            this.chkFullyear.Location = new System.Drawing.Point(210, 524);
+            this.chkFullyear.Location = new System.Drawing.Point(210, 518);
             this.chkFullyear.Name = "chkFullyear";
-            this.chkFullyear.Size = new System.Drawing.Size(143, 21);
+            this.chkFullyear.Size = new System.Drawing.Size(187, 27);
             this.chkFullyear.TabIndex = 9;
             this.chkFullyear.Text = "Full Accounting Year";
             this.chkFullyear.UseVisualStyleBackColor = true;
@@ -562,7 +596,7 @@ namespace Prints
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.chkFullyear);

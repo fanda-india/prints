@@ -614,7 +614,7 @@ namespace Prints
 
             if (ApplicationConfiguration.InvoiceForm == "CR")
             {
-                using (var rptForm = new CrystalReportsForm(InvoiceRDLC, salesHeader, party,
+                using (var rptForm = new CrystalReportsForm(ApplicationConfiguration.InvoiceReport, salesHeader, party,
                     lineItems, isDuplicate))   // SelectedCompany.Name
                 {
                     rptForm.ShowDialog(this);
@@ -622,7 +622,7 @@ namespace Prints
             }
             else
             {
-                using (var rptForm = new ReportForm(InvoiceRDLC, SelectedCompany, party,
+                using (var rptForm = new ReportForm(ApplicationConfiguration.InvoiceReport, SelectedCompany, party,
                     salesHeader, lineItems, "Invoice", tranName))
                 {
                     rptForm.ShowDialog(this);
