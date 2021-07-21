@@ -90,6 +90,11 @@ namespace Prints
                         crystalReportViewer1.ReportSource = invoiceRagu1;
                     }
                     break;
+
+                case "tagomvma":
+                    TagOmvma1.SetDataSource(ProductTags);
+                    crystalReportViewer1.ReportSource = TagOmvma1;
+                    break;
             }
             //TagPrinting21.SetDataSource(ProductTags);
         }
