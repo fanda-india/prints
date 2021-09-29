@@ -141,7 +141,7 @@ namespace Prints
                 new ReportParameter("PartyPinCode", party.PinCode),
                 new ReportParameter("PartyPhone", party.Phone),
                 new ReportParameter("PartyGSTIN", party.GSTIN),
-                new ReportParameter("BillNumber", header.Number.Substring(header.Number.Length-5)),
+                new ReportParameter("BillNumber", header.Number),
                 new ReportParameter("BillDate", header.Date.ToString("dd-MM-yyyy")),
                 new ReportParameter("TotalQty", header.TotalQty.ToString()),
                 new ReportParameter("Subtotal", header.Subtotal.ToString()),

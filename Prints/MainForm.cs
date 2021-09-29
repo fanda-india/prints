@@ -197,12 +197,12 @@ namespace Prints
                         EnableNavigation(true);
 
                         string fileExt = string.Format("{0:000}", SelectedCompany.Code);
-                        LoadDebitNotes(fileExt);
+                        // LoadDebitNotes(fileExt);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
-                        LoadDebitNotes("DBF");
+                        // LoadDebitNotes("DBF");
                     }
                     break;
 
@@ -330,12 +330,12 @@ namespace Prints
                         try
                         {
                             string fileExt = string.Format("{0:000}", SelectedCompany.Code);
-                            PrintDebitNote(debitNoteHeader, fileExt);
+                            // PrintDebitNote(debitNoteHeader, fileExt);
                         }
                         catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
-                            PrintDebitNote(debitNoteHeader, "DBF");
+                            // PrintDebitNote(debitNoteHeader, "DBF");
                         }
                     }
 
@@ -614,16 +614,14 @@ namespace Prints
 
             if (ApplicationConfiguration.InvoiceForm == "CR")
             {
-                using (var rptForm = new CrystalReportsForm(ApplicationConfiguration.InvoiceReport, salesHeader, party,
-                    lineItems, isDuplicate))   // SelectedCompany.Name
+                using (var rptForm = new CrystalReportsForm(ApplicationConfiguration.InvoiceReport, salesHeader, party, lineItems, isDuplicate))   // SelectedCompany.Name
                 {
                     rptForm.ShowDialog(this);
                 }
             }
             else
             {
-                using (var rptForm = new ReportForm(ApplicationConfiguration.InvoiceReport, SelectedCompany, party,
-                    salesHeader, lineItems, "Invoice", tranName))
+                using (var rptForm = new ReportForm(ApplicationConfiguration.InvoiceReport, SelectedCompany, party, salesHeader, lineItems))
                 {
                     rptForm.ShowDialog(this);
                 }
@@ -991,66 +989,6 @@ namespace Prints
             //    rptForm.ShowDialog(this);
             //}
             using (var rptForm = new CrystalReportsForm(ApplicationConfiguration.TagReport, productTags))   // SelectedCompany.Name
-            {
-                rptForm.ShowDialog(this);
-            }
-        }
-
-        private void LoadDebitNotes(string fileExtension)
-        {
-            string fileName = $"INV_HDR.{fileExtension}";
-            using (var con = new OleDbConnection(YearConnectionString))
-            {
-                con.Open();
-                string query = "SELECT BILL_NO AS Number, BILL_DT AS Date, REF_NO AS RefNumber, " +
-                    "CODE AS PartyCode, NAME AS Party, CITY AS City, TOT_QTY AS TotalQty, " +
-                    "SUB_TOT AS Subtotal, NET_AMT AS NetAmount " +
-                    $"FROM {fileName} WHERE CAT='U' AND BILL_DT=CTOD('{dtpDate.Value:MM/dd/yyyy}') " +
-                    "ORDER BY BILL_NO";
-
-                var invoices = con.Query<PrintHeader>(query);
-                printListItemBindingSource.DataSource = invoices;
-            }
-        }
-
-        private void PrintDebitNote(PrintHeader printHeader, string fileExt, bool isDuplicate = false)
-        {
-            string partyDbf = $"ACCTMAST.{fileExt}";
-            string invoiceDbf = $"INV_HDR.{fileExt}";
-            string salesDbf = $"SALES.{fileExt}";
-            string stockDbf = $"SARSTOCK.{fileExt}";
-
-            Party party;
-            SalesHeader salesHeader;
-            List<SalesLineItem> lineItems;
-            using (var con = new OleDbConnection(YearConnectionString))
-            {
-                con.Open();
-                string query = "SELECT CODE, NAME, ADDRESS, AREA, CITY, PIN AS PinCode, " +
-                    "PHONE, SAL_TAX_NO AS GSTIN " +
-                    $"FROM {partyDbf} WHERE CODE='{printHeader.PartyCode}'";
-                party = con.QuerySingle<Party>(query);
-
-                query = "SELECT BILL_NO AS Number, BILL_DT AS Date, REF_NO AS RefNumber, " +
-                   "CODE AS PartyCode, TOT_QTY AS TotalQty, SUB_TOT AS Subtotal, " +
-                   "PER_DISC1 AS Disc1Pct, DISCOUNT1 AS Disc1Amt, PER_DISC2 AS Disc2Pct, " +
-                   "TOTALBTAX AS TotalBTax, " +
-                   "PER_SGST AS SGSTPct, SGST AS SGSTAmt, PER_CGST CGSTPct, CGST AS CGSTAmt, " +
-                   "PER_IGST AS IGSTPct, IGST AS IGSTAmt, PARCEL, NET_AMT AS NetAmount, PARTICULAR " +
-                   $"FROM {invoiceDbf} WHERE BILL_NO='{printHeader.Number}'";
-                salesHeader = con.QuerySingle<SalesHeader>(query);
-
-                query = "SELECT s.BILL_NO AS InvoiceNumber, s.SL_NO AS SerialNumber, s.SAREE_NO AS SareeNumber, " +
-                    "s.ITEM_NAME AS Description, s.ITEM_HSN AS HsnCode, s.PRICE AS Rate, p.NAME AS SupplierName " +
-                    $"FROM {salesDbf} AS s " +
-                    $"INNER JOIN ({stockDbf} AS t INNER JOIN {partyDbf} AS p ON t.CODE=p.CODE) ON s.SAREE_NO=t.SAREE_NO " +
-                    $"WHERE s.BILL_NO='{printHeader.Number}' " +
-                    $"ORDER BY s.BILL_NO, s.SL_NO";
-                lineItems = con.Query<SalesLineItem>(query).ToList();
-            }
-            salesHeader.GSTIN = SelectedCompany.GSTIN;
-
-            using (var rptForm = new ReportForm("DebitNote", SelectedCompany, party, salesHeader, lineItems, "Debit Note"))
             {
                 rptForm.ShowDialog(this);
             }

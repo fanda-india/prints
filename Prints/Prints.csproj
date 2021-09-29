@@ -234,7 +234,6 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <!-- <None Include="Prints_TemporaryKey.pfx" /> -->
-    <None Include="Properties\DataSources\GstInput.datasource" />
     <None Include="Properties\DataSources\ProductTag.datasource" />
     <None Include="Properties\DataSources\SalesLineItem.datasource" />
     <None Include="Properties\Settings.settings">
